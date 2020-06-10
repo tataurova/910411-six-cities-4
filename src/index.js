@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app.jsx';
 
-const init = () => {
-  const settings = {
-    countPlaces: 312,
-  };
+const settings = {
+  places: 312,
+};
 
+const init = () => {
   ReactDOM.render(
       <App
-        countPlaces = {settings.countPlaces}
+        {...settings}
       />,
       document.querySelector(`#root`)
   );
