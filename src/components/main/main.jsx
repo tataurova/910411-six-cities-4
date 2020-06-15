@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Main = ({placesCount, placeNames}) => {
+const Main = ({placesCount, placeNames, onHeaderClick}) => {
   return (
     <>
       <div style={{display: `none`}}>
@@ -19,7 +19,6 @@ const Main = ({placesCount, placeNames}) => {
           </symbol>
         </svg>
       </div>
-
       <div className="page page--gray page--main">
         <header className="header">
           <div className="container">
@@ -133,7 +132,7 @@ const Main = ({placesCount, placeNames}) => {
                             <span className="visually-hidden">Rating</span>
                           </div>
                         </div>
-                        <h2 className="place-card__name">
+                        <h2 className="place-card__name" onClick={onHeaderClick}>
                           <a href="#">{placeName}</a>
                         </h2>
                         <p className="place-card__type">Apartment</p>
@@ -149,7 +148,7 @@ const Main = ({placesCount, placeNames}) => {
           </div>
         </main>
       </div>
-      </>
+    </>
   );
 };
 
@@ -158,4 +157,5 @@ export default Main;
 Main.propTypes = {
   placesCount: PropTypes.number.isRequired,
   placeNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onHeaderClick: PropTypes.func.isRequired,
 };
