@@ -1,37 +1,25 @@
 import React from "react";
-import Enzyme, {shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import {shallow} from "enzyme";
 import Main from "./main.jsx";
+import {PLACES_COUNT, PLACE_NAMES} from "../../const.js";
 
-const PLACES_COUNT = 312;
+describe(`<Main />`, () => {
+  it(`The header click handler should be called`, () => {
+    const handleHeaderClick = jest.fn();
 
-const PLACE_NAMES = [
-  `Beautiful & luxurious apartment at great location`,
-  `Wood and stone place`,
-  `Canal View Prinsengracht`,
-  `Nice, cozy, warm big bed apartment`,
-  `Wood and stone place`,
-];
+    const main = shallow(
+        <Main
+          placesCount={PLACES_COUNT}
+          placeNames={PLACE_NAMES}
+          handleHeaderClick={handleHeaderClick}
+        />
+    );
 
-Enzyme.configure({
-  adapter: new Adapter(),
-});
+    const headerElements = main.find(`.place-card__name`);
+    headerElements.forEach((header) => header.props().onClick());
 
-it(`The header click handler should be called`, () => {
-  const onHeaderClick = jest.fn();
+    expect(handleHeaderClick.mock.calls.length).toBe(headerElements.length);
 
-  const main = shallow(
-      <Main
-        placesCount={PLACES_COUNT}
-        placeNames={PLACE_NAMES}
-        onHeaderClick={onHeaderClick}
-      />
-  );
-
-  const headerElements = main.find(`.place-card__name`);
-  headerElements.forEach((header) => header.props().onClick());
-
-  expect(onHeaderClick.mock.calls.length).toBe(headerElements.length);
-
+  });
 });
 

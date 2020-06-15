@@ -2,14 +2,14 @@ import React from 'react';
 import Main from '../main/main.jsx';
 import PropTypes from 'prop-types';
 
-const onHeaderClick = () => {
+const handleHeaderClick = () => {
 };
 
 const App = ({placesCount, placeNames}) => {
   return <Main
     placesCount = {placesCount}
     placeNames = {placeNames}
-    onHeaderClick = {onHeaderClick}
+    handleHeaderClick = {handleHeaderClick}
   />;
 };
 
