@@ -1,25 +1,18 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
+import {PLACES_COUNT, PLACE_NAMES} from "../../const.js";
 
-const PLACES_COUNT = 312;
+describe(`<Main />`, () => {
+  it(`Should Main render correctly`, () => {
+    const tree = renderer
+      .create(<Main
+        placesCount={PLACES_COUNT}
+        placeNames={PLACE_NAMES}
+        handleHeaderClick={() => {}}
+      />)
+      .toJSON();
 
-const PLACE_NAMES = [
-  `Beautiful & luxurious apartment at great location`,
-  `Wood and stone place`,
-  `Canal View Prinsengracht`,
-  `Nice, cozy, warm big bed apartment`,
-  `Wood and stone place`,
-];
-
-it(`Should Main render correctly`, () => {
-  const tree = renderer
-    .create(<Main
-      placesCount={PLACES_COUNT}
-      placeNames={PLACE_NAMES}
-      onHeaderClick={() => {}}
-    />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
 });

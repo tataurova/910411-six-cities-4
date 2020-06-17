@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Main = ({placesCount, placeNames, onHeaderClick}) => {
+const Main = ({placesCount, placeNames, handleHeaderClick}) => {
   return (
     <>
       <div style={{display: `none`}}>
@@ -132,7 +132,7 @@ const Main = ({placesCount, placeNames, onHeaderClick}) => {
                             <span className="visually-hidden">Rating</span>
                           </div>
                         </div>
-                        <h2 className="place-card__name" onClick={onHeaderClick}>
+                        <h2 className="place-card__name" onClick={handleHeaderClick}>
                           <a href="#">{placeName}</a>
                         </h2>
                         <p className="place-card__type">Apartment</p>
@@ -157,5 +157,5 @@ export default Main;
 Main.propTypes = {
   placesCount: PropTypes.number.isRequired,
   placeNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onHeaderClick: PropTypes.func.isRequired,
+  handleHeaderClick: PropTypes.func.isRequired,
 };
