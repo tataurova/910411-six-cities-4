@@ -6,20 +6,20 @@ import offers from "../../mocks/offers";
 
 describe(`<Main />`, () => {
   it(`The header click handler should be called`, () => {
-    const handleHeaderClick = jest.fn();
+    const onPlaceCardHeaderClick = jest.fn();
 
     const main = shallow(
         <Main
           offers={offers}
           placeCount={PLACES_COUNT}
-          handleHeaderClick={() => {}}
+          onPlaceCardHeaderClick={() => {}}
         />
     );
 
     const headerElements = main.find(`.place-card__name`);
     headerElements.forEach((header) => header.props().onClick());
 
-    expect(handleHeaderClick.mock.calls.length).toBe(headerElements.length);
+    expect(onPlaceCardHeaderClick.mock.calls.length).toBe(headerElements.length);
 
   });
 });

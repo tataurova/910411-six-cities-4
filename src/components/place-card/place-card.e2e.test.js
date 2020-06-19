@@ -14,7 +14,7 @@ const offer = {
 
 describe(`<PlaceCard />`, () => {
   it(`When you hover the cursor over the card the handler is called with id of realty object`, () => {
-    const handleHeaderClick = jest.fn();
+    const onPlaceCardHeaderClick = jest.fn();
     const handleChangeActiveCard = jest.fn((id) => {
       return id;
     });
@@ -22,7 +22,7 @@ describe(`<PlaceCard />`, () => {
         <PlaceCard
           offer={offer}
           onHover={handleChangeActiveCard}
-          handleHeaderClick={handleHeaderClick}
+          onPlaceCardHeaderClick={onPlaceCardHeaderClick}
         />
     );
     const card = main.find(`.place-card`);

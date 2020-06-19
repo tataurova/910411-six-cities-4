@@ -4,7 +4,7 @@ import App from "./app.jsx";
 import {PLACES_COUNT} from "../../const.js";
 import offers from "../../mocks/offers.js";
 
-const handleHeaderClick = () => {};
+const onPlaceCardHeaderClick = () => {};
 
 describe(`<App />`, () => {
   it(`Render App`, () => {
@@ -12,7 +12,7 @@ describe(`<App />`, () => {
       .create(<App
         offers={offers}
         placeCount={PLACES_COUNT}
-        handleHeaderClick={handleHeaderClick}
+        onPlaceCardHeaderClick={onPlaceCardHeaderClick}
       />)
       .toJSON();
 

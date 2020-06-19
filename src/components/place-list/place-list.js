@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card.jsx";
+import {placeCardType} from "../../../types";
 
 class PlaceList extends React.Component {
   constructor(props) {
@@ -14,15 +15,15 @@ class PlaceList extends React.Component {
   }
 
   render() {
-    const {offers, handleHeaderClick} = this.props;
+    const {offers, onPlaceCardHeaderClick} = this.props;
     return (
       <>
-        {offers.map((offer, index) => (
+        {offers.map((offer) => (
           <PlaceCard
-            key={offer + index}
+            key={offer.id}
             offer={offer}
             onHover={this.handleChangeActiveCard}
-            handleHeaderClick={handleHeaderClick} />
+            onPlaceCardHeaderClick={onPlaceCardHeaderClick} />
         ))}
       </>
     );
@@ -30,8 +31,8 @@ class PlaceList extends React.Component {
 }
 
 PlaceList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleHeaderClick: PropTypes.func.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  onPlaceCardHeaderClick: PropTypes.func.isRequired,
 };
 
 export default PlaceList;

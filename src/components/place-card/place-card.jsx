@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {placeCardType} from "../../../types.js";
 
 class PlaceCard extends React.Component {
   constructor(props) {
@@ -12,11 +13,10 @@ class PlaceCard extends React.Component {
   }
 
   render() {
-    const {name, type, price, rating, premium, photo} = this.props.offer;
-    const {handleHeaderClick} = this.props.handleHeaderClick;
-    const symbol = Symbol;
+    const {offer, onPlaceCardHeaderClick} = this.props;
+    const {id, name, type, price, rating, premium, photo} = offer;
     return (
-      <article key={symbol + name} className="cities__place-card place-card" onMouseOver={this.handleChange}>
+      <article key={id} className="cities__place-card place-card" onMouseOver={this.handleChange}>
         <div className="place-card__mark">
           <span>{premium ? `Premium` : ``}</span>
         </div>
@@ -45,7 +45,7 @@ class PlaceCard extends React.Component {
               <span className="visually-hidden">{rating}</span>
             </div>
           </div>
-          <h2 className="place-card__name" onClick={handleHeaderClick}>
+          <h2 className="place-card__name" onClick={onPlaceCardHeaderClick}>
             <a href="#">{name}</a>
           </h2>
           <p className="place-card__type">{type}</p>
@@ -57,18 +57,9 @@ class PlaceCard extends React.Component {
 
 
 PlaceCard.propTypes = {
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    premium: PropTypes.bool.isRequired,
-    photo: PropTypes.string.isRequired,
-  }),
+  offer: PropTypes.shape(placeCardType),
   onHover: PropTypes.func.isRequired,
-  handleHeaderClick: PropTypes.func.isRequired,
+  onPlaceCardHeaderClick: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;
-

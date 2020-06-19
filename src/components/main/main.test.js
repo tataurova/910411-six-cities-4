@@ -10,7 +10,7 @@ describe(`<Main />`, () => {
       .create(<Main
         offers={offers}
         placeCount={PLACES_COUNT}
-        handleHeaderClick={() => {}}
+        onPlaceCardHeaderClick={() => {}}
       />)
       .toJSON();
 

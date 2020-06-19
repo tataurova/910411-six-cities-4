@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceList from "../place-list/place-list";
+import {placeCardType} from "../../../types.js";
 
-const Main = ({offers, placeCount, handleHeaderClick}) => {
+const Main = ({offers, placeCount, onPlaceCardHeaderClick}) => {
   return (
     <>
       <div style={{display: `none`}}>
@@ -103,7 +104,7 @@ const Main = ({offers, placeCount, handleHeaderClick}) => {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {<PlaceList offers = {offers} handleHeaderClick = {handleHeaderClick}/>}
+                  {<PlaceList offers = {offers} onPlaceCardHeaderClick = {onPlaceCardHeaderClick}/>}
                 </div>
               </section>
               <div className="cities__right-section">
@@ -120,7 +121,7 @@ const Main = ({offers, placeCount, handleHeaderClick}) => {
 export default Main;
 
 Main.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
   placeCount: PropTypes.number.isRequired,
-  handleHeaderClick: PropTypes.func.isRequired,
+  onPlaceCardHeaderClick: PropTypes.func.isRequired,
 };

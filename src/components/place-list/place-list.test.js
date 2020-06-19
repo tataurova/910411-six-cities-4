@@ -9,7 +9,7 @@ describe(`<PlaceList />`, () => {
       .create(<PlaceList
         offers={offers}
         onHover={() => {}}
-        handleHeaderClick={() => {}}
+        onPlaceCardHeaderClick={() => {}}
       />)
       .toJSON();
 
