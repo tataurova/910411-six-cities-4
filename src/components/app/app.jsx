@@ -2,13 +2,12 @@ import React from 'react';
 import Main from '../main/main.jsx';
 import PropTypes from 'prop-types';
 
-const handleHeaderClick = () => {
-};
+const handleHeaderClick = () => {};
 
-const App = ({placesCount, placeNames}) => {
+const App = ({offers, placeCount}) => {
   return <Main
-    placesCount = {placesCount}
-    placeNames = {placeNames}
+    offers = {offers}
+    placeCount = {placeCount}
     handleHeaderClick = {handleHeaderClick}
   />;
 };
@@ -16,6 +15,6 @@ const App = ({placesCount, placeNames}) => {
 export default App;
 
 App.propTypes = {
-  placesCount: PropTypes.number.isRequired,
-  placeNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  placeCount: PropTypes.number.isRequired,
 };

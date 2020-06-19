@@ -1,7 +1,8 @@
 import React from "react";
 import {shallow} from "enzyme";
 import Main from "./main.jsx";
-import {PLACES_COUNT, PLACE_NAMES} from "../../const.js";
+import {PLACES_COUNT} from "../../const.js";
+import offers from "../../mocks/offers";
 
 describe(`<Main />`, () => {
   it(`The header click handler should be called`, () => {
@@ -9,9 +10,9 @@ describe(`<Main />`, () => {
 
     const main = shallow(
         <Main
-          placesCount={PLACES_COUNT}
-          placeNames={PLACE_NAMES}
-          handleHeaderClick={handleHeaderClick}
+          offers={offers}
+          placeCount={PLACES_COUNT}
+          handleHeaderClick={() => {}}
         />
     );
 

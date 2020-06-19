@@ -1,15 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
-import {PLACES_COUNT} from "../../const.js";
+import PlaceList from "./place-list.js";
 import offers from "../../mocks/offers.js";
 
-describe(`<Main />`, () => {
-  it(`Should Main render correctly`, () => {
+describe(`<PlaceList />`, () => {
+  it(`Should PlaceList render correctly`, () => {
     const tree = renderer
-      .create(<Main
+      .create(<PlaceList
         offers={offers}
-        placeCount={PLACES_COUNT}
+        onHover={() => {}}
         handleHeaderClick={() => {}}
       />)
       .toJSON();
