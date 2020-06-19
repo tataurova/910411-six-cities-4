@@ -1,21 +1,22 @@
 import React from 'react';
 import Main from '../main/main.jsx';
 import PropTypes from 'prop-types';
+import {placeCardType} from "../../../types.js";
 
-const onHeaderClick = () => {
-};
+const onPlaceCardHeaderClick = () => {};
 
-const App = ({placesCount, placeNames}) => {
+const App = ({offers, placeCount}) => {
   return <Main
-    placesCount = {placesCount}
-    placeNames = {placeNames}
-    onHeaderClick = {onHeaderClick}
+    offers = {offers}
+    placeCount = {placeCount}
+    onPlaceCardHeaderClick = {onPlaceCardHeaderClick}
   />;
 };
 
 export default App;
 
 App.propTypes = {
-  placesCount: PropTypes.number.isRequired,
-  placeNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  placeCount: PropTypes.number.isRequired,
 };
+
