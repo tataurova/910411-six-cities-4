@@ -4,7 +4,7 @@ import PlaceCard from "./place-card.jsx";
 
 const offerWithPremium = {
   id: 1,
-  name: `Canal View Prinsengracht`,
+  title: `Canal View Prinsengracht`,
   type: `Apartment`,
   price: 120,
   rating: 4,

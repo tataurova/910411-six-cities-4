@@ -4,7 +4,7 @@ import PlaceCard from "./place-card.jsx";
 
 const offer = {
   id: 1,
-  name: `Canal View Prinsengracht`,
+  title: `Canal View Prinsengracht`,
   type: `Apartment`,
   price: 120,
   rating: 4,
@@ -29,5 +29,21 @@ describe(`<PlaceCard />`, () => {
     card.simulate(`mouseover`);
     expect(handleChangeActiveCard).toHaveBeenCalledWith(1);
 
+  });
+  it(`When you click on the card header the handler is called with id of realty object`, () => {
+    const onPlaceCardHeaderClick = jest.fn((id) => {
+      return id;
+    });
+    const handleChangeActiveCard = jest.fn(() => {});
+    const main = shallow(
+        <PlaceCard
+          offer={offer}
+          onHover={handleChangeActiveCard}
+          onPlaceCardHeaderClick={onPlaceCardHeaderClick}
+        />
+    );
+    const header = main.find(`.place-card__name`);
+    header.simulate(`click`);
+    expect(onPlaceCardHeaderClick).toHaveBeenCalledWith(1);
   });
 });

@@ -5,21 +5,28 @@ import {placeCardType} from "../../../types.js";
 class PlaceCard extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    this.handlePlaceCardHover = this.handlePlaceCardHover.bind(this);
+    this.handleHeaderClick = this.handleHeaderClick.bind(this);
   }
 
-  handleChange() {
+  handlePlaceCardHover() {
     this.props.onHover(this.props.offer.id);
   }
 
+  handleHeaderClick() {
+    this.props.onPlaceCardHeaderClick(this.props.offer.id);
+  }
+
   render() {
-    const {offer, onPlaceCardHeaderClick} = this.props;
-    const {id, name, type, price, rating, premium, photo} = offer;
+    const {offer} = this.props;
+    const {id, title, type, price, rating, premium, photo} = offer;
     return (
-      <article key={id} className="cities__place-card place-card" onMouseOver={this.handleChange}>
-        <div className="place-card__mark">
-          <span>{premium ? `Premium` : ``}</span>
-        </div>
+      <article key={id} className="cities__place-card place-card" onMouseOver={this.handlePlaceCardHover}>
+        {premium
+          ? <div className="place-card__mark">
+            <span>Premium</span>
+          </div>
+          : ``}
         <div className="cities__image-wrapper place-card__image-wrapper">
           <a href="#">
             <img className="place-card__image" src={photo} width="260" height="200"
@@ -42,11 +49,11 @@ class PlaceCard extends React.Component {
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
               <span style={{width: `${20 * rating}%`}}></span>
-              <span className="visually-hidden">{rating}</span>
+              <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <h2 className="place-card__name" onClick={onPlaceCardHeaderClick}>
-            <a href="#">{name}</a>
+          <h2 className="place-card__name" onClick={this.handleHeaderClick}>
+            <a href="#">{title}</a>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>
@@ -57,7 +64,7 @@ class PlaceCard extends React.Component {
 
 
 PlaceCard.propTypes = {
-  offer: PropTypes.shape(placeCardType),
+  offer: PropTypes.shape(placeCardType).isRequired,
   onHover: PropTypes.func.isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
 };

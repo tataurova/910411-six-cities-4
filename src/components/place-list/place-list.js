@@ -6,11 +6,11 @@ import {placeCardType} from "../../../types";
 class PlaceList extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChangeActiveCard = this.handleChangeActiveCard.bind(this);
+    this.handlePlaceCardHover = this.handlePlaceCardHover.bind(this);
     this.state = {card: ``};
   }
 
-  handleChangeActiveCard(id) {
+  handlePlaceCardHover(id) {
     this.setState({card: id});
   }
 
@@ -22,7 +22,7 @@ class PlaceList extends React.Component {
           <PlaceCard
             key={offer.id}
             offer={offer}
-            onHover={this.handleChangeActiveCard}
+            onHover={this.handlePlaceCardHover}
             onPlaceCardHeaderClick={onPlaceCardHeaderClick} />
         ))}
       </>
