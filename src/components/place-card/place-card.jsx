@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {placeCardType} from "../../../types.js";
-import {BrowserRouter as Router, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 class PlaceCard extends React.Component {
   constructor(props) {
@@ -53,9 +53,7 @@ class PlaceCard extends React.Component {
             </div>
           </div>
           <h2 className="place-card__name" onClick={this.handleHeaderClick}>
-            <Router>
-              <Link to={`/offer/${offer.id}`}>{title}</Link>
-            </Router>
+            <Link to={`/offer/${offer.id}`}>{title}</Link>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>
