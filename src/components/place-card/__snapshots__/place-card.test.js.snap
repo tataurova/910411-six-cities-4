@@ -5,7 +5,6 @@ exports[`<PlaceCard /> Should PlaceCard render correctly with a field Premium eq
   className="cities__place-card place-card"
   onMouseOver={[Function]}
 >
-  
   <div
     className="cities__image-wrapper place-card__image-wrapper"
   >
@@ -87,7 +86,8 @@ exports[`<PlaceCard /> Should PlaceCard render correctly with a field Premium eq
       onClick={[Function]}
     >
       <a
-        href="#"
+        href="/offer/1"
+        onClick={[Function]}
       >
         Canal View Prinsengracht
       </a>
@@ -106,7 +106,6 @@ exports[`<PlaceCard /> Should PlaceCard render correctly with a field Premium eq
   className="cities__place-card place-card"
   onMouseOver={[Function]}
 >
-  
   <div
     className="cities__image-wrapper place-card__image-wrapper"
   >
@@ -188,7 +187,8 @@ exports[`<PlaceCard /> Should PlaceCard render correctly with a field Premium eq
       onClick={[Function]}
     >
       <a
-        href="#"
+        href="/offer/1"
+        onClick={[Function]}
       >
         Canal View Prinsengracht
       </a>

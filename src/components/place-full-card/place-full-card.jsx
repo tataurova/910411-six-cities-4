@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {placeFullCardType} from "../../../types.js";
+import {placeFullCardType} from "../../../types";
 
-const Property = ({offer}) => {
+const PlaceFullCard = ({offers, id}) => {
+  const offer = offers.filter((item) => item.id === parseInt(id, 10))[0];
   const {title, type, price, rating, premium, bedrooms, adults, additional, details, owner, photos} = offer;
   const {photo, name, isSuper} = owner;
   return (
@@ -28,7 +29,7 @@ const Property = ({offer}) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <a className="header__logo-link" href="/">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
@@ -60,11 +61,10 @@ const Property = ({offer}) => {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {premium
-                ? <div className="place-card__mark">
+              {premium &&
+                <div className="place-card__mark">
                   <span>Premium</span>
-                </div>
-                : ``}
+                </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -323,8 +323,9 @@ const Property = ({offer}) => {
   );
 };
 
-export default Property;
+export default PlaceFullCard;
 
-Property.propTypes = {
-  offer: PropTypes.shape(placeFullCardType).isRequired,
+PlaceFullCard.propTypes = {
+  offers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType)).isRequired,
+  id: PropTypes.string.isRequired,
 };

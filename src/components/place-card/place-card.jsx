@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {placeCardType} from "../../../types.js";
+import {BrowserRouter as Router, Link} from "react-router-dom";
 
 class PlaceCard extends React.Component {
   constructor(props) {
@@ -22,11 +23,10 @@ class PlaceCard extends React.Component {
     const {id, title, type, price, rating, premium, photo} = offer;
     return (
       <article key={id} className="cities__place-card place-card" onMouseOver={this.handlePlaceCardHover}>
-        {premium
-          ? <div className="place-card__mark">
-            <span>Premium</span>
-          </div>
-          : ``}
+        {premium &&
+           <div className="place-card__mark">
+             <span>Premium</span>
+           </div>}
         <div className="cities__image-wrapper place-card__image-wrapper">
           <a href="#">
             <img className="place-card__image" src={photo} width="260" height="200"
@@ -53,7 +53,9 @@ class PlaceCard extends React.Component {
             </div>
           </div>
           <h2 className="place-card__name" onClick={this.handleHeaderClick}>
-            <a href="#">{title}</a>
+            <Router>
+              <Link to={`/offer/${offer.id}`}>{title}</Link>
+            </Router>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>

@@ -94,7 +94,8 @@ Array [
         onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/1"
+          onClick={[Function]}
         >
           Canal View Prinsengracht
         </a>
@@ -110,7 +111,6 @@ Array [
     className="cities__place-card place-card"
     onMouseOver={[Function]}
   >
-    
     <div
       className="cities__image-wrapper place-card__image-wrapper"
     >
@@ -192,7 +192,8 @@ Array [
         onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/2"
+          onClick={[Function]}
         >
           Wood and stone place
         </a>
@@ -208,7 +209,6 @@ Array [
     className="cities__place-card place-card"
     onMouseOver={[Function]}
   >
-    
     <div
       className="cities__image-wrapper place-card__image-wrapper"
     >
@@ -290,7 +290,8 @@ Array [
         onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/3"
+          onClick={[Function]}
         >
           Canal View Prinsengracht
         </a>
@@ -394,7 +395,8 @@ Array [
         onClick={[Function]}
       >
         <a
-          href="#"
+          href="/offer/4"
+          onClick={[Function]}
         >
           Nice, cozy, warm big bed apartment
         </a>
