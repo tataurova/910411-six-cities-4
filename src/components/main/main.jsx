@@ -110,12 +110,10 @@ const Main = ({offers, placeCount, mapSettings, onPlaceCardHeaderClick}) => {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <div id="map" style={{height: `100%`}}>
-                    {<Map
-                      offers = {offers}
-                      mapSettings = {mapSettings}
-                    />}
-                  </div>
+                  {<Map
+                    offers = {offers}
+                    mapSettings = {mapSettings}
+                  />}
                 </section>
               </div>
             </div>

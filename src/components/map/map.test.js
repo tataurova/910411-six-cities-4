@@ -35,22 +35,14 @@ const offers = [
   },
 ];
 
-const Wrapper = () => {
-  return (
-    <div></div>
-  );
-};
-
 describe(`<Map />`, () => {
   it(`Should Map render correctly`, () => {
     const tree = renderer
       .create(
-          <Wrapper>
-            <Map
-              offers={offers}
-              mapSettings={MapSettings}
-            />
-          </Wrapper>
+          <Map
+            offers={offers}
+            mapSettings={MapSettings}
+          />
       )
       .toJSON();
     expect(tree).toMatchSnapshot();

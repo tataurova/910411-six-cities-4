@@ -21,4 +21,5 @@ describe(`<Main />`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
 });

@@ -32,7 +32,7 @@ export default class Map extends React.Component {
 
   render() {
     return (
-      <div></div>
+      <div id="map" style={{height: `100%`}}></div>
     );
   }
 }

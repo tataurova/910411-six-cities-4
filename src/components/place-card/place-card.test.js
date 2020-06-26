@@ -43,4 +43,5 @@ describe(`<PlaceCard />`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
 });
