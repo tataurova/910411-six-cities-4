@@ -1,7 +1,7 @@
 import React from "react";
 import {shallow} from "enzyme";
 import Main from "./main.jsx";
-import {PLACES_COUNT} from "../../const.js";
+import {PLACES_COUNT, MapSettings} from "../../const.js";
 import offers from "../../mocks/offers";
 
 describe(`<Main />`, () => {
@@ -12,6 +12,7 @@ describe(`<Main />`, () => {
         <Main
           offers={offers}
           placeCount={PLACES_COUNT}
+          mapSettings={MapSettings}
           onPlaceCardHeaderClick={() => {}}
         />
     );

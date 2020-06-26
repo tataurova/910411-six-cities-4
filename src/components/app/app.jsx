@@ -3,7 +3,7 @@ import Main from '../main/main.jsx';
 import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import {placeCardType} from "../../../types.js";
+import {placeCardType, mapSettingsType} from "../../../types.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -22,6 +22,7 @@ class App extends PureComponent {
     return <Main
       offers = {this.props.offers}
       placeCount = {this.props.placeCount}
+      mapSettings = {this.props.mapSettings}
       onPlaceCardHeaderClick = {this.handleCardHeaderClick}
     />;
   }
@@ -44,6 +45,7 @@ export default App;
 
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  mapSettings: PropTypes.shape(mapSettingsType).isRequired,
   placeCount: PropTypes.number.isRequired,
 };
 

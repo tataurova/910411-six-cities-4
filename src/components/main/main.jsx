@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceList from "../place-list/place-list";
-import {placeCardType} from "../../../types.js";
+import {placeCardType, mapSettingsType} from "../../../types.js";
+import Map from "../map/map.jsx";
 
-const Main = ({offers, placeCount, onPlaceCardHeaderClick}) => {
+const Main = ({offers, placeCount, mapSettings, onPlaceCardHeaderClick}) => {
   return (
     <>
       <div style={{display: `none`}}>
@@ -108,7 +109,12 @@ const Main = ({offers, placeCount, onPlaceCardHeaderClick}) => {
                 </div>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <section className="cities__map map">
+                  {<Map
+                    offers = {offers}
+                    mapSettings = {mapSettings}
+                  />}
+                </section>
               </div>
             </div>
           </div>
@@ -123,5 +129,6 @@ export default Main;
 Main.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
   placeCount: PropTypes.number.isRequired,
+  mapSettings: PropTypes.shape(mapSettingsType).isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
 };

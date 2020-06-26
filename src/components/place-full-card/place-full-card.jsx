@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import {placeFullCardType} from "../../../types";
 
 const PlaceFullCard = ({offers, id}) => {
-  const offer = offers.filter((item) => item.id === parseInt(id, 10))[0];
+  const idNumber = Number(id);
+  const offer = offers.filter((item) => item.id === idNumber)[0];
   const {title, type, price, rating, premium, bedrooms, adults, additional, details, owner, photos} = offer;
   const {photo, name, isSuper} = owner;
   return (

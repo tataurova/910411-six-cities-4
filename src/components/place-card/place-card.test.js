@@ -15,34 +15,33 @@ const offerWithPremium = {
 
 const offerWithoutPremium = Object.assign(offerWithPremium, {premium: false});
 
+const createComponent = (props) => renderer.create(
+    <BrowserRouter>
+      <PlaceCard
+        {...props}
+      />
+    </BrowserRouter>
+);
+
 describe(`<PlaceCard />`, () => {
   it(`Should PlaceCard render correctly with a field Premium equal True`, () => {
-    const tree = renderer
-      .create(
-          <BrowserRouter>
-            <PlaceCard
-              offer={offerWithPremium}
-              onHover={() => {}}
-              onPlaceCardHeaderClick={() => {}}
-            />
-          </BrowserRouter>)
-      .toJSON();
+    const tree = createComponent({
+      offer: offerWithPremium,
+      onHover: () => {},
+      onPlaceCardHeaderClick: () => {},
+    }).toJSON();
 
     expect(tree).toMatchSnapshot();
   });
 
   it(`Should PlaceCard render correctly with a field Premium equal False`, () => {
-    const tree = renderer
-      .create(
-          <BrowserRouter>
-            <PlaceCard
-              offer={offerWithoutPremium}
-              onHover={() => {}}
-              onPlaceCardHeaderClick={() => {}}
-            />
-          </BrowserRouter>)
-      .toJSON();
+    const tree = createComponent({
+      offer: offerWithoutPremium,
+      onHover: () => {},
+      onPlaceCardHeaderClick: () => {},
+    }).toJSON();
 
     expect(tree).toMatchSnapshot();
   });
+
 });

@@ -29,3 +29,12 @@ export const placeFullCardType = {
     }).isRequired,
     photos: PropTypes.arrayOf(PropTypes.string.isRequired)
 };
+
+export const mapSettingsType = {
+  city: PropTypes.arrayOf(PropTypes.number).isRequired,
+  icon: PropTypes.shape({
+    iconUrl: PropTypes.string.isRequired,
+    iconSize: PropTypes.arrayOf(PropTypes.number).isRequired,
+  }).isRequired,
+  zoom: PropTypes.number.isRequired,
+};
