@@ -3,7 +3,7 @@ import leaflet from "leaflet";
 import PropTypes from "prop-types";
 import {placeFullCardType, mapSettingsType} from "../../../types.js";
 
-export default class Map extends React.Component {
+class Map extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -36,6 +36,8 @@ export default class Map extends React.Component {
     );
   }
 }
+
+export default Map;
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType)).isRequired,
