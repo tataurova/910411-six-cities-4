@@ -2,6 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import PlaceCard from "./place-card.jsx";
 import {BrowserRouter} from "react-router-dom";
+import {CardType} from "../../const.js";
 
 const offerWithPremium = {
   id: 1,
@@ -27,6 +28,7 @@ describe(`<PlaceCard />`, () => {
   it(`Should PlaceCard render correctly with a field Premium equal True`, () => {
     const tree = createComponent({
       offer: offerWithPremium,
+      cardType: CardType.CITY,
       onHover: () => {},
       onPlaceCardHeaderClick: () => {},
     }).toJSON();
@@ -37,6 +39,7 @@ describe(`<PlaceCard />`, () => {
   it(`Should PlaceCard render correctly with a field Premium equal False`, () => {
     const tree = createComponent({
       offer: offerWithoutPremium,
+      cardType: CardType.CITY,
       onHover: () => {},
       onPlaceCardHeaderClick: () => {},
     }).toJSON();

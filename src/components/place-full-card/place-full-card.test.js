@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import PlaceFullCard from "./place-full-card.jsx";
+import {MapSettings} from "../../const.js";
+import {BrowserRouter} from "react-router-dom";
 
 const offers = [
   {
@@ -30,17 +32,32 @@ const offers = [
       `img/studio-01.jpg`,
       `img/room.jpg`
     ],
+    coordinates: [52.3909553943508, 4.85309666406198],
+    reviews: [
+      {
+        name: `Max`,
+        photo: `img/avatar-max.jpg`,
+        rating: 4,
+        text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+        The building is green and from 18th century.`,
+        date: `April 2019`,
+      },
+    ],
   },
 ];
 
-
-describe(`<Property />`, () => {
-  it(`Should Property render correctly`, () => {
+describe(`<PlaceFullCard />`, () => {
+  it(`Should PlaceFullCard render correctly`, () => {
     const tree = renderer
-      .create(<PlaceFullCard
-        offers={offers}
-        id = {`1`}
-      />)
+      .create(
+          <BrowserRouter>
+            <PlaceFullCard
+              offers={offers}
+              mapSettings={MapSettings}
+              id = {`1`}
+              onPlaceCardHeaderClick = {() => {}}
+            />
+          </BrowserRouter>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

@@ -1,6 +1,7 @@
 import React from "react";
 import {shallow} from "enzyme";
 import PlaceCard from "./place-card.jsx";
+import {CardType} from "../../const.js";
 
 const offer = {
   id: 1,
@@ -21,6 +22,7 @@ describe(`<PlaceCard />`, () => {
     const main = shallow(
         <PlaceCard
           offer={offer}
+          cardType={CardType.CITY}
           onHover={handleChangeActiveCard}
           onPlaceCardHeaderClick={onPlaceCardHeaderClick}
         />
@@ -38,6 +40,7 @@ describe(`<PlaceCard />`, () => {
     const main = shallow(
         <PlaceCard
           offer={offer}
+          cardType={CardType.CITY}
           onHover={handleChangeActiveCard}
           onPlaceCardHeaderClick={onPlaceCardHeaderClick}
         />
