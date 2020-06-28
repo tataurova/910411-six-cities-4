@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card.jsx";
-import {placeCardType} from "../../../types";
+import {placeCardType} from "../../../types.js";
 
 class PlaceList extends React.Component {
   constructor(props) {
@@ -15,13 +15,14 @@ class PlaceList extends React.Component {
   }
 
   render() {
-    const {offers, onPlaceCardHeaderClick} = this.props;
+    const {offers, cardType, onPlaceCardHeaderClick} = this.props;
     return (
       <>
         {offers.map((offer) => (
           <PlaceCard
             key={offer.id}
             offer={offer}
+            cardType = {cardType}
             onHover={this.handlePlaceCardHover}
             onPlaceCardHeaderClick={onPlaceCardHeaderClick} />
         ))}
@@ -32,6 +33,7 @@ class PlaceList extends React.Component {
 
 PlaceList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  cardType: PropTypes.string.isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
 };
 

@@ -34,7 +34,15 @@ class App extends PureComponent {
           <Route exact path="/">
             {this._renderApp()}
           </Route>
-          <Route exact path="/offer/:id" render={(props) => <PlaceFullCard offers = {this.props.offers} {...props.match.params}/>} />
+          <Route exact path="/offer/:id" render={(props) =>
+            <PlaceFullCard
+              offers = {this.props.offers}
+              mapSettings = {this.props.mapSettings}
+              onPlaceCardHeaderClick = {this.handleCardHeaderClick}
+              {...props.match.params}
+            />
+          }
+          />
         </Switch>
       </BrowserRouter>
     );

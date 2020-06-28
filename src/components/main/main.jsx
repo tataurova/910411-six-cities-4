@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceList from "../place-list/place-list";
+import PlaceList from "../place-list/place-list.jsx";
 import {placeCardType, mapSettingsType} from "../../../types.js";
+import {CardType} from "../../const.js";
 import Map from "../map/map.jsx";
 
 const Main = ({offers, placeCount, mapSettings, onPlaceCardHeaderClick}) => {
@@ -105,15 +106,15 @@ const Main = ({offers, placeCount, mapSettings, onPlaceCardHeaderClick}) => {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {<PlaceList offers = {offers} onPlaceCardHeaderClick = {onPlaceCardHeaderClick}/>}
+                  <PlaceList offers = {offers} cardType= {CardType.CITY} onPlaceCardHeaderClick = {onPlaceCardHeaderClick} />
                 </div>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  {<Map
+                  <Map
                     offers = {offers}
                     mapSettings = {mapSettings}
-                  />}
+                  />
                 </section>
               </div>
             </div>

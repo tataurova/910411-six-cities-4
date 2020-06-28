@@ -1,7 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceList from "./place-list.js";
+import PlaceList from "./place-list.jsx";
 import offers from "../../mocks/offers.js";
+import {CardType} from "../../const.js";
 import {BrowserRouter} from "react-router-dom";
 
 describe(`<PlaceList />`, () => {
@@ -11,6 +12,7 @@ describe(`<PlaceList />`, () => {
           <BrowserRouter>
             <PlaceList
               offers={offers}
+              cardType={CardType.NEAR_PLACE}
               onHover={() => {}}
               onPlaceCardHeaderClick={() => {}}
             />

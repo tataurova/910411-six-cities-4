@@ -19,15 +19,15 @@ class PlaceCard extends React.Component {
   }
 
   render() {
-    const {offer} = this.props;
+    const {offer, cardType} = this.props;
     const {id, title, type, price, rating, premium, photo} = offer;
     return (
-      <article key={id} className="cities__place-card place-card" onMouseOver={this.handlePlaceCardHover}>
-        {premium &&
+      <article key={id} className={`${cardType}__place-card place-card`} onMouseOver={this.handlePlaceCardHover}>
+        {cardType.CITY && (premium &&
            <div className="place-card__mark">
              <span>Premium</span>
-           </div>}
-        <div className="cities__image-wrapper place-card__image-wrapper">
+           </div>)}
+        <div className={`${cardType}__image-wrapper place-card__image-wrapper`}>
           <a href="#">
             <img className="place-card__image" src={photo} width="260" height="200"
               alt="Place image"/>
@@ -62,9 +62,9 @@ class PlaceCard extends React.Component {
   }
 }
 
-
 PlaceCard.propTypes = {
   offer: PropTypes.shape(placeCardType).isRequired,
+  cardType: PropTypes.string.isRequired,
   onHover: PropTypes.func.isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
 };

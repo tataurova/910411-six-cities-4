@@ -8,3 +8,8 @@ export const MapSettings = {
   },
   zoom: 12,
 };
+
+export const CardType = {
+  CITY: `cities`,
+  NEAR_PLACE: `near-places`,
+};
