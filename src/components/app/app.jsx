@@ -38,8 +38,8 @@ class App extends PureComponent {
             <PlaceFullCard
               offers = {this.props.offers}
               mapSettings = {this.props.mapSettings}
-              {...props.match.params}
               onPlaceCardHeaderClick = {this.handleCardHeaderClick}
+              {...props.match.params}
             />
           }
           />
