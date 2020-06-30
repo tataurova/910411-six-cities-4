@@ -6,10 +6,11 @@ import offers from "../../mocks/offers.js";
 
 describe(`<Map />`, () => {
   it(`Should Map render correctly`, () => {
+    const cityOffers = offers[`Amsterdam`];
     const tree = renderer
       .create(
           <Map
-            offers={offers}
+            offers={cityOffers}
             mapSettings={MapSettings}
           />
       )

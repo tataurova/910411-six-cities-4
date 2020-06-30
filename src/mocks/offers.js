@@ -1,4 +1,4 @@
-export default [
+const offers = [
   {
     id: 1,
     title: `Canal View Prinsengracht`,
@@ -152,3 +152,13 @@ export default [
       },
     ],
   }];
+
+
+export default {
+  Paris: offers,
+  Cologne: offers,
+  Brussels: offers,
+  Amsterdam: offers,
+  Hamburg: offers,
+  Dusseldorf: offers,
+};

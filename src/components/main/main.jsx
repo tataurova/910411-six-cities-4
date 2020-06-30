@@ -4,8 +4,9 @@ import PlaceList from "../place-list/place-list.jsx";
 import {placeCardType, mapSettingsType} from "../../../types.js";
 import {CardType} from "../../const.js";
 import Map from "../map/map.jsx";
+import CitiesList from "../cities-list/cities-list.jsx";
 
-const Main = ({offers, placeCount, mapSettings, onPlaceCardHeaderClick}) => {
+const Main = ({offers, mapSettings, cities, activeCity, onPlaceCardHeaderClick, onMenuClick}) => {
   return (
     <>
       <div style={{display: `none`}}>
@@ -51,45 +52,14 @@ const Main = ({offers, placeCount, mapSettings, onPlaceCardHeaderClick}) => {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Paris</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Cologne</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Brussels</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item tabs__item--active">
-                    <span>Amsterdam</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Hamburg</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Dusseldorf</span>
-                  </a>
-                </li>
-              </ul>
+              <CitiesList cities = {cities} activeCity = {activeCity} onMenuClick = {onMenuClick}/>
             </section>
           </div>
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{placeCount} places to stay in Amsterdam</b>
+                <b className="places__found">{offers.length} places to stay in Amsterdam</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -129,7 +99,9 @@ export default Main;
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  placeCount: PropTypes.number.isRequired,
   mapSettings: PropTypes.shape(mapSettingsType).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  activeCity: PropTypes.string.isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
+  onMenuClick: PropTypes.func.isRequired,
 };
