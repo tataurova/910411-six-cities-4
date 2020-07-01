@@ -98,7 +98,7 @@ Array [
       </div>
     </header>
     <main
-      className="page__main page__main--index"
+      className="page__main page__main--index "
     >
       <h1
         className="visually-hidden"
@@ -118,10 +118,13 @@ Array [
               className="locations__item"
             >
               <a
-                className="locations__item-link tabs__item"
+                className="locations__item-link tabs__item "
                 href="#"
               >
-                <span>
+                <span
+                  data-city="Paris"
+                  onClick={[Function]}
+                >
                   Paris
                 </span>
               </a>
@@ -130,10 +133,13 @@ Array [
               className="locations__item"
             >
               <a
-                className="locations__item-link tabs__item"
+                className="locations__item-link tabs__item "
                 href="#"
               >
-                <span>
+                <span
+                  data-city="Cologne"
+                  onClick={[Function]}
+                >
                   Cologne
                 </span>
               </a>
@@ -142,10 +148,13 @@ Array [
               className="locations__item"
             >
               <a
-                className="locations__item-link tabs__item"
+                className="locations__item-link tabs__item "
                 href="#"
               >
-                <span>
+                <span
+                  data-city="Brussels"
+                  onClick={[Function]}
+                >
                   Brussels
                 </span>
               </a>
@@ -155,8 +164,12 @@ Array [
             >
               <a
                 className="locations__item-link tabs__item tabs__item--active"
+                href="#"
               >
-                <span>
+                <span
+                  data-city="Amsterdam"
+                  onClick={[Function]}
+                >
                   Amsterdam
                 </span>
               </a>
@@ -165,10 +178,13 @@ Array [
               className="locations__item"
             >
               <a
-                className="locations__item-link tabs__item"
+                className="locations__item-link tabs__item "
                 href="#"
               >
-                <span>
+                <span
+                  data-city="Hamburg"
+                  onClick={[Function]}
+                >
                   Hamburg
                 </span>
               </a>
@@ -177,10 +193,13 @@ Array [
               className="locations__item"
             >
               <a
-                className="locations__item-link tabs__item"
+                className="locations__item-link tabs__item "
                 href="#"
               >
-                <span>
+                <span
+                  data-city="Dusseldorf"
+                  onClick={[Function]}
+                >
                   Dusseldorf
                 </span>
               </a>
@@ -205,8 +224,9 @@ Array [
             <b
               className="places__found"
             >
-              312
-               places to stay in Amsterdam
+              4
+               places to stay in 
+              Amsterdam
             </b>
             <form
               action="#"
@@ -235,32 +255,7 @@ Array [
               </span>
               <ul
                 className="places__options places__options--custom places__options--opened"
-              >
-                <li
-                  className="places__option places__option--active"
-                  tabIndex="0"
-                >
-                  Popular
-                </li>
-                <li
-                  className="places__option"
-                  tabIndex="0"
-                >
-                  Price: low to high
-                </li>
-                <li
-                  className="places__option"
-                  tabIndex="0"
-                >
-                  Price: high to low
-                </li>
-                <li
-                  className="places__option"
-                  tabIndex="0"
-                >
-                  Top rated first
-                </li>
-              </ul>
+              />
             </form>
             <div
               className="cities__places-list places__list tabs__content"
@@ -676,6 +671,7 @@ Array [
             </section>
           </div>
         </div>
+        4
       </div>
     </main>
   </div>,

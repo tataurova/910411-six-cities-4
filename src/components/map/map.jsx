@@ -2,32 +2,52 @@ import React from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
 import {placeFullCardType, mapSettingsType} from "../../../types.js";
+import {cityCoordinates} from "../../mocks/cities.js";
+
+const addMarkersToMap = (offers, icon, map) => {
+  const markers = [];
+  offers.forEach((offer) => {
+    const marker = leaflet.marker(offer.coordinates, {icon});
+    markers.push(marker);
+  });
+  const markersGroup = leaflet.layerGroup(markers).addTo(map);
+  return markersGroup;
+};
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    const {offers, mapSettings} = this.props;
-    const {city, icon, zoom} = mapSettings;
+    const {offers, mapSettings, activeCity} = this.props;
+    const {icon, zoom} = mapSettings;
     const leafletIcon = leaflet.icon(icon);
+    const activeCityCoordinates = cityCoordinates[activeCity];
     this.map = leaflet.map(`map`, {
-      center: city,
+      center: activeCityCoordinates,
       zoom,
       zoomControl: false,
       marker: true,
     })
-      .setView(city, zoom);
+      .setView(activeCityCoordinates, zoom);
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(this.map);
-    offers.forEach((offer) => {
-      leaflet
-        .marker(offer.coordinates, {leafletIcon})
-        .addTo(this.map);
-    });
+    this.markersGroup = addMarkersToMap(offers, leafletIcon, this.map);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.activeCity !== prevProps.activeCity) {
+      const activeCityCoordinates = cityCoordinates[this.props.activeCity];
+      const zoom = this.props.mapSettings.zoom;
+      this.markersGroup.clearLayers();
+      this.map.setView(activeCityCoordinates, zoom);
+      const leafletIcon = leaflet.icon(this.props.mapSettings.icon);
+      this.markersGroup = addMarkersToMap(this.props.offers, leafletIcon, this.map);
+    }
+    return true;
   }
 
   render() {
@@ -42,4 +62,5 @@ export default Map;
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType)).isRequired,
   mapSettings: PropTypes.shape(mapSettingsType).isRequired,
+  activeCity: PropTypes.string.isRequired,
 };

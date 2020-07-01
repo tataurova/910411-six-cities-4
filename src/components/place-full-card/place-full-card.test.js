@@ -7,13 +7,16 @@ import offers from "../../mocks/offers.js";
 
 describe(`<PlaceFullCard />`, () => {
   it(`Should PlaceFullCard render correctly`, () => {
+    const activeCity = `Amsterdam`;
+    const cityOffers = offers[activeCity];
     const tree = renderer
       .create(
           <BrowserRouter>
             <PlaceFullCard
-              offers={offers}
+              offers={cityOffers}
               mapSettings={MapSettings}
               id = {`1`}
+              activeCity={activeCity}
               onPlaceCardHeaderClick = {() => {}}
             />
           </BrowserRouter>)

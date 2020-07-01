@@ -3,7 +3,11 @@ import Main from '../main/main.jsx';
 import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import {placeCardType, mapSettingsType} from "../../../types.js";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer.js";
+import {placeCardType} from "../../../types.js";
+import {MapSettings} from "../../const.js";
+import cities from "../../mocks/cities.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -19,11 +23,14 @@ class App extends PureComponent {
   }
 
   _renderApp() {
+    const {city, offers, onMenuClick} = this.props;
     return <Main
-      offers = {this.props.offers}
-      placeCount = {this.props.placeCount}
-      mapSettings = {this.props.mapSettings}
+      offers = {offers}
+      mapSettings={MapSettings}
+      cities = {cities}
+      activeCity = {city}
       onPlaceCardHeaderClick = {this.handleCardHeaderClick}
+      onMenuClick = {onMenuClick}
     />;
   }
 
@@ -37,8 +44,9 @@ class App extends PureComponent {
           <Route exact path="/offer/:id" render={(props) =>
             <PlaceFullCard
               offers = {this.props.offers}
-              mapSettings = {this.props.mapSettings}
+              mapSettings = {MapSettings}
               onPlaceCardHeaderClick = {this.handleCardHeaderClick}
+              activeCity={this.props.city}
               {...props.match.params}
             />
           }
@@ -49,11 +57,23 @@ class App extends PureComponent {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMenuClick(city) {
+    dispatch(ActionCreator.changeCity(city));
+    // dispatch(ActionCreator.getOffers(city));
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 App.propTypes = {
+  city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  mapSettings: PropTypes.shape(mapSettingsType).isRequired,
-  placeCount: PropTypes.number.isRequired,
+  onMenuClick: PropTypes.func.isRequired,
 };
-

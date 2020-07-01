@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import Map from "../map/map.jsx";
-import {placeFullCardType} from "../../../types";
+import {placeFullCardType, mapSettingsType} from "../../../types";
 import PlaceList from "../place-list/place-list.jsx";
 import {CardType} from "../../const.js";
 
-const PlaceFullCard = ({offers, mapSettings, id, onPlaceCardHeaderClick}) => {
+const PlaceFullCard = ({offers, mapSettings, id, activeCity, onPlaceCardHeaderClick}) => {
   const idNumber = Number(id);
   const offer = offers.filter((item) => item.id === idNumber)[0];
   const {title, type, price, rating, premium, bedrooms, adults, additional, details, owner, photos, reviews} = offer;
@@ -194,6 +194,7 @@ const PlaceFullCard = ({offers, mapSettings, id, onPlaceCardHeaderClick}) => {
             <Map
               offers ={offers.slice(0, 3)}
               mapSettings = {mapSettings}
+              activeCity={activeCity}
             />
           </section>
         </section>
@@ -218,14 +219,8 @@ export default PlaceFullCard;
 
 PlaceFullCard.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType)).isRequired,
-  mapSettings: PropTypes.shape({
-    city: PropTypes.arrayOf(PropTypes.number).isRequired,
-    icon: PropTypes.shape({
-      iconUrl: PropTypes.string.isRequired,
-      iconSize: PropTypes.arrayOf(PropTypes.number).isRequired,
-    }).isRequired,
-    zoom: PropTypes.number.isRequired,
-  }).isRequired,
+  mapSettings: PropTypes.shape(mapSettingsType).isRequired,
   id: PropTypes.string.isRequired,
+  activeCity: PropTypes.string.isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
 };

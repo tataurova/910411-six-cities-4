@@ -7,11 +7,12 @@ import {BrowserRouter} from "react-router-dom";
 
 describe(`<PlaceList />`, () => {
   it(`Should PlaceList render correctly`, () => {
+    const cityOffers = offers[`Amsterdam`];
     const tree = renderer
       .create(
           <BrowserRouter>
             <PlaceList
-              offers={offers}
+              offers={cityOffers}
               cardType={CardType.NEAR_PLACE}
               onHover={() => {}}
               onPlaceCardHeaderClick={() => {}}
