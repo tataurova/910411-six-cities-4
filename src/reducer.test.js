@@ -4,15 +4,15 @@ import offers from "./mocks/offers.js";
 describe(`Reducer tests`, () => {
   it(`The reducer without additional parameters should return the initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
-      city: `Amsterdam`,
-      offers: offers[`Amsterdam`],
+      city: `Paris`,
+      offers: offers[`Paris`],
     });
   });
 
   it(`The reducer should change the initial values to new ones`, () => {
     expect(reducer({
-      city: `Amsterdam`,
-      offers: offers[`Amsterdam`],
+      city: `Paris`,
+      offers: offers[`Paris`],
     }, {
       type: ActionType.CHANGE_CITY,
       payload: `Cologne`,

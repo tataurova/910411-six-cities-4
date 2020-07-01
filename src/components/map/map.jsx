@@ -38,7 +38,7 @@ class Map extends React.Component {
     this.markersGroup = addMarkersToMap(offers, leafletIcon, this.map);
   }
 
-  componentDidUpdate(prevProps    ) {
+  componentDidUpdate(prevProps) {
     if (this.props.activeCity !== prevProps.activeCity) {
       const activeCityCoordinates = cityCoordinates[this.props.activeCity];
       const zoom = this.props.mapSettings.zoom;
