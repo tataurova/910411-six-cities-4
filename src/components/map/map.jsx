@@ -38,14 +38,14 @@ class Map extends React.Component {
     this.markersGroup = addMarkersToMap(offers, leafletIcon, this.map);
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (this.props.offers !== nextProps.offers) {
-      const activeCityCoordinates = cityCoordinates[nextProps.activeCity];
-      const zoom = nextProps.mapSettings.zoom;
+  componentDidUpdate(prevProps    ) {
+    if (this.props.activeCity !== prevProps.activeCity) {
+      const activeCityCoordinates = cityCoordinates[this.props.activeCity];
+      const zoom = this.props.mapSettings.zoom;
       this.markersGroup.clearLayers();
       this.map.setView(activeCityCoordinates, zoom);
-      const leafletIcon = leaflet.icon(nextProps.mapSettings.icon);
-      this.markersGroup = addMarkersToMap(nextProps.offers, leafletIcon, this.map);
+      const leafletIcon = leaflet.icon(this.props.mapSettings.icon);
+      this.markersGroup = addMarkersToMap(this.props.offers, leafletIcon, this.map);
     }
     return true;
   }

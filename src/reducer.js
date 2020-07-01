@@ -1,9 +1,11 @@
 import {extend} from "./utils.js";
 import offers from "./mocks/offers.js";
 
+const initialCity = Object.keys(offers)[0];
+
 const initialState = {
-  city: `Amsterdam`,
-  offers: offers[`Amsterdam`],
+  city: initialCity,
+  offers: offers[initialCity],
 };
 
 const ActionType = {

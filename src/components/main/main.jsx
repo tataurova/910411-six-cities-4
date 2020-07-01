@@ -80,7 +80,7 @@ const Main = ({offers, mapSettings, cities, activeCity, onPlaceCardHeaderClick, 
                   <Map
                     offers = {offers}
                     mapSettings = {mapSettings}
-                    activeCity = {activeCity}
+                      activeCity = {activeCity}
                   />
                 </section>
               </div>
