@@ -15,10 +15,10 @@ describe(`Reducer tests`, () => {
       offers: offers[`Amsterdam`],
     }, {
       type: ActionType.CHANGE_CITY,
-      payload: `Paris`,
+      payload: `Cologne`,
     })).toEqual({
-      city: `Paris`,
-      offers: offers[`Paris`]
+      city: `Cologne`,
+      offers: offers[`Cologne`]
     });
   });
 });

@@ -5,6 +5,7 @@ import {placeCardType, mapSettingsType} from "../../../types.js";
 import {CardType} from "../../const.js";
 import Map from "../map/map.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
+import NoPlaces from "../no-places/no-places.jsx";
 
 const Main = ({offers, mapSettings, cities, activeCity, onPlaceCardHeaderClick, onMenuClick}) => {
   return (
@@ -48,7 +49,7 @@ const Main = ({offers, mapSettings, cities, activeCity, onPlaceCardHeaderClick, 
           </div>
         </header>
 
-        <main className="page__main page__main--index">
+        <main className={`page__main page__main--index ${offers.length === 0 ? `page__main--index-empty` : ``}`}>
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
@@ -56,10 +57,10 @@ const Main = ({offers, mapSettings, cities, activeCity, onPlaceCardHeaderClick, 
             </section>
           </div>
           <div className="cities">
-            <div className="cities__places-container container">
+            {offers.length > 0 ? (<div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+                <b className="places__found">{offers.length} places to stay in {activeCity}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -68,12 +69,7 @@ const Main = ({offers, mapSettings, cities, activeCity, onPlaceCardHeaderClick, 
                       <use xlinkHref="#icon-arrow-select"></use>
                     </svg>
                   </span>
-                  <ul className="places__options places__options--custom places__options--opened">
-                    <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                    <li className="places__option" tabIndex="0">Price: low to high</li>
-                    <li className="places__option" tabIndex="0">Price: high to low</li>
-                    <li className="places__option" tabIndex="0">Top rated first</li>
-                  </ul>
+                  <ul className="places__options places__options--custom places__options--opened"></ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
                   <PlaceList offers = {offers} cardType= {CardType.CITY} onPlaceCardHeaderClick = {onPlaceCardHeaderClick} />
@@ -84,10 +80,12 @@ const Main = ({offers, mapSettings, cities, activeCity, onPlaceCardHeaderClick, 
                   <Map
                     offers = {offers}
                     mapSettings = {mapSettings}
+                    activeCity = {activeCity}
                   />
                 </section>
               </div>
-            </div>
+            </div>) : ``}
+            {offers.length || <NoPlaces activeCity = {activeCity} />}
           </div>
         </main>
       </div>

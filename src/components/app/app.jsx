@@ -46,6 +46,7 @@ class App extends PureComponent {
               offers = {this.props.offers}
               mapSettings = {MapSettings}
               onPlaceCardHeaderClick = {this.handleCardHeaderClick}
+              activeCity={this.props.city}
               {...props.match.params}
             />
           }
@@ -64,7 +65,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onMenuClick(city) {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffers(city));
+    // dispatch(ActionCreator.getOffers(city));
   }
 });
 

@@ -40,7 +40,6 @@ export const placeFullCardType = {
 };
 
 export const mapSettingsType = {
-  city: PropTypes.arrayOf(PropTypes.number).isRequired,
   icon: PropTypes.shape({
     iconUrl: PropTypes.string.isRequired,
     iconSize: PropTypes.arrayOf(PropTypes.number).isRequired,

@@ -8,7 +8,6 @@ const initialState = {
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  GET_OFFERS: `GET_OFFERS`,
 };
 
 const ActionCreator = {
@@ -16,10 +15,6 @@ const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  getOffers: (city) => ({
-    type: ActionType.GET_OFFERS,
-    payload: city,
-  })
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,9 +22,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return extend(state, {
         city: action.payload,
-      });
-    case ActionType.GET_OFFERS:
-      return extend(state, {
         offers: offers[action.payload],
       });
   }
