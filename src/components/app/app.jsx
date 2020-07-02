@@ -23,14 +23,16 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {city, offers, onMenuClick} = this.props;
+    const {city, offers, sortType, onMenuClick, onSortTypeClick} = this.props;
     return <Main
       offers = {offers}
       mapSettings={MapSettings}
       cities = {cities}
       activeCity = {city}
+      activeSortType = {sortType}
       onPlaceCardHeaderClick = {this.handleCardHeaderClick}
       onMenuClick = {onMenuClick}
+      onSortTypeClick = {onSortTypeClick}
     />;
   }
 
@@ -60,12 +62,15 @@ class App extends PureComponent {
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
+  sortType: state.sortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onMenuClick(city) {
     dispatch(ActionCreator.changeCity(city));
-    // dispatch(ActionCreator.getOffers(city));
+  },
+  onSortTypeClick(sortType) {
+    dispatch(ActionCreator.changeSortType(sortType));
   }
 });
 
@@ -75,5 +80,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 App.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  sortType: PropTypes.string.isRequired,
   onMenuClick: PropTypes.func.isRequired,
+  onSortTypeClick: PropTypes.func.isRequired,
 };

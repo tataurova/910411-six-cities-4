@@ -4,6 +4,7 @@ import App from "./app.jsx";
 import offers from "../../mocks/offers.js";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {SortType} from "../../const.js";
 
 const mockStore = configureStore([]);
 
@@ -12,7 +13,9 @@ describe(`<App />`, () => {
     const store = mockStore({
       city: `Amsterdam`,
       offers: offers[`Amsterdam`],
+      sortType: SortType.DEFAULT,
       onMenuClick: () => {},
+      onSortTypeClick: () => {},
     });
     const tree = renderer
       .create(

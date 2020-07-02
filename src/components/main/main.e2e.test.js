@@ -4,6 +4,7 @@ import Main from "./main.jsx";
 import {MapSettings} from "../../const.js";
 import offers from "../../mocks/offers";
 import cities from "../../mocks/cities";
+import {SortType} from "../../const.js";
 
 describe(`<Main />`, () => {
   it(`The header click handler should be called`, () => {
@@ -17,8 +18,10 @@ describe(`<Main />`, () => {
           mapSettings={MapSettings}
           cities={cities}
           activeCity = {activeCity}
+          activeSortType={SortType.DEFAULT}
           onPlaceCardHeaderClick={onPlaceCardHeaderClick}
           onMenuClick={onMenuClick}
+          onSortTypeClick={() => {}}
         />
     );
 

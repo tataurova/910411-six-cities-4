@@ -6,8 +6,9 @@ import {CardType} from "../../const.js";
 import Map from "../map/map.jsx";
 import CitiesList from "../cities-list/cities-list.jsx";
 import NoPlaces from "../no-places/no-places.jsx";
+import Sort from "../sort/sort.jsx";
 
-const Main = ({offers, mapSettings, cities, activeCity, onPlaceCardHeaderClick, onMenuClick}) => {
+const Main = ({offers, mapSettings, cities, activeCity, activeSortType, onPlaceCardHeaderClick, onMenuClick, onSortTypeClick}) => {
   return (
     <>
       <div style={{display: `none`}}>
@@ -61,18 +62,9 @@ const Main = ({offers, mapSettings, cities, activeCity, onPlaceCardHeaderClick, 
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offers.length} places to stay in {activeCity}</b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>
-                  <span className="places__sorting-type" tabIndex="0">
-                        Popular
-                    <svg className="places__sorting-arrow" width="7" height="4">
-                      <use xlinkHref="#icon-arrow-select"></use>
-                    </svg>
-                  </span>
-                  <ul className="places__options places__options--custom places__options--opened"></ul>
-                </form>
+                <Sort activeSortType = {activeSortType} onSortTypeClick = {onSortTypeClick}/>
                 <div className="cities__places-list places__list tabs__content">
-                  <PlaceList offers = {offers} cardType= {CardType.CITY} onPlaceCardHeaderClick = {onPlaceCardHeaderClick} />
+                  <PlaceList offers = {offers} cardType = {CardType.CITY} onPlaceCardHeaderClick = {onPlaceCardHeaderClick} />
                 </div>
               </section>
               <div className="cities__right-section">
@@ -100,6 +92,8 @@ Main.propTypes = {
   mapSettings: PropTypes.shape(mapSettingsType).isRequired,
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   activeCity: PropTypes.string.isRequired,
+  activeSortType: PropTypes.string.isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
   onMenuClick: PropTypes.func.isRequired,
+  onSortTypeClick: PropTypes.func.isRequired,
 };
