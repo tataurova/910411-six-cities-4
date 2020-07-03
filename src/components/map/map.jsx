@@ -1,14 +1,20 @@
 import React from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
-import {placeFullCardType, mapSettingsType} from "../../../types.js";
+import {placeFullCardType} from "../../../types.js";
 import {cityCoordinates} from "../../mocks/cities.js";
+import {MapSettings} from "../../const.js";
 
-const addMarkersToMap = (offers, icon, map) => {
+const addMarkersToMap = (offers, hoveredCardId, icon, activeIcon, map) => {
   const markers = [];
   offers.forEach((offer) => {
-    const marker = leaflet.marker(offer.coordinates, {icon});
-    markers.push(marker);
+    if (offer.id === hoveredCardId) {
+      const marker = leaflet.marker(offer.coordinates, {icon: activeIcon});
+      markers.push(marker);
+    } else {
+      const marker = leaflet.marker(offer.coordinates, {icon});
+      markers.push(marker);
+    }
   });
   const markersGroup = leaflet.layerGroup(markers).addTo(map);
   return markersGroup;
@@ -19,33 +25,41 @@ class Map extends React.Component {
     super(props);
   }
   componentDidMount() {
-    const {offers, mapSettings, activeCity} = this.props;
-    const {icon, zoom} = mapSettings;
-    const leafletIcon = leaflet.icon(icon);
+    const {offers, activeCity, hoveredCardId} = this.props;
+    this.leafletIcon = leaflet.icon({
+      iconSize: MapSettings.ICON_SIZE,
+      iconUrl: MapSettings.ICON_URL,
+    });
+    this.leafletActiveIcon = leaflet.icon({
+      iconSize: MapSettings.ICON_SIZE,
+      iconUrl: MapSettings.ACTIVE_ICON_URL,
+    });
     const activeCityCoordinates = cityCoordinates[activeCity];
     this.map = leaflet.map(`map`, {
       center: activeCityCoordinates,
-      zoom,
+      zoom: MapSettings.ZOOM,
       zoomControl: false,
       marker: true,
     })
-      .setView(activeCityCoordinates, zoom);
+      .setView(activeCityCoordinates, MapSettings.ZOOM);
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(this.map);
-    this.markersGroup = addMarkersToMap(offers, leafletIcon, this.map);
+    this.markersGroup = addMarkersToMap(offers, hoveredCardId, this.leafletIcon, this.leafletActiveIcon, this.map);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.activeCity !== prevProps.activeCity) {
       const activeCityCoordinates = cityCoordinates[this.props.activeCity];
-      const zoom = this.props.mapSettings.zoom;
       this.markersGroup.clearLayers();
-      this.map.setView(activeCityCoordinates, zoom);
-      const leafletIcon = leaflet.icon(this.props.mapSettings.icon);
-      this.markersGroup = addMarkersToMap(this.props.offers, leafletIcon, this.map);
+      this.map.setView(activeCityCoordinates, MapSettings.ZOOM);
+      this.markersGroup = addMarkersToMap(this.props.offers, this.props.hoveredCardId, this.leafletIcon, this.leafletActiveIcon, this.map);
+    }
+    if (this.props.hoveredCardId !== prevProps.hoveredCardId) {
+      this.markersGroup.clearLayers();
+      this.markersGroup = addMarkersToMap(this.props.offers, this.props.hoveredCardId, this.leafletIcon, this.leafletActiveIcon, this.map);
     }
     return true;
   }
@@ -61,6 +75,6 @@ export default Map;
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType)).isRequired,
-  mapSettings: PropTypes.shape(mapSettingsType).isRequired,
   activeCity: PropTypes.string.isRequired,
+  hoveredCardId: PropTypes.number.isRequired,
 };

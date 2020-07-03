@@ -8,6 +8,7 @@ describe(`Reducer tests`, () => {
       city: `Paris`,
       offers: offers[`Paris`],
       sortType: SortType.DEFAULT,
+      hoveredCardId: 0,
     });
   });
 

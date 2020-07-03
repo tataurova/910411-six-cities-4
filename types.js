@@ -39,14 +39,6 @@ export const placeFullCardType = {
     photos: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export const mapSettingsType = {
-  icon: PropTypes.shape({
-    iconUrl: PropTypes.string.isRequired,
-    iconSize: PropTypes.arrayOf(PropTypes.number).isRequired,
-  }).isRequired,
-  zoom: PropTypes.number.isRequired,
-};
-
 export const cardTypeType = {
   CITY: PropTypes.string.isRequired,
   NEAR_PLACE: PropTypes.string.isRequired,

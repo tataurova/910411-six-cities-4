@@ -1,7 +1,6 @@
 import React from "react";
 import {shallow} from "enzyme";
 import Main from "./main.jsx";
-import {MapSettings} from "../../const.js";
 import offers from "../../mocks/offers";
 import cities from "../../mocks/cities";
 import {SortType} from "../../const.js";
@@ -15,10 +14,11 @@ describe(`<Main />`, () => {
     const main = shallow(
         <Main
           offers={cityOffers}
-          mapSettings={MapSettings}
           cities={cities}
           activeCity = {activeCity}
           activeSortType={SortType.DEFAULT}
+          hoveredCardId = {1}
+          onPlaceCardHover = {() => {}}
           onPlaceCardHeaderClick={onPlaceCardHeaderClick}
           onMenuClick={onMenuClick}
           onSortTypeClick={() => {}}

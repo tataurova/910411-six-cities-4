@@ -14,6 +14,8 @@ describe(`<App />`, () => {
       city: `Amsterdam`,
       offers: offers[`Amsterdam`],
       sortType: SortType.DEFAULT,
+      hoveredCardId: 1,
+      onPlaceCardHover: () => {},
       onMenuClick: () => {},
       onSortTypeClick: () => {},
     });

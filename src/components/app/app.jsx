@@ -6,8 +6,8 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import {placeCardType} from "../../../types.js";
-import {MapSettings} from "../../const.js";
 import cities from "../../mocks/cities.js";
+import citiesOffers from "../../mocks/offers.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -23,20 +23,22 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {city, offers, sortType, onMenuClick, onSortTypeClick} = this.props;
+    const {city, offers, sortType, hoveredCardId, onMenuClick, onSortTypeClick, onPlaceCardHover} = this.props;
     return <Main
       offers = {offers}
-      mapSettings={MapSettings}
       cities = {cities}
       activeCity = {city}
       activeSortType = {sortType}
+      hoveredCardId = {hoveredCardId}
       onPlaceCardHeaderClick = {this.handleCardHeaderClick}
       onMenuClick = {onMenuClick}
       onSortTypeClick = {onSortTypeClick}
+      onPlaceCardHover = {onPlaceCardHover}
     />;
   }
 
   render() {
+    const allOffers = Object.values(citiesOffers).flat(1);
     return (
       <BrowserRouter>
         <Switch>
@@ -45,10 +47,9 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/offer/:id" render={(props) =>
             <PlaceFullCard
-              offers = {this.props.offers}
-              mapSettings = {MapSettings}
+              offers = {allOffers}
               onPlaceCardHeaderClick = {this.handleCardHeaderClick}
-              activeCity={this.props.city}
+              onPlaceCardHover = {this.props.onPlaceCardHover}
               {...props.match.params}
             />
           }
@@ -63,6 +64,7 @@ const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
   sortType: state.sortType,
+  hoveredCardId: state.hoveredCardId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -71,7 +73,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSortTypeClick(sortType) {
     dispatch(ActionCreator.changeSortType(sortType));
+  },
+  onPlaceCardHover(id) {
+    dispatch(ActionCreator.changeHoveredCard(id));
   }
+
 });
 
 export {App};
@@ -81,6 +87,8 @@ App.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
   sortType: PropTypes.string.isRequired,
+  hoveredCardId: PropTypes.number.isRequired,
+  onPlaceCardHover: PropTypes.func.isRequired,
   onMenuClick: PropTypes.func.isRequired,
   onSortTypeClick: PropTypes.func.isRequired,
 };

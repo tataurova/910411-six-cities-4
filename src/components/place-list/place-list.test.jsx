@@ -16,6 +16,7 @@ describe(`<PlaceList />`, () => {
               cardType={CardType.NEAR_PLACE}
               onHover={() => {}}
               onPlaceCardHeaderClick={() => {}}
+              onPlaceCardHover={() => {}}
             />
           </BrowserRouter>)
       .toJSON();

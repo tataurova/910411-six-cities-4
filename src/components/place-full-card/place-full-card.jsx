@@ -2,13 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import Map from "../map/map.jsx";
-import {placeFullCardType, mapSettingsType} from "../../../types";
+import {placeFullCardType} from "../../../types";
 import PlaceList from "../place-list/place-list.jsx";
 import {CardType} from "../../const.js";
 
-const PlaceFullCard = ({offers, mapSettings, id, activeCity, onPlaceCardHeaderClick}) => {
+const PlaceFullCard = ({offers, id, onPlaceCardHeaderClick, onPlaceCardHover}) => {
   const idNumber = Number(id);
   const offer = offers.filter((item) => item.id === idNumber)[0];
+  const activeCity = offer.city;
+  const nearOffers = offers.filter((item) => item.id !== idNumber && item.city === activeCity);
+
   const {title, type, price, rating, premium, bedrooms, adults, additional, details, owner, photos, reviews} = offer;
   const {photo, name, isSuper} = owner;
   return (
@@ -192,9 +195,9 @@ const PlaceFullCard = ({offers, mapSettings, id, activeCity, onPlaceCardHeaderCl
           </div>
           <section className="property__map map">
             <Map
-              offers ={offers.slice(0, 3)}
-              mapSettings = {mapSettings}
+              offers ={nearOffers.slice(0, 2).concat(offer)}
               activeCity={activeCity}
+              hoveredCardId={idNumber}
             />
           </section>
         </section>
@@ -203,9 +206,11 @@ const PlaceFullCard = ({offers, mapSettings, id, activeCity, onPlaceCardHeaderCl
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               <PlaceList
-                offers = {offers.slice(0, 3)}
+                offers = {nearOffers.slice(0, 3)}
                 cardType = {CardType.NEAR_PLACE}
-                onPlaceCardHeaderClick = {onPlaceCardHeaderClick}/>
+                onPlaceCardHeaderClick = {onPlaceCardHeaderClick}
+                onPlaceCardHover = {onPlaceCardHover}
+              />
             </div>
           </section>
         </div>
@@ -219,8 +224,7 @@ export default PlaceFullCard;
 
 PlaceFullCard.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType)).isRequired,
-  mapSettings: PropTypes.shape(mapSettingsType).isRequired,
   id: PropTypes.string.isRequired,
-  activeCity: PropTypes.string.isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
+  onPlaceCardHover: PropTypes.func.isRequired,
 };

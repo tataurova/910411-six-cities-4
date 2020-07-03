@@ -24,6 +24,9 @@ const leaflet = {
     return {
       addTo: jest.fn(),
     };
+  },
+  Icon() {
+    return this.icon;
   }
 };
 

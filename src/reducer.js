@@ -8,11 +8,13 @@ const initialState = {
   city: initialCity,
   offers: offers[initialCity],
   sortType: SortType.DEFAULT,
+  hoveredCardId: 0,
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
+  CHANGE_HOVERED_CARD: `CHANGE_HOVERED_CARD`,
 };
 
 const ActionCreator = {
@@ -23,6 +25,10 @@ const ActionCreator = {
   changeSortType: (sortType) => ({
     type: ActionType.CHANGE_SORT_TYPE,
     payload: sortType,
+  }),
+  changeHoveredCard: (id) => ({
+    type: ActionType.CHANGE_HOVERED_CARD,
+    payload: id,
   }),
 };
 
@@ -37,6 +43,10 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         sortType: action.payload,
         offers: sortOffers(action.payload, offers[state.city]),
+      });
+    case ActionType.CHANGE_HOVERED_CARD:
+      return extend(state, {
+        hoveredCardId: action.payload,
       });
   }
   return state;

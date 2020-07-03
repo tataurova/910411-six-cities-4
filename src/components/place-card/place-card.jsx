@@ -3,15 +3,22 @@ import PropTypes from "prop-types";
 import {placeCardType} from "../../../types.js";
 import {Link} from "react-router-dom";
 
+const INITIAL_STATE_HOVERED_CARD = 0;
+
 class PlaceCard extends React.Component {
   constructor(props) {
     super(props);
     this.handlePlaceCardHover = this.handlePlaceCardHover.bind(this);
     this.handleHeaderClick = this.handleHeaderClick.bind(this);
+    this.handlePlaceCardOut = this.handlePlaceCardOut.bind(this);
   }
 
   handlePlaceCardHover() {
-    this.props.onHover(this.props.offer.id);
+    this.props.onPlaceCardHover(this.props.offer.id);
+  }
+
+  handlePlaceCardOut() {
+    this.props.onPlaceCardHover(INITIAL_STATE_HOVERED_CARD);
   }
 
   handleHeaderClick() {
@@ -22,7 +29,7 @@ class PlaceCard extends React.Component {
     const {offer, cardType} = this.props;
     const {id, title, type, price, rating, premium, photo} = offer;
     return (
-      <article key={id} className={`${cardType}__place-card place-card`} onMouseOver={this.handlePlaceCardHover}>
+      <article key={id} className={`${cardType}__place-card place-card`} onMouseOver={this.handlePlaceCardHover} onMouseOut={this.handlePlaceCardOut}>
         {cardType.CITY && (premium &&
            <div className="place-card__mark">
              <span>Premium</span>
@@ -65,8 +72,8 @@ class PlaceCard extends React.Component {
 PlaceCard.propTypes = {
   offer: PropTypes.shape(placeCardType).isRequired,
   cardType: PropTypes.string.isRequired,
-  onHover: PropTypes.func.isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
+  onPlaceCardHover: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

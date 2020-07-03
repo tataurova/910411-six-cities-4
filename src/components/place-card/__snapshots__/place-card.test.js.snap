@@ -3,6 +3,7 @@
 exports[`<PlaceCard /> Should PlaceCard render correctly with a field Premium equal False 1`] = `
 <article
   className="cities__place-card place-card"
+  onMouseOut={[Function]}
   onMouseOver={[Function]}
 >
   <div
@@ -104,6 +105,7 @@ exports[`<PlaceCard /> Should PlaceCard render correctly with a field Premium eq
 exports[`<PlaceCard /> Should PlaceCard render correctly with a field Premium equal True 1`] = `
 <article
   className="cities__place-card place-card"
+  onMouseOut={[Function]}
   onMouseOver={[Function]}
 >
   <div

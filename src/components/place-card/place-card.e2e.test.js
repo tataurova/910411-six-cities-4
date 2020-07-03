@@ -16,33 +16,33 @@ const offer = {
 describe(`<PlaceCard />`, () => {
   it(`When you hover the cursor over the card the handler is called with id of realty object`, () => {
     const onPlaceCardHeaderClick = jest.fn();
-    const handleChangeActiveCard = jest.fn((id) => {
+    const onPlaceCardHover = jest.fn((id) => {
       return id;
     });
     const main = shallow(
         <PlaceCard
           offer={offer}
           cardType={CardType.CITY}
-          onHover={handleChangeActiveCard}
           onPlaceCardHeaderClick={onPlaceCardHeaderClick}
+          onPlaceCardHover={onPlaceCardHover}
         />
     );
     const card = main.find(`.place-card`);
     card.simulate(`mouseover`);
-    expect(handleChangeActiveCard).toHaveBeenCalledWith(1);
+    expect(onPlaceCardHover).toHaveBeenCalledWith(1);
 
   });
   it(`When you click on the card header the handler is called with id of realty object`, () => {
     const onPlaceCardHeaderClick = jest.fn((id) => {
       return id;
     });
-    const handleChangeActiveCard = jest.fn(() => {});
+    const onPlaceCardHover = jest.fn();
     const main = shallow(
         <PlaceCard
           offer={offer}
           cardType={CardType.CITY}
-          onHover={handleChangeActiveCard}
           onPlaceCardHeaderClick={onPlaceCardHeaderClick}
+          onPlaceCardHover={onPlaceCardHover}
         />
     );
     const header = main.find(`.place-card__name`);

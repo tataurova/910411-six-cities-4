@@ -4,6 +4,7 @@ const offers = [
   {
     id: 1,
     title: `Canal View Prinsengracht`,
+    city: `Cologne`,
     type: `Apartment`,
     price: 120,
     rating: 4,
@@ -41,6 +42,7 @@ const offers = [
   }, {
     id: 2,
     title: `Wood and stone place`,
+    city: `Cologne`,
     type: `Private room`,
     price: 80,
     rating: 4,
@@ -78,6 +80,7 @@ const offers = [
   }, {
     id: 3,
     title: `Canal View Prinsengracht`,
+    city: `Brussels`,
     type: `Apartment`,
     price: 132,
     rating: 4,
@@ -115,6 +118,7 @@ const offers = [
   }, {
     id: 4,
     title: `Nice, cozy, warm big bed apartment`,
+    city: `Brussels`,
     type: `Apartment`,
     price: 180,
     rating: 5,
@@ -152,6 +156,7 @@ const offers = [
   }, {
     id: 5,
     title: `Mock title`,
+    city: `Amsterdam`,
     type: `Apartment`,
     price: 1800,
     rating: 2,
@@ -189,9 +194,164 @@ const offers = [
   }, {
     id: 6,
     title: `Mock title`,
+    city: `Amsterdam`,
     type: `Apartment`,
     price: 18000,
     rating: 1,
+    premium: false,
+    photo: `img/apartment-03.jpg`,
+    bedrooms: 4,
+    adults: 8,
+    additional: [`Wifi`, `Heating`, `Kitchen`, `Cable TV`, `Fridge`, `Dishwasher`, `Baby seat`, `Coffee machine`],
+    details: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+     The building is green and from 18th century. An independent House, strategically located between Rembrand
+     Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+    owner: {
+      photo: `img/avatar-max.jpg`,
+      name: `Max`,
+      isSuper: false,
+    },
+    photos: [
+      `img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/room.jpg`
+    ],
+    reviews: [
+      {
+        name: `Max`,
+        photo: `img/avatar-max.jpg`,
+        rating: 4,
+        text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+        The building is green and from 18th century.`,
+        date: `April 2019`,
+      },
+    ],
+  },
+  {
+    id: 7,
+    title: `Mock title`,
+    city: `Hamburg`,
+    type: `Bungalow`,
+    price: 5000,
+    rating: 1,
+    premium: false,
+    photo: `img/apartment-03.jpg`,
+    bedrooms: 4,
+    adults: 8,
+    additional: [`Wifi`, `Heating`, `Kitchen`, `Cable TV`, `Fridge`, `Dishwasher`, `Baby seat`, `Coffee machine`],
+    details: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+     The building is green and from 18th century. An independent House, strategically located between Rembrand
+     Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+    owner: {
+      photo: `img/avatar-max.jpg`,
+      name: `Max`,
+      isSuper: false,
+    },
+    photos: [
+      `img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/room.jpg`
+    ],
+    reviews: [
+      {
+        name: `Max`,
+        photo: `img/avatar-max.jpg`,
+        rating: 4,
+        text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+        The building is green and from 18th century.`,
+        date: `April 2019`,
+      },
+    ],
+  },
+  {
+    id: 8,
+    title: `Mock title`,
+    city: `Hamburg`,
+    type: `Shack`,
+    price: 5,
+    rating: 4,
+    premium: false,
+    photo: `img/apartment-03.jpg`,
+    bedrooms: 4,
+    adults: 8,
+    additional: [`Wifi`, `Heating`, `Kitchen`, `Cable TV`, `Fridge`, `Dishwasher`, `Baby seat`, `Coffee machine`],
+    details: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+     The building is green and from 18th century. An independent House, strategically located between Rembrand
+     Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+    owner: {
+      photo: `img/avatar-max.jpg`,
+      name: `Max`,
+      isSuper: false,
+    },
+    photos: [
+      `img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/room.jpg`
+    ],
+    reviews: [
+      {
+        name: `Max`,
+        photo: `img/avatar-max.jpg`,
+        rating: 4,
+        text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+        The building is green and from 18th century.`,
+        date: `April 2019`,
+      },
+    ],
+  }, {
+    id: 9,
+    title: `Mock title`,
+    city: `Dusseldorf`,
+    type: `Hut`,
+    price: 1,
+    rating: 5,
+    premium: true,
+    photo: `img/apartment-03.jpg`,
+    bedrooms: 4,
+    adults: 8,
+    additional: [`Wifi`, `Heating`, `Kitchen`, `Cable TV`, `Fridge`, `Dishwasher`, `Baby seat`, `Coffee machine`],
+    details: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+     The building is green and from 18th century. An independent House, strategically located between Rembrand
+     Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.`,
+    owner: {
+      photo: `img/avatar-max.jpg`,
+      name: `Max`,
+      isSuper: false,
+    },
+    photos: [
+      `img/room.jpg`,
+      `img/apartment-01.jpg`,
+      `img/apartment-02.jpg`,
+      `img/apartment-03.jpg`,
+      `img/studio-01.jpg`,
+      `img/room.jpg`
+    ],
+    reviews: [
+      {
+        name: `Max`,
+        photo: `img/avatar-max.jpg`,
+        rating: 4,
+        text: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
+        The building is green and from 18th century.`,
+        date: `April 2019`,
+      },
+    ],
+  }, {
+    id: 10,
+    title: `Mock title`,
+    city: `Dusseldorf`,
+    type: `Apartment`,
+    price: 1000000,
+    rating: 5,
     premium: false,
     photo: `img/apartment-03.jpg`,
     bedrooms: 4,
@@ -241,10 +401,10 @@ const generateOffers = (basicOffers, city) => {
 };
 
 const offersCologne = generateOffers(offers.slice(0, 2), `Cologne`);
-const offersBrussels = generateOffers(offers.slice(0, 3), `Brussels`);
-const offersAmsterdam = generateOffers(offers.slice(0, 4), `Amsterdam`);
-const offersHamburg = generateOffers(offers.slice(0, 5), `Hamburg`);
-const offersDusseldorf = generateOffers(offers, `Dusseldorf`);
+const offersBrussels = generateOffers(offers.slice(2, 4), `Brussels`);
+const offersAmsterdam = generateOffers(offers.slice(4, 6), `Amsterdam`);
+const offersHamburg = generateOffers(offers.slice(6, 8), `Hamburg`);
+const offersDusseldorf = generateOffers(offers.slice(8, 10), `Dusseldorf`);
 
 export default {
   Paris: [],
