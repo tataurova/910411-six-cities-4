@@ -9,7 +9,10 @@ import {placeCardType} from "../../../types.js";
 import cities from "../../mocks/cities.js";
 import citiesOffers from "../../mocks/offers.js";
 
-const allOffers = Object.values(citiesOffers).flat(1);
+let allOffers = [];
+Object.values(citiesOffers).forEach((item) => {
+  allOffers = allOffers.concat(item);
+});
 
 class App extends PureComponent {
   constructor(props) {
