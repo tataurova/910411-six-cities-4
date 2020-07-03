@@ -9,6 +9,8 @@ import {placeCardType} from "../../../types.js";
 import cities from "../../mocks/cities.js";
 import citiesOffers from "../../mocks/offers.js";
 
+const allOffers = Object.values(citiesOffers).flat(1);
+
 class App extends PureComponent {
   constructor(props) {
     super(props);
@@ -38,7 +40,6 @@ class App extends PureComponent {
   }
 
   render() {
-    const allOffers = Object.values(citiesOffers).flat(1);
     return (
       <BrowserRouter>
         <Switch>
