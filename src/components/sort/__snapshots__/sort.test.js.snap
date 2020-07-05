@@ -16,7 +16,7 @@ exports[`<Sort /> Should Sort render correctly 1`] = `
     onClick={[Function]}
     tabIndex="0"
   >
-    default
+    Popular
     <svg
       className="places__sorting-arrow"
       height="4"

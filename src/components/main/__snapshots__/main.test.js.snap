@@ -243,7 +243,7 @@ Array [
                 onClick={[Function]}
                 tabIndex="0"
               >
-                default
+                Popular
                 <svg
                   className="places__sorting-arrow"
                   height="4"
@@ -511,7 +511,6 @@ Array [
             </section>
           </div>
         </div>
-        2
       </div>
     </main>
   </div>,

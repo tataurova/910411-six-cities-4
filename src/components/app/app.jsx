@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import Main from '../main/main.jsx';
 import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
@@ -8,13 +8,11 @@ import {ActionCreator} from "../../reducer.js";
 import {placeCardType} from "../../../types.js";
 import cities from "../../mocks/cities.js";
 import citiesOffers from "../../mocks/offers.js";
+import {getArrayOfOffers} from "../../utils.js";
 
-let allOffers = [];
-Object.values(citiesOffers).forEach((item) => {
-  allOffers = allOffers.concat(item);
-});
+const allOffers = getArrayOfOffers(citiesOffers);
 
-class App extends PureComponent {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleCardHeaderClick = this.handleCardHeaderClick.bind(this);
@@ -28,17 +26,10 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {city, offers, sortType, hoveredCardId, onMenuClick, onSortTypeClick, onPlaceCardHover} = this.props;
     return <Main
-      offers = {offers}
       cities = {cities}
-      activeCity = {city}
-      activeSortType = {sortType}
-      hoveredCardId = {hoveredCardId}
       onPlaceCardHeaderClick = {this.handleCardHeaderClick}
-      onMenuClick = {onMenuClick}
-      onSortTypeClick = {onSortTypeClick}
-      onPlaceCardHover = {onPlaceCardHover}
+      {...this.props}
     />;
   }
 
@@ -64,14 +55,14 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
   sortType: state.sortType,
   hoveredCardId: state.hoveredCardId,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   onMenuClick(city) {
     dispatch(ActionCreator.changeCity(city));
   },
@@ -81,7 +72,6 @@ const mapDispatchToProps = (dispatch) => ({
   onPlaceCardHover(id) {
     dispatch(ActionCreator.changeHoveredCard(id));
   }
-
 });
 
 export {App};

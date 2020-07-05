@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {placeCardType} from "../../../types.js";
 import {Link} from "react-router-dom";
-
-const INITIAL_STATE_HOVERED_CARD = 0;
+import {INITIAL_STATE_HOVERED_CARD} from "../../const.js";
 
 class PlaceCard extends React.Component {
   constructor(props) {

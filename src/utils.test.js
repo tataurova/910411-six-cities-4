@@ -1,5 +1,5 @@
 import {SortType} from "./const.js";
-import {extend, sortOffers} from "./utils.js";
+import {extend, sortOffers, getArrayOfOffers} from "./utils.js";
 import offers from "./mocks/offers.js";
 
 describe(`utils tests`, () => {
@@ -48,5 +48,11 @@ describe(`utils tests`, () => {
       hoveredCardId: 0,
     };
     expect(extend(state, changes)).toEqual(result);
+  });
+
+  it(`The getArrayOfOffers function accepts an array of arrays and returns an array`, () => {
+    const testArray = [[1, 2, 3], [4, 5, 6]];
+    const testResult = [1, 2, 3, 4, 5, 6];
+    expect(getArrayOfOffers(testArray)).toEqual(testResult);
   });
 });

@@ -3,16 +3,14 @@ import PropTypes from "prop-types";
 import PlaceCard from "../place-card/place-card.jsx";
 import {placeCardType} from "../../../types.js";
 
-const PlaceList = ({offers, cardType, onPlaceCardHeaderClick, onPlaceCardHover}) => {
+const PlaceList = (props) => {
   return (
     <>
-      {offers.map((offer) => (
+      {props.offers.map((offer) => (
         <PlaceCard
           key={offer.id}
           offer={offer}
-          cardType={cardType}
-          onPlaceCardHover={onPlaceCardHover}
-          onPlaceCardHeaderClick={onPlaceCardHeaderClick} />
+          {...props} />
       ))}
     </>
   );

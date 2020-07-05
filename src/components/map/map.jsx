@@ -4,21 +4,7 @@ import PropTypes from "prop-types";
 import {placeFullCardType} from "../../../types.js";
 import {cityCoordinates} from "../../mocks/cities.js";
 import {MapSettings} from "../../const.js";
-
-const addMarkersToMap = (offers, hoveredCardId, icon, activeIcon, map) => {
-  const markers = [];
-  offers.forEach((offer) => {
-    if (offer.id === hoveredCardId) {
-      const marker = leaflet.marker(offer.coordinates, {icon: activeIcon});
-      markers.push(marker);
-    } else {
-      const marker = leaflet.marker(offer.coordinates, {icon});
-      markers.push(marker);
-    }
-  });
-  const markersGroup = leaflet.layerGroup(markers).addTo(map);
-  return markersGroup;
-};
+import {addMarkersToMap} from "../../utils.js";
 
 class Map extends React.Component {
   constructor(props) {
@@ -51,13 +37,15 @@ class Map extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.activeCity !== prevProps.activeCity) {
+    const shouldUpdateMarkers = this.props.activeCity !== prevProps.activeCity;
+    const shouldHighlightMarker = this.props.hoveredCardId !== prevProps.hoveredCardId;
+    if (shouldUpdateMarkers) {
       const activeCityCoordinates = cityCoordinates[this.props.activeCity];
       this.markersGroup.clearLayers();
       this.map.setView(activeCityCoordinates, MapSettings.ZOOM);
       this.markersGroup = addMarkersToMap(this.props.offers, this.props.hoveredCardId, this.leafletIcon, this.leafletActiveIcon, this.map);
     }
-    if (this.props.hoveredCardId !== prevProps.hoveredCardId) {
+    if (shouldHighlightMarker) {
       this.markersGroup.clearLayers();
       this.markersGroup = addMarkersToMap(this.props.offers, this.props.hoveredCardId, this.leafletIcon, this.leafletActiveIcon, this.map);
     }

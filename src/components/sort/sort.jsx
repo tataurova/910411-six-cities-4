@@ -1,6 +1,7 @@
 import React from "react";
 import {SORT_TYPES, SortType} from "../../const.js";
 import PropTypes from "prop-types";
+import {getSortTypeName} from "../../utils.js";
 
 class Sort extends React.PureComponent {
   constructor(props) {
@@ -21,7 +22,7 @@ class Sort extends React.PureComponent {
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         <span className="places__sorting-type" tabIndex="0" onClick={this.handleSortMenuClick}>
-          {activeSortType}
+          {getSortTypeName(activeSortType)}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
@@ -35,6 +36,7 @@ class Sort extends React.PureComponent {
               data-sort={Object.values(SortType)[index]}
               onClick={(evt) => {
                 this.props.onSortTypeClick(evt.target.dataset.sort);
+                this.handleSortMenuClick();
               }}>
               {sortType}
             </li>

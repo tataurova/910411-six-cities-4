@@ -14,15 +14,15 @@ describe(`<Main />`, () => {
       .create(
           <BrowserRouter>
             <Main
-              offers={cityOffers}
-              cities={cities}
-              activeCity = {activeCity}
-              activeSortType = {SortType.DEFAULT}
+              offers = {cityOffers}
+              cities = {cities}
+              city = {activeCity}
+              sortType = {SortType.DEFAULT}
               hoveredCardId = {1}
               onPlaceCardHover = {() => {}}
-              onPlaceCardHeaderClick={() => {}}
-              onMenuClick={() => {}}
-              onSortTypeClick={() => {}}
+              onPlaceCardHeaderClick = {() => {}}
+              onMenuClick = {() => {}}
+              onSortTypeClick = {() => {}}
             />
           </BrowserRouter>)
       .toJSON();
