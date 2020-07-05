@@ -1,4 +1,5 @@
-import {extend, sortOffers} from "./utils.js";
+import {sortOffers} from "./utils/sort.js";
+import {extend} from "./utils/common.js";
 import offers from "./mocks/offers.js";
 import {SortType} from "./const.js";
 

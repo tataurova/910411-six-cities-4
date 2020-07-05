@@ -3,7 +3,7 @@ import {shallow} from "enzyme";
 import Map from "./map.jsx";
 import offers from "../../mocks/offers.js";
 
-describe(`<Map />`, () => {
+describe(`When changing props, the method is called componentDidUpdate`, () => {
   it(`Map`, () => {
     const activeCity = `Amsterdam`;
     const cityOffers = offers[activeCity];
@@ -16,7 +16,7 @@ describe(`<Map />`, () => {
         />
     );
     const instance = main.instance();
-    jest.spyOn(instance, `componentDidUpdate`);
+    Map.prototype.componentDidUpdate = jest.fn();
     main.setProps({activeCity: `Paris`});
     expect(instance.componentDidUpdate).toHaveBeenCalledTimes(1);
   });

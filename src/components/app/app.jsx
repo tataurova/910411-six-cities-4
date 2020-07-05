@@ -8,9 +8,7 @@ import {ActionCreator} from "../../reducer.js";
 import {placeCardType} from "../../../types.js";
 import cities from "../../mocks/cities.js";
 import citiesOffers from "../../mocks/offers.js";
-import {getArrayOfOffers} from "../../utils.js";
-
-const allOffers = getArrayOfOffers(citiesOffers);
+import {getOfferInfo} from "../../utils/helpers.js";
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -42,7 +40,7 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path="/offer/:id" render={(props) =>
             <PlaceFullCard
-              offers = {allOffers}
+              offerInfo = {getOfferInfo(citiesOffers, props.match.params.id)}
               onPlaceCardHeaderClick = {this.handleCardHeaderClick}
               onPlaceCardHover = {this.props.onPlaceCardHover}
               {...props.match.params}

@@ -5,13 +5,11 @@ import Map from "../map/map.jsx";
 import {placeFullCardType} from "../../../types";
 import PlaceList from "../place-list/place-list.jsx";
 import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT} from "../../const.js";
-import {findOfferById, getNearOffers} from "../../utils.js";
 
-const PlaceFullCard = ({offers, id, onPlaceCardHeaderClick, onPlaceCardHover}) => {
+const PlaceFullCard = ({offerInfo, id, onPlaceCardHeaderClick, onPlaceCardHover}) => {
   const idNumber = Number(id);
-  const offer = findOfferById(offers, idNumber);
+  const {offer, nearOffers} = offerInfo;
   const activeCity = offer.city;
-  const nearOffers = getNearOffers(offers, id, activeCity);
 
   const {title, type, price, rating, premium, bedrooms, adults, additional, details, owner, photos, reviews} = offer;
   const {photo, name, isSuper} = owner;
@@ -224,7 +222,10 @@ const PlaceFullCard = ({offers, id, onPlaceCardHeaderClick, onPlaceCardHover}) =
 export default PlaceFullCard;
 
 PlaceFullCard.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType)).isRequired,
+  offerInfo: PropTypes.shape({
+    offer: PropTypes.shape(placeFullCardType).isRequired,
+    nearOffers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType).isRequired).isRequired,
+  }).isRequired,
   id: PropTypes.string.isRequired,
   onPlaceCardHeaderClick: PropTypes.func.isRequired,
   onPlaceCardHover: PropTypes.func.isRequired,

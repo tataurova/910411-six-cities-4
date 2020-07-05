@@ -1,7 +1,7 @@
 import React from "react";
 import {SORT_TYPES, SortType} from "../../const.js";
 import PropTypes from "prop-types";
-import {getSortTypeName} from "../../utils.js";
+import {getSortTypeName} from "../../utils/sort.js";
 
 class Sort extends React.PureComponent {
   constructor(props) {

@@ -87,5 +87,19 @@ describe(`<App />`, () => {
     header.simulate(`click`);
     expect(tree.find(`App`).state().page).toEqual(1);
   });
+
+  it(`After clicking on the header, the link properties are passed the path to the offer page`, () => {
+    const tree = mount(
+        <Provider store={store}>
+          <App />
+        </Provider>
+    );
+
+    const headers = tree.find(`.place-card__name`);
+    const header = headers.at(0);
+    header.simulate(`click`);
+    const link = tree.find(`Link`).at(0);
+    expect(link.props().to).toBe(`/offer/1`);
+  });
 });
 

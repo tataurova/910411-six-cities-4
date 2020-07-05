@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {placeFullCardType} from "../../../types.js";
 import {cityCoordinates} from "../../mocks/cities.js";
 import {MapSettings} from "../../const.js";
-import {addMarkersToMap} from "../../utils.js";
+import {addMarkersToMap} from "../../utils/map.js";
 
 class Map extends React.Component {
   constructor(props) {
