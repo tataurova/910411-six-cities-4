@@ -49,6 +49,6 @@ describe(`<App />`, () => {
     );
 
     expect(tree.props().store.getState().city).toBe(`Amsterdam`); // ok
-    // expect(tree.state().page).toEqual(0);
+    expect(tree.find(`App`).state().page).toEqual(0);
   });
 });

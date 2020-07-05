@@ -15,8 +15,10 @@ describe(`<Map />`, () => {
           hoveredCardId={hoveredCardId}
         />
     );
+    const instance = main.instance();
+    jest.spyOn(instance, `componentDidUpdate`);
     main.setProps({activeCity: `Paris`});
-    expect(main.componentDidUpdate).toHaveBeenCalledTimes(1);
+    expect(instance.componentDidUpdate).toHaveBeenCalledTimes(1);
   });
 });
 
