@@ -7,7 +7,7 @@ import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {mount} from "enzyme";
 
-describe(`Tests for mapStateToProps and mapDispatchToProps functions`, () => {
+describe(`Tests for redux functions in App component`, () => {
   it(`MapStateToProps returns initial state`, () => {
     const initialState = {
       city: `Paris`,
