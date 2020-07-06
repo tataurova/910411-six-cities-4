@@ -10,6 +10,7 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
   }
+
   componentDidMount() {
     const {offers, activeCity, hoveredCardId} = this.props;
     this.leafletIcon = leaflet.icon({
@@ -26,8 +27,8 @@ class Map extends React.Component {
       zoom: MapSettings.ZOOM,
       zoomControl: false,
       marker: true,
-    })
-      .setView(activeCityCoordinates, MapSettings.ZOOM);
+    });
+    this.map.setView(activeCityCoordinates, MapSettings.ZOOM);
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
@@ -39,11 +40,13 @@ class Map extends React.Component {
   componentDidUpdate(prevProps) {
     const shouldUpdateMarkers = this.props.activeCity !== prevProps.activeCity;
     const shouldHighlightMarker = this.props.hoveredCardId !== prevProps.hoveredCardId;
+    const activeCityCoordinates = cityCoordinates[this.props.activeCity];
+
     if (shouldUpdateMarkers) {
-      const activeCityCoordinates = cityCoordinates[this.props.activeCity];
       this.markersGroup.clearLayers();
       this.map.setView(activeCityCoordinates, MapSettings.ZOOM);
       this.markersGroup = addMarkersToMap(this.props.offers, this.props.hoveredCardId, this.leafletIcon, this.leafletActiveIcon, this.map);
+
     }
     if (shouldHighlightMarker) {
       this.markersGroup.clearLayers();

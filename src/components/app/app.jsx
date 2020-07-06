@@ -8,7 +8,7 @@ import {ActionCreator} from "../../reducer.js";
 import {placeCardType} from "../../../types.js";
 import cities from "../../mocks/cities.js";
 import citiesOffers from "../../mocks/offers.js";
-import {getOfferInfo} from "../../utils/helpers.js";
+import {getOfferInfo} from "../../utils/offers.js";
 
 class App extends React.PureComponent {
   constructor(props) {

@@ -2,13 +2,12 @@ import {mapStateToProps, mapDispatchToProps} from "./app.jsx";
 import offers from "../../mocks/offers.js";
 import {SortType} from "../../const.js";
 import React from "react";
-import renderer from "react-test-renderer";
 import App from "./app.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {mount} from "enzyme";
 
-describe(`<App />`, () => {
+describe(`Tests for mapStateToProps and mapDispatchToProps functions`, () => {
   it(`MapStateToProps returns initial state`, () => {
     const initialState = {
       city: `Paris`,
@@ -42,7 +41,7 @@ describe(`<App />`, () => {
   });
 });
 
-describe(`<App />`, () => {
+describe(`Tests for App component`, () => {
   const mockStore = configureStore([]);
   const initialState = {
     city: `Cologne`,
@@ -54,32 +53,20 @@ describe(`<App />`, () => {
     onSortTypeClick: () => {},
   };
   const store = mockStore(initialState);
-  it(`Render App`, () => {
-    const tree = renderer
-      .create(
-          <Provider store={store}>
-            <App />
-          </Provider>)
-      .toJSON();
 
-    expect(tree).toMatchSnapshot();
-  });
+  const tree = mount(
+      <Provider store={store}>
+        <App />
+      </Provider>
+  );
+
   it(`Initial state from store should be right`, () => {
-    const tree = mount(
-        <Provider store={store}>
-          <App />
-        </Provider>
-    );
 
     expect(tree.props().store.getState()).toBe(initialState);
+
   });
 
   it(`After clicking on the header, the state of the component should change to offer id`, () => {
-    const tree = mount(
-        <Provider store={store}>
-          <App />
-        </Provider>
-    );
 
     const headers = tree.find(`.place-card__name`);
     const header = headers.at(0);
@@ -89,17 +76,13 @@ describe(`<App />`, () => {
   });
 
   it(`After clicking on the header, the link properties are passed the path to the offer page`, () => {
-    const tree = mount(
-        <Provider store={store}>
-          <App />
-        </Provider>
-    );
 
     const headers = tree.find(`.place-card__name`);
     const header = headers.at(0);
     header.simulate(`click`);
     const link = tree.find(`Link`).at(0);
     expect(link.props().to).toBe(`/offer/1`);
+
   });
 });
 

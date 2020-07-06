@@ -1,9 +1,10 @@
 import {SortType} from "./const.js";
 import {extend} from "./utils/common.js";
 import {sortOffers} from "./utils/sort.js";
+import {getOfferInfo} from "./utils/offers.js";
 import offers from "./mocks/offers.js";
 
-describe(`utils tests`, () => {
+describe(`Utils tests`, () => {
   it(`The sort function should return sorted offers`, () => {
     const firstOffer = {
       id: 1,
@@ -49,5 +50,35 @@ describe(`utils tests`, () => {
       hoveredCardId: 0,
     };
     expect(extend(state, changes)).toEqual(result);
+  });
+
+  it(`getOfferInfo function should return an offer and offers nearby`, () => {
+    const firstOffer = {
+      id: 1,
+      city: `firstCity`,
+    };
+    const secondOffer = {
+      id: 2,
+      city: `firstCity`,
+    };
+    const thirdOffer = {
+      id: 3,
+      city: `secondCity`,
+    };
+    const fourthOffer = {
+      id: 4,
+      city: `secondCity`,
+    };
+    const mockOffers = {
+      firstCity: [firstOffer, secondOffer],
+      secondCity: [thirdOffer, fourthOffer],
+    };
+    const offerId = `4`;
+    const result = {
+      offer: fourthOffer,
+      nearOffers: [thirdOffer],
+    };
+    expect(getOfferInfo(mockOffers, offerId)).toEqual(result);
+    expect(getOfferInfo(mockOffers, `5`)).toEqual({});
   });
 });

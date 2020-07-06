@@ -6,7 +6,7 @@ export const getOfferInfo = (offers, offerId) => {
       if (offer) {
         return {
           offer,
-          nearOffers: offers[key],
+          nearOffers: offers[key].filter((item) => item.id !== offer.id),
         };
       }
     }

@@ -17,7 +17,7 @@ class Sort extends React.PureComponent {
   }
 
   render() {
-    const activeSortType = this.props.activeSortType;
+    const {activeSortType} = this.props;
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
