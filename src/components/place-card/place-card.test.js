@@ -29,7 +29,7 @@ describe(`<PlaceCard />`, () => {
     const tree = createComponent({
       offer: offerWithPremium,
       cardType: CardType.CITY,
-      onHover: () => {},
+      onPlaceCardHover: () => {},
       onPlaceCardHeaderClick: () => {},
     }).toJSON();
 
@@ -40,7 +40,7 @@ describe(`<PlaceCard />`, () => {
     const tree = createComponent({
       offer: offerWithoutPremium,
       cardType: CardType.CITY,
-      onHover: () => {},
+      onPlaceCardHover: () => {},
       onPlaceCardHeaderClick: () => {},
     }).toJSON();
 

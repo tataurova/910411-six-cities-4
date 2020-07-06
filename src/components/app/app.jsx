@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import Main from '../main/main.jsx';
 import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
@@ -6,10 +6,11 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import {placeCardType} from "../../../types.js";
-import {MapSettings} from "../../const.js";
 import cities from "../../mocks/cities.js";
+import citiesOffers from "../../mocks/offers.js";
+import {getOfferInfo} from "../../utils/offers.js";
 
-class App extends PureComponent {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleCardHeaderClick = this.handleCardHeaderClick.bind(this);
@@ -23,14 +24,10 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {city, offers, onMenuClick} = this.props;
     return <Main
-      offers = {offers}
-      mapSettings={MapSettings}
       cities = {cities}
-      activeCity = {city}
       onPlaceCardHeaderClick = {this.handleCardHeaderClick}
-      onMenuClick = {onMenuClick}
+      {...this.props}
     />;
   }
 
@@ -43,10 +40,9 @@ class App extends PureComponent {
           </Route>
           <Route exact path="/offer/:id" render={(props) =>
             <PlaceFullCard
-              offers = {this.props.offers}
-              mapSettings = {MapSettings}
+              offerInfo = {getOfferInfo(citiesOffers, props.match.params.id)}
               onPlaceCardHeaderClick = {this.handleCardHeaderClick}
-              activeCity={this.props.city}
+              onPlaceCardHover = {this.props.onPlaceCardHover}
               {...props.match.params}
             />
           }
@@ -57,15 +53,22 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
+  sortType: state.sortType,
+  hoveredCardId: state.hoveredCardId,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   onMenuClick(city) {
     dispatch(ActionCreator.changeCity(city));
-    // dispatch(ActionCreator.getOffers(city));
+  },
+  onSortTypeClick(sortType) {
+    dispatch(ActionCreator.changeSortType(sortType));
+  },
+  onPlaceCardHover(id) {
+    dispatch(ActionCreator.changeHoveredCard(id));
   }
 });
 
@@ -75,5 +78,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 App.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  sortType: PropTypes.string.isRequired,
+  hoveredCardId: PropTypes.number.isRequired,
+  onPlaceCardHover: PropTypes.func.isRequired,
   onMenuClick: PropTypes.func.isRequired,
+  onSortTypeClick: PropTypes.func.isRequired,
 };

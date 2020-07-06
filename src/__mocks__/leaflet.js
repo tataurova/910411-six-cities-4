@@ -15,6 +15,9 @@ const leaflet = {
       addTo: jest.fn(),
     };
   },
+  setView() {
+    return jest.fn();
+  },
   marker() {
     return {
       addTo: jest.fn(),
@@ -22,9 +25,13 @@ const leaflet = {
   },
   layerGroup() {
     return {
-      addTo: jest.fn(),
+      addTo() {
+        return {
+          clearLayers: jest.fn(),
+        };
+      }
     };
-  }
+  },
 };
 
 module.exports = leaflet;

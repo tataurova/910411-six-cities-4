@@ -1,19 +1,19 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Map from "./map.jsx";
-import {MapSettings} from "../../const";
 import offers from "../../mocks/offers.js";
 
 describe(`<Map />`, () => {
   it(`Should Map render correctly`, () => {
     const activeCity = `Amsterdam`;
     const cityOffers = offers[activeCity];
+    const hoveredCardId = 1;
     const tree = renderer
       .create(
           <Map
             offers={cityOffers}
-            mapSettings={MapSettings}
             activeCity = {activeCity}
+            hoveredCardId={hoveredCardId}
           />
       )
       .toJSON();
