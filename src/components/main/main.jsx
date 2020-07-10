@@ -8,7 +8,7 @@ import CitiesList from "../cities-list/cities-list.jsx";
 import NoPlaces from "../no-places/no-places.jsx";
 import Sort from "../sort/sort.jsx";
 
-const Main = ({offers, cities, city, sortType, hoveredCardId, onPlaceCardHeaderClick, onMenuClick, onSortTypeClick, onPlaceCardHover}) => {
+const Main = ({offers, cities, city, sortType, hoveredCardId, onMenuClick, onSortTypeClick, onPlaceCardHover}) => {
   return (
     <>
       <div style={{display: `none`}}>
@@ -67,7 +67,6 @@ const Main = ({offers, cities, city, sortType, hoveredCardId, onPlaceCardHeaderC
                   <PlaceList
                     offers = {offers}
                     cardType = {CardType.CITY}
-                    onPlaceCardHeaderClick = {onPlaceCardHeaderClick}
                     onPlaceCardHover = {onPlaceCardHover}
                   />
                 </div>
@@ -99,7 +98,6 @@ Main.propTypes = {
   sortType: PropTypes.string.isRequired,
   hoveredCardId: PropTypes.number.isRequired,
   onPlaceCardHover: PropTypes.func.isRequired,
-  onPlaceCardHeaderClick: PropTypes.func.isRequired,
   onMenuClick: PropTypes.func.isRequired,
   onSortTypeClick: PropTypes.func.isRequired,
 };

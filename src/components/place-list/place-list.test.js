@@ -15,7 +15,6 @@ describe(`<PlaceList />`, () => {
               offers={cityOffers}
               cardType={CardType.NEAR_PLACE}
               onHover={() => {}}
-              onPlaceCardHeaderClick={() => {}}
               onPlaceCardHover={() => {}}
             />
           </BrowserRouter>)

@@ -13,20 +13,11 @@ import {getOfferInfo} from "../../utils/offers.js";
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.handleCardHeaderClick = this.handleCardHeaderClick.bind(this);
-    this.state = {
-      page: 0,
-    };
-  }
-
-  handleCardHeaderClick(id) {
-    this.setState({page: id});
   }
 
   _renderApp() {
     return <Main
       cities = {cities}
-      onPlaceCardHeaderClick = {this.handleCardHeaderClick}
       {...this.props}
     />;
   }
@@ -41,7 +32,6 @@ class App extends React.PureComponent {
           <Route exact path="/offer/:id" render={(props) =>
             <PlaceFullCard
               offerInfo = {getOfferInfo(citiesOffers, props.match.params.id)}
-              onPlaceCardHeaderClick = {this.handleCardHeaderClick}
               onPlaceCardHover = {this.props.onPlaceCardHover}
               {...props.match.params}
             />

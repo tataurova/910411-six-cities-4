@@ -20,7 +20,6 @@ describe(`<Main />`, () => {
               sortType = {SortType.DEFAULT}
               hoveredCardId = {1}
               onPlaceCardHover = {() => {}}
-              onPlaceCardHeaderClick = {() => {}}
               onMenuClick = {() => {}}
               onSortTypeClick = {() => {}}
             />

@@ -66,15 +66,6 @@ describe(`Tests for App component`, () => {
 
   });
 
-  it(`After clicking on the header, the state of the component should change to offer id`, () => {
-
-    const headers = tree.find(`.place-card__name`);
-    const header = headers.at(0);
-    expect(tree.find(`App`).state().page).toEqual(0);
-    header.simulate(`click`);
-    expect(tree.find(`App`).state().page).toEqual(1);
-  });
-
   it(`After clicking on the header, the link properties are passed the path to the offer page`, () => {
 
     const headers = tree.find(`.place-card__name`);

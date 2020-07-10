@@ -19,7 +19,6 @@ const PlaceList = (props) => {
 PlaceList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
   cardType: PropTypes.string.isRequired,
-  onPlaceCardHeaderClick: PropTypes.func.isRequired,
   onPlaceCardHover: PropTypes.func.isRequired,
 };
 

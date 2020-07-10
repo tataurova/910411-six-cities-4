@@ -14,7 +14,6 @@ const offer = {
 };
 
 describe(`<PlaceCard />`, () => {
-  const onPlaceCardHeaderClick = jest.fn();
   const onPlaceCardHover = jest.fn((id) => {
     return id;
   });
@@ -23,7 +22,6 @@ describe(`<PlaceCard />`, () => {
       <PlaceCard
         offer={offer}
         cardType={CardType.CITY}
-        onPlaceCardHeaderClick={onPlaceCardHeaderClick}
         onPlaceCardHover={onPlaceCardHover}
       />
   );
@@ -42,12 +40,5 @@ describe(`<PlaceCard />`, () => {
     card.simulate(`mouseout`);
     expect(onPlaceCardHover).toHaveBeenCalledWith(0);
 
-  });
-
-  it(`When you click on the card header the handler is called with id of realty object`, () => {
-
-    const header = main.find(`.place-card__name`);
-    header.simulate(`click`);
-    expect(onPlaceCardHeaderClick).toHaveBeenCalledWith(1);
   });
 });

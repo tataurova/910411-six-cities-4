@@ -687,7 +687,6 @@ Array [
                 </div>
                 <h2
                   className="place-card__name"
-                  onClick={[Function]}
                 >
                   <a
                     href="/offer/2"

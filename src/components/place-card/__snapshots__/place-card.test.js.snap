@@ -84,7 +84,6 @@ exports[`<PlaceCard /> Should PlaceCard render correctly with a field Premium eq
     </div>
     <h2
       className="place-card__name"
-      onClick={[Function]}
     >
       <a
         href="/offer/1"
@@ -186,7 +185,6 @@ exports[`<PlaceCard /> Should PlaceCard render correctly with a field Premium eq
     </div>
     <h2
       className="place-card__name"
-      onClick={[Function]}
     >
       <a
         href="/offer/1"

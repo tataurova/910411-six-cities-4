@@ -4,11 +4,10 @@ import {placeCardType} from "../../../types.js";
 import {Link} from "react-router-dom";
 import {INITIAL_STATE_HOVERED_CARD} from "../../const.js";
 
-class PlaceCard extends React.Component {
+class PlaceCard extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handlePlaceCardHover = this.handlePlaceCardHover.bind(this);
-    this.handleHeaderClick = this.handleHeaderClick.bind(this);
     this.handlePlaceCardOut = this.handlePlaceCardOut.bind(this);
   }
 
@@ -18,10 +17,6 @@ class PlaceCard extends React.Component {
 
   handlePlaceCardOut() {
     this.props.onPlaceCardHover(INITIAL_STATE_HOVERED_CARD);
-  }
-
-  handleHeaderClick() {
-    this.props.onPlaceCardHeaderClick(this.props.offer.id);
   }
 
   render() {
@@ -58,7 +53,7 @@ class PlaceCard extends React.Component {
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <h2 className="place-card__name" onClick={this.handleHeaderClick}>
+          <h2 className="place-card__name">
             <Link to={`/offer/${offer.id}`}>{title}</Link>
           </h2>
           <p className="place-card__type">{type}</p>
@@ -71,7 +66,6 @@ class PlaceCard extends React.Component {
 PlaceCard.propTypes = {
   offer: PropTypes.shape(placeCardType).isRequired,
   cardType: PropTypes.string.isRequired,
-  onPlaceCardHeaderClick: PropTypes.func.isRequired,
   onPlaceCardHover: PropTypes.func.isRequired,
 };
 
