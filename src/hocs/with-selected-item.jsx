@@ -16,10 +16,10 @@ const withSelectedItem = (Component, defaultValue) => {
       });
     }
 
-    render () {
-      return <Component state = {this.state.item} onChangeItem = {this.handleChange} {...this.props}/>
+    render() {
+      return <Component state = {this.state.item} onChangeItem = {this.handleChange} {...this.props}/>;
     }
-  }
+  };
 };
 
 export default withSelectedItem;

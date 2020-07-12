@@ -227,5 +227,4 @@ PlaceFullCard.propTypes = {
     nearOffers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType).isRequired).isRequired,
   }).isRequired,
   id: PropTypes.string.isRequired,
-  // onPlaceCardHover: PropTypes.func.isRequired,
 };

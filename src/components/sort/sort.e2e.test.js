@@ -2,8 +2,13 @@ import React from "react";
 import {shallow} from "enzyme";
 import Sort from "./sort.jsx";
 import {SortType} from "../../const.js";
+import {DEFAULT_SORT_STATE} from "../../const";
 
 describe(`<Sort />`, () => {
+  const onChangeItem = jest.fn(() => {
+    return true;
+  });
+
   it(`When you select a sorting item by price the handler is called with the argument price-up`, () => {
     const onSortTypeClick = jest.fn((value) => {
       return value;
@@ -12,6 +17,8 @@ describe(`<Sort />`, () => {
         <Sort
           activeSortType = {SortType.DEFAULT}
           onSortTypeClick = {onSortTypeClick}
+          state = {DEFAULT_SORT_STATE}
+          onChangeItem = {onChangeItem}
         />
     );
     const options = main.find(`.places__option`);
@@ -25,10 +32,12 @@ describe(`<Sort />`, () => {
         <Sort
           activeSortType = {SortType.DEFAULT}
           onSortTypeClick = {() => {}}
+          state = {DEFAULT_SORT_STATE}
+          onChangeItem = {onChangeItem}
         />
     );
     const sortTypeButton = main.find(`.places__sorting-type`);
     sortTypeButton.simulate(`click`);
-    expect(main.state().opened).toEqual(true);
+    expect(onChangeItem).toHaveBeenCalledWith(true);
   });
 });

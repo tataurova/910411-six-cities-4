@@ -1,0 +1,19 @@
+import React from "react";
+import renderer from "react-test-renderer";
+import withSelectedItem from "./with-selected-item.jsx";
+
+const MockComponent = () => {
+  return (
+    <div></div>
+  );
+};
+
+const MockComponentWrapped = withSelectedItem(MockComponent, `default`);
+
+it(`withSelectedItem is rendered correctly`, () => {
+  const tree = renderer.create((
+    <MockComponentWrapped />
+  )).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});

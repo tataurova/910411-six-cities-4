@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SortedPlaceList /> Should PlaceList render correctly 1`] = `
+exports[`<PlaceListContainer /> Should PlaceListContainer render correctly 1`] = `
 <div
   className="cities__places-container container"
 >

@@ -31,3 +31,5 @@ export const NEAR_PLACES_MAX_COUNT = 3;
 export const MAP_NEAR_PLACES_MAX_COUNT = 2;
 
 export const DEFAULT_HOVERED_CARD = 0;
+
+export const DEFAULT_SORT_STATE = false;
