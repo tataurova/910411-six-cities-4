@@ -5,8 +5,9 @@ import CitiesList from "../cities-list/cities-list.jsx";
 import NoPlaces from "../no-places/no-places.jsx";
 import PlaceListContainer from "../place-list-container/place-list-container.jsx";
 import withSelectedItem from "../../hocs/withSelectedItem.jsx";
+import {DEFAULT_HOVERED_CARD} from "../../const.js";
 
-const PlaceListContainerWithSelectedItem = withSelectedItem(PlaceListContainer, 0);
+const PlaceListContainerWithSelectedItem = withSelectedItem(PlaceListContainer, DEFAULT_HOVERED_CARD);
 
 const Main = ({offers, cities, city, onMenuClick}) => {
   return (
