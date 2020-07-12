@@ -4,6 +4,9 @@ import {placeCardType} from "../../../types.js";
 import CitiesList from "../cities-list/cities-list.jsx";
 import NoPlaces from "../no-places/no-places.jsx";
 import PlaceListContainer from "../place-list-container/place-list-container.jsx";
+import withSelectedItem from "../../hocs/withSelectedItem.jsx";
+
+const PlaceListContainerWithSelectedItem = withSelectedItem(PlaceListContainer, 0);
 
 const Main = ({offers, cities, city, onMenuClick}) => {
   return (
@@ -16,7 +19,7 @@ const Main = ({offers, cities, city, onMenuClick}) => {
           </section>
         </div>
         <div className="cities">
-          {offers.length > 0 ? (<PlaceListContainer offers = {offers} city = {city} />) : ``}
+          {offers.length > 0 ? (<PlaceListContainerWithSelectedItem offers = {offers} city = {city} />) : ``}
           {offers.length > 0 || <NoPlaces activeCity = {city} />}
         </div>
       </main>
