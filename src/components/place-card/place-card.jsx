@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {placeCardType} from "../../../types.js";
 import {Link} from "react-router-dom";
-import {INITIAL_STATE_HOVERED_CARD} from "../../const.js";
+import {INITIAL_STATE_HOVERED_CARD, CardType} from "../../const.js";
 
 class PlaceCard extends React.PureComponent {
   constructor(props) {
@@ -22,9 +22,11 @@ class PlaceCard extends React.PureComponent {
   render() {
     const {offer, cardType} = this.props;
     const {id, title, type, price, rating, premium, photo} = offer;
+    const isCardTypeCity = cardType === CardType.CITY;
     return (
-      <article key={id} className={`${cardType}__place-card place-card`} onMouseOver={this.handlePlaceCardHover} onMouseOut={this.handlePlaceCardOut}>
-        {cardType.CITY && (premium &&
+      <>
+      <article key={id} className={`${cardType}__place-card place-card`} onMouseEnter={() => isCardTypeCity && this.handlePlaceCardHover()} onMouseLeave={() => isCardTypeCity && this.handlePlaceCardOut()}>
+        {isCardTypeCity && (premium &&
            <div className="place-card__mark">
              <span>Premium</span>
            </div>)}
@@ -59,6 +61,7 @@ class PlaceCard extends React.PureComponent {
           <p className="place-card__type">{type}</p>
         </div>
       </article>
+          </>
     );
   }
 }
@@ -66,7 +69,7 @@ class PlaceCard extends React.PureComponent {
 PlaceCard.propTypes = {
   offer: PropTypes.shape(placeCardType).isRequired,
   cardType: PropTypes.string.isRequired,
-  onPlaceCardHover: PropTypes.func.isRequired,
+  onPlaceCardHover: PropTypes.func,
 };
 
 export default PlaceCard;

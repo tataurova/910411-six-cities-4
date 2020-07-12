@@ -4,7 +4,6 @@ import Main from "./main.jsx";
 import offers from "../../mocks/offers.js";
 import cities from "../../mocks/cities.js";
 import {BrowserRouter} from "react-router-dom";
-import {SortType} from "../../const.js";
 
 describe(`<Main />`, () => {
   it(`Should Main render correctly`, () => {
@@ -17,11 +16,7 @@ describe(`<Main />`, () => {
               offers = {cityOffers}
               cities = {cities}
               city = {activeCity}
-              sortType = {SortType.DEFAULT}
-              hoveredCardId = {1}
-              onPlaceCardHover = {() => {}}
               onMenuClick = {() => {}}
-              onSortTypeClick = {() => {}}
             />
           </BrowserRouter>)
       .toJSON();

@@ -1,22 +1,18 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceList from "./place-list.jsx";
+import PlaceListContainer from "./place-list-container.jsx";
 import offers from "../../mocks/offers.js";
-import {CardType, SortType} from "../../const.js";
 import {BrowserRouter} from "react-router-dom";
 
-describe(`<PlaceList />`, () => {
+describe(`<SortedPlaceList />`, () => {
   it(`Should PlaceList render correctly`, () => {
     const cityOffers = offers[`Amsterdam`];
-    const activeSortType = SortType.DEFAULT;
     const tree = renderer
       .create(
           <BrowserRouter>
-            <PlaceList
+            <PlaceListContainer
               offers={cityOffers}
-              activeSortType={activeSortType}
-              cardType={CardType.NEAR_PLACE}
-              onPlaceCardHover={() => {}}
+              city = {`Amsterdam`}
             />
           </BrowserRouter>)
       .toJSON();

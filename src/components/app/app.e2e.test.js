@@ -1,6 +1,6 @@
 import {mapStateToProps, mapDispatchToProps} from "./app.jsx";
 import offers from "../../mocks/offers.js";
-import {SortType} from "../../const.js";
+// import {SortType} from "../../const.js";
 import React from "react";
 import App from "./app.jsx";
 import configureStore from "redux-mock-store";
@@ -12,26 +12,26 @@ describe(`Tests for redux functions in App component`, () => {
     const initialState = {
       city: `Paris`,
       offers: offers[`Paris`],
-      sortType: SortType.DEFAULT,
-      hoveredCardId: 0,
+      // sortType: SortType.DEFAULT,
+      // hoveredCardId: 0,
     };
 
     expect(mapStateToProps(initialState)).toEqual(initialState);
   });
 
-  it(`MapDispatchToProps should be called for onSortTypeClick with right type and payload`, () => {
-    const dispatch = jest.fn();
+  // it(`MapDispatchToProps should be called for onSortTypeClick with right type and payload`, () => {
+  //   const dispatch = jest.fn();
+  //
+  //   mapDispatchToProps(dispatch).onSortTypeClick(SortType.PRICE_UP);
+  //   expect(dispatch.mock.calls[0][0]).toEqual({type: `CHANGE_SORT_TYPE`, payload: `price-up`});
+  // });
 
-    mapDispatchToProps(dispatch).onSortTypeClick(SortType.PRICE_UP);
-    expect(dispatch.mock.calls[0][0]).toEqual({type: `CHANGE_SORT_TYPE`, payload: `price-up`});
-  });
-
-  it(`MapDispatchToProps should be called for onPlaceCardHover with right type and payload`, () => {
-    const dispatch = jest.fn();
-
-    mapDispatchToProps(dispatch).onPlaceCardHover(1);
-    expect(dispatch.mock.calls[0][0]).toEqual({type: `CHANGE_HOVERED_CARD`, payload: 1});
-  });
+  // it(`MapDispatchToProps should be called for onPlaceCardHover with right type and payload`, () => {
+  //   const dispatch = jest.fn();
+  //
+  //   mapDispatchToProps(dispatch).onPlaceCardHover(1);
+  //   expect(dispatch.mock.calls[0][0]).toEqual({type: `CHANGE_HOVERED_CARD`, payload: 1});
+  // });
 
   it(`MapDispatchToProps should be called for onMenuClick with right type and payload`, () => {
     const dispatch = jest.fn();
@@ -46,11 +46,11 @@ describe(`Tests for App component`, () => {
   const initialState = {
     city: `Cologne`,
     offers: offers[`Cologne`],
-    sortType: SortType.DEFAULT,
-    hoveredCardId: 0,
-    onPlaceCardHover: () => {},
+    // sortType: SortType.DEFAULT,
+    // hoveredCardId: 0,
+    // onPlaceCardHover: () => {},
     onMenuClick: () => {},
-    onSortTypeClick: () => {},
+    // onSortTypeClick: () => {},
   };
   const store = mockStore(initialState);
 

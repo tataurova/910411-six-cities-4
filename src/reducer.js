@@ -1,21 +1,21 @@
-import {sortOffers} from "./utils/sort.js";
+// import {sortOffers} from "./utils/sort.js";
 import {extend} from "./utils/common.js";
 import offers from "./mocks/offers.js";
-import {SortType} from "./const.js";
+// import {SortType} from "./const.js";
 
 const initialCity = Object.keys(offers)[0];
 
 const initialState = {
   city: initialCity,
   offers: offers[initialCity],
-  sortType: SortType.DEFAULT,
-  hoveredCardId: 0,
+  // sortType: SortType.DEFAULT,
+  // hoveredCardId: 0,
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
-  CHANGE_HOVERED_CARD: `CHANGE_HOVERED_CARD`,
+  // CHANGE_SORT_TYPE: `CHANGE_SORT_TYPE`,
+  // CHANGE_HOVERED_CARD: `CHANGE_HOVERED_CARD`,
 };
 
 const ActionCreator = {
@@ -23,14 +23,14 @@ const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  changeSortType: (sortType) => ({
-    type: ActionType.CHANGE_SORT_TYPE,
-    payload: sortType,
-  }),
-  changeHoveredCard: (id) => ({
-    type: ActionType.CHANGE_HOVERED_CARD,
-    payload: id,
-  }),
+  // changeSortType: (sortType) => ({
+  //   type: ActionType.CHANGE_SORT_TYPE,
+  //   payload: sortType,
+  // }),
+  // changeHoveredCard: (id) => ({
+  //   type: ActionType.CHANGE_HOVERED_CARD,
+  //   payload: id,
+  // }),
 };
 
 const reducer = (state = initialState, action) => {
@@ -40,15 +40,15 @@ const reducer = (state = initialState, action) => {
         city: action.payload,
         offers: offers[action.payload],
       });
-    case ActionType.CHANGE_SORT_TYPE:
-      return extend(state, {
-        sortType: action.payload,
-        offers: sortOffers(action.payload, offers[state.city]),
-      });
-    case ActionType.CHANGE_HOVERED_CARD:
-      return extend(state, {
-        hoveredCardId: action.payload,
-      });
+    // case ActionType.CHANGE_SORT_TYPE:
+    //   return extend(state, {
+    //     sortType: action.payload,
+    //     offers: sortOffers(action.payload, offers[state.city]),
+    //   });
+    // case ActionType.CHANGE_HOVERED_CARD:
+    //   return extend(state, {
+    //     hoveredCardId: action.payload,
+    //   });
   }
   return state;
 };
