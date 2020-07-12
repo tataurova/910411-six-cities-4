@@ -1,5 +1,5 @@
 import React from 'react';
-import Main from '../main/main.jsx';
+import MainPage from '../main-page/main-page.jsx';
 import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from "react-router-dom";
@@ -16,7 +16,7 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    return <Main
+    return <MainPage
       cities = {cities}
       {...this.props}
     />;

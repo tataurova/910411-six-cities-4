@@ -1,6 +1,6 @@
 import React from "react";
 import CitiesList from "./cities-list.jsx";
-import {shallow} from "enzyme";
+import {mount} from "enzyme";
 import cities from "../../mocks/cities.js";
 
 describe(`<CitiesList />`, () => {
@@ -9,7 +9,7 @@ describe(`<CitiesList />`, () => {
     const onMenuClick = jest.fn((value) => {
       return value;
     });
-    const tree = shallow(
+    const tree = mount(
         <CitiesList
           cities = {cities}
           activeCity = {activeCity}

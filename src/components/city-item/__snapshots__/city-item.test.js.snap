@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CityItem /> Render CityItem 1`] = `
+<li
+  className="locations__item"
+>
+  <a
+    className="locations__item-link tabs__item tabs__item--active"
+    href="#"
+  >
+    <span
+      data-city="Paris"
+      onClick={[Function]}
+    >
+      Paris
+    </span>
+  </a>
+</li>
+`;
