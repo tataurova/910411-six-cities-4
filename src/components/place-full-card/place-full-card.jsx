@@ -206,9 +206,8 @@ const PlaceFullCard = ({offerInfo, id}) => {
             <div className="near-places__list places__list">
               <PlaceList
                 offers = {nearOffers.slice(0, NEAR_PLACES_MAX_COUNT)}
-                cardType = {CardType.NEAR_PLACE}
                 activeSortType = {SortType.DEFAULT}
-                // onPlaceCardHover = {onPlaceCardHover}
+                cardType = {CardType.NEAR_PLACE}
               />
             </div>
           </section>

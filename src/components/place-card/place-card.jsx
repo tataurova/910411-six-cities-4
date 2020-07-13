@@ -66,10 +66,14 @@ class PlaceCard extends React.PureComponent {
   }
 }
 
+export default PlaceCard;
+
 PlaceCard.propTypes = {
   offer: PropTypes.shape(placeCardType).isRequired,
   cardType: PropTypes.string.isRequired,
   onPlaceCardHover: PropTypes.func,
 };
 
-export default PlaceCard;
+PlaceCard.defaultProps = {
+  onPlaceCardHover: () => {},
+};

@@ -8,7 +8,7 @@ const MockComponent = () => {
   );
 };
 
-const MockComponentWrapped = withSelectedItem(MockComponent, `default`);
+const MockComponentWrapped = withSelectedItem(MockComponent, 0);
 
 it(`withSelectedItem is rendered correctly`, () => {
   const tree = renderer.create((

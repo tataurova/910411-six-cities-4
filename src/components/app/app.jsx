@@ -46,20 +46,12 @@ class App extends React.PureComponent {
 export const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
-  // sortType: state.sortType,
-  // hoveredCardId: state.hoveredCardId,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
   onMenuClick(city) {
     dispatch(ActionCreator.changeCity(city));
   },
-  // onSortTypeClick(sortType) {
-  //   dispatch(ActionCreator.changeSortType(sortType));
-  // },
-  // onPlaceCardHover(id) {
-  //   dispatch(ActionCreator.changeHoveredCard(id));
-  // }
 });
 
 export {App};
@@ -68,9 +60,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 App.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  // sortType: PropTypes.string.isRequired,
-  // hoveredCardId: PropTypes.number.isRequired,
-  // onPlaceCardHover: PropTypes.func.isRequired,
   onMenuClick: PropTypes.func.isRequired,
-  // onSortTypeClick: PropTypes.func.isRequired,
 };

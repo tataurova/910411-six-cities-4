@@ -9,20 +9,20 @@ import withSelectedItem from "../../hocs/with-selected-item.jsx";
 const SortedPlaceListWithSelectedItem = withSelectedItem(SortedPlaceList, SortType.DEFAULT);
 
 const PlaceListContainer = (props) => {
-  const {offers, city} = props;
+  const {offers, city, state, onChangeItem} = props;
   return (
     <div className="cities__places-container container">
       <SortedPlaceListWithSelectedItem
         offers = {offers}
         city = {city}
-        onPlaceCardHover = {props.onChangeItem}
+        onPlaceCardHover = {onChangeItem}
       />
       <div className="cities__right-section">
         <section className="cities__map map">
           <Map
             offers = {offers}
             activeCity = {city}
-            hoveredCardId = {props.state}
+            hoveredCardId = {state}
           />
         </section>
       </div>
