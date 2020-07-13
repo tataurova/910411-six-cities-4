@@ -16,7 +16,6 @@ describe(`<PlaceFullCard />`, () => {
             <PlaceFullCard
               offerInfo = {offerInfo}
               id = {`1`}
-              onPlaceCardHeaderClick = {() => {}}
               onPlaceCardHover = {() => {}}
             />
           </BrowserRouter>)

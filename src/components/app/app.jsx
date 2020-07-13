@@ -1,5 +1,5 @@
 import React from 'react';
-import Main from '../main/main.jsx';
+import MainPage from '../main-page/main-page.jsx';
 import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from "react-router-dom";
@@ -13,20 +13,11 @@ import {getOfferInfo} from "../../utils/offers.js";
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.handleCardHeaderClick = this.handleCardHeaderClick.bind(this);
-    this.state = {
-      page: 0,
-    };
-  }
-
-  handleCardHeaderClick(id) {
-    this.setState({page: id});
   }
 
   _renderApp() {
-    return <Main
+    return <MainPage
       cities = {cities}
-      onPlaceCardHeaderClick = {this.handleCardHeaderClick}
       {...this.props}
     />;
   }
@@ -41,8 +32,7 @@ class App extends React.PureComponent {
           <Route exact path="/offer/:id" render={(props) =>
             <PlaceFullCard
               offerInfo = {getOfferInfo(citiesOffers, props.match.params.id)}
-              onPlaceCardHeaderClick = {this.handleCardHeaderClick}
-              onPlaceCardHover = {this.props.onPlaceCardHover}
+              // onPlaceCardHover = {this.props.onPlaceCardHover}
               {...props.match.params}
             />
           }
@@ -56,20 +46,12 @@ class App extends React.PureComponent {
 export const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
-  sortType: state.sortType,
-  hoveredCardId: state.hoveredCardId,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
   onMenuClick(city) {
     dispatch(ActionCreator.changeCity(city));
   },
-  onSortTypeClick(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
-  },
-  onPlaceCardHover(id) {
-    dispatch(ActionCreator.changeHoveredCard(id));
-  }
 });
 
 export {App};
@@ -78,9 +60,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 App.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  sortType: PropTypes.string.isRequired,
-  hoveredCardId: PropTypes.number.isRequired,
-  onPlaceCardHover: PropTypes.func.isRequired,
   onMenuClick: PropTypes.func.isRequired,
-  onSortTypeClick: PropTypes.func.isRequired,
 };

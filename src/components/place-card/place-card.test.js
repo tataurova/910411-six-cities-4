@@ -30,7 +30,6 @@ describe(`<PlaceCard />`, () => {
       offer: offerWithPremium,
       cardType: CardType.CITY,
       onPlaceCardHover: () => {},
-      onPlaceCardHeaderClick: () => {},
     }).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -41,7 +40,6 @@ describe(`<PlaceCard />`, () => {
       offer: offerWithoutPremium,
       cardType: CardType.CITY,
       onPlaceCardHover: () => {},
-      onPlaceCardHeaderClick: () => {},
     }).toJSON();
 
     expect(tree).toMatchSnapshot();

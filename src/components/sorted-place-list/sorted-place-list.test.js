@@ -1,21 +1,21 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceList from "./place-list.jsx";
+import SortedPlaceList from "./sorted-place-list.jsx";
 import offers from "../../mocks/offers.js";
-import {CardType, SortType} from "../../const.js";
 import {BrowserRouter} from "react-router-dom";
+import {SortType} from "../../const.js";
 
-describe(`<PlaceList />`, () => {
+describe(`<SortedPlaceList />`, () => {
   it(`Should PlaceList render correctly`, () => {
     const cityOffers = offers[`Amsterdam`];
-    const activeSortType = SortType.DEFAULT;
     const tree = renderer
       .create(
           <BrowserRouter>
-            <PlaceList
+            <SortedPlaceList
               offers={cityOffers}
-              activeSortType={activeSortType}
-              cardType={CardType.NEAR_PLACE}
+              city = {`Amsterdam`}
+              state = {SortType.DEFAULT}
+              onChangeItem={() => {}}
               onPlaceCardHover={() => {}}
             />
           </BrowserRouter>)

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CitiesList /> Render App 1`] = `
+exports[`<CitiesList /> Render CitiesList 1`] = `
 <ul
   className="locations__list tabs__list"
 >

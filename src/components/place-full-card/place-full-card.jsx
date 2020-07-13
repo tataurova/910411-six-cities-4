@@ -4,9 +4,9 @@ import ReviewsList from "../reviews-list/reviews-list.jsx";
 import Map from "../map/map.jsx";
 import {placeFullCardType} from "../../../types";
 import PlaceList from "../place-list/place-list.jsx";
-import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT} from "../../const.js";
+import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT, SortType} from "../../const.js";
 
-const PlaceFullCard = ({offerInfo, id, onPlaceCardHeaderClick, onPlaceCardHover}) => {
+const PlaceFullCard = ({offerInfo, id}) => {
   const idNumber = Number(id);
   const {offer, nearOffers} = offerInfo;
   const activeCity = offer.city;
@@ -206,9 +206,8 @@ const PlaceFullCard = ({offerInfo, id, onPlaceCardHeaderClick, onPlaceCardHover}
             <div className="near-places__list places__list">
               <PlaceList
                 offers = {nearOffers.slice(0, NEAR_PLACES_MAX_COUNT)}
+                activeSortType = {SortType.DEFAULT}
                 cardType = {CardType.NEAR_PLACE}
-                onPlaceCardHeaderClick = {onPlaceCardHeaderClick}
-                onPlaceCardHover = {onPlaceCardHover}
               />
             </div>
           </section>
@@ -227,6 +226,4 @@ PlaceFullCard.propTypes = {
     nearOffers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType).isRequired).isRequired,
   }).isRequired,
   id: PropTypes.string.isRequired,
-  onPlaceCardHeaderClick: PropTypes.func.isRequired,
-  onPlaceCardHover: PropTypes.func.isRequired,
 };

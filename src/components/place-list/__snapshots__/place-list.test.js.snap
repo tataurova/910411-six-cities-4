@@ -1,11 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PlaceList /> Should PlaceList render correctly 1`] = `
-Array [
+<div
+  className="cities__places-list places__list tabs__content"
+>
   <article
     className="near-places__place-card place-card"
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="near-places__image-wrapper place-card__image-wrapper"
@@ -85,7 +87,6 @@ Array [
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
       >
         <a
           href="/offer/5"
@@ -100,11 +101,11 @@ Array [
         Apartment
       </p>
     </div>
-  </article>,
+  </article>
   <article
     className="near-places__place-card place-card"
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <div
       className="near-places__image-wrapper place-card__image-wrapper"
@@ -184,7 +185,6 @@ Array [
       </div>
       <h2
         className="place-card__name"
-        onClick={[Function]}
       >
         <a
           href="/offer/6"
@@ -199,6 +199,6 @@ Array [
         Apartment
       </p>
     </div>
-  </article>,
-]
+  </article>
+</div>
 `;

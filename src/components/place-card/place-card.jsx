@@ -2,13 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import {placeCardType} from "../../../types.js";
 import {Link} from "react-router-dom";
-import {INITIAL_STATE_HOVERED_CARD} from "../../const.js";
+import {INITIAL_STATE_HOVERED_CARD, CardType} from "../../const.js";
 
-class PlaceCard extends React.Component {
+class PlaceCard extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handlePlaceCardHover = this.handlePlaceCardHover.bind(this);
-    this.handleHeaderClick = this.handleHeaderClick.bind(this);
     this.handlePlaceCardOut = this.handlePlaceCardOut.bind(this);
   }
 
@@ -20,16 +19,14 @@ class PlaceCard extends React.Component {
     this.props.onPlaceCardHover(INITIAL_STATE_HOVERED_CARD);
   }
 
-  handleHeaderClick() {
-    this.props.onPlaceCardHeaderClick(this.props.offer.id);
-  }
-
   render() {
     const {offer, cardType} = this.props;
     const {id, title, type, price, rating, premium, photo} = offer;
+    const isCardTypeCity = cardType === CardType.CITY;
     return (
-      <article key={id} className={`${cardType}__place-card place-card`} onMouseOver={this.handlePlaceCardHover} onMouseOut={this.handlePlaceCardOut}>
-        {cardType.CITY && (premium &&
+      <>
+      <article key={id} className={`${cardType}__place-card place-card`} onMouseEnter={() => isCardTypeCity && this.handlePlaceCardHover()} onMouseLeave={() => isCardTypeCity && this.handlePlaceCardOut()}>
+        {isCardTypeCity && (premium &&
            <div className="place-card__mark">
              <span>Premium</span>
            </div>)}
@@ -58,21 +55,25 @@ class PlaceCard extends React.Component {
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
-          <h2 className="place-card__name" onClick={this.handleHeaderClick}>
+          <h2 className="place-card__name">
             <Link to={`/offer/${offer.id}`}>{title}</Link>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>
       </article>
+          </>
     );
   }
 }
 
+export default PlaceCard;
+
 PlaceCard.propTypes = {
   offer: PropTypes.shape(placeCardType).isRequired,
   cardType: PropTypes.string.isRequired,
-  onPlaceCardHeaderClick: PropTypes.func.isRequired,
-  onPlaceCardHover: PropTypes.func.isRequired,
+  onPlaceCardHover: PropTypes.func,
 };
 
-export default PlaceCard;
+PlaceCard.defaultProps = {
+  onPlaceCardHover: () => {},
+};
