@@ -6,8 +6,9 @@ import cities from "../../mocks/cities.js";
 import {BrowserRouter} from "react-router-dom";
 
 describe(`<Main />`, () => {
+  const activeCity = `Amsterdam`;
+
   it(`Should Main render correctly`, () => {
-    const activeCity = `Amsterdam`;
     const cityOffers = offers[activeCity];
     const tree = renderer
       .create(
@@ -24,4 +25,20 @@ describe(`<Main />`, () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it(`Should Main render correctly without offers`, () => {
+    const cityOffers = [];
+    const tree = renderer
+      .create(
+          <BrowserRouter>
+            <Main
+              offers = {cityOffers}
+              cities = {cities}
+              city = {activeCity}
+              onMenuClick = {() => {}}
+            />
+          </BrowserRouter>)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });
