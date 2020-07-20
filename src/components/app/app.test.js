@@ -2,22 +2,21 @@ import React from "react";
 import renderer from "react-test-renderer";
 import App from "./app.jsx";
 import offers from "../../mocks/offers.js";
+import cities from "../../mocks/cities.js";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
-// import {SortType} from "../../const.js";
 
 describe(`<App />`, () => {
   it(`Render App`, () => {
     const mockStore = configureStore([]);
 
     const store = mockStore({
-      city: `Amsterdam`,
-      offers: offers[`Amsterdam`],
-      // sortType: SortType.DEFAULT,
-      // hoveredCardId: 0,
-      // onPlaceCardHover: () => {},
+      isLoading: false,
+      offers,
+      cities,
+      city: `Cologne`,
+      cityOffers: offers,
       onMenuClick: () => {},
-      // onSortTypeClick: () => {},
     });
     const tree = renderer
       .create(

@@ -7,8 +7,8 @@ import offers from "../../mocks/offers.js";
 describe(`<PlaceFullCard />`, () => {
   it(`Should PlaceFullCard render correctly`, () => {
     const offerInfo = {
-      offer: offers[`Cologne`][0],
-      nearOffers: [offers[`Cologne`][1]],
+      offer: offers[0],
+      nearOffers: offers,
     };
     const tree = renderer
       .create(

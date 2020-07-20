@@ -7,16 +7,16 @@ import {BrowserRouter} from "react-router-dom";
 
 describe(`<Main />`, () => {
   it(`Should Main render correctly`, () => {
-    const activeCity = `Amsterdam`;
-    const cityOffers = offers[activeCity];
+    const activeCity = `Cologne`;
     const tree = renderer
       .create(
           <BrowserRouter>
             <Main
-              offers = {cityOffers}
+              offers = {offers}
               cities = {cities}
               city = {activeCity}
               onMenuClick = {() => {}}
+              isLoading = {false}
             />
           </BrowserRouter>)
       .toJSON();

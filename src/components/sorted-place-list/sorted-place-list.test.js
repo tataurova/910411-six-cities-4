@@ -7,13 +7,12 @@ import {SortType} from "../../const.js";
 
 describe(`<SortedPlaceList />`, () => {
   it(`Should PlaceList render correctly`, () => {
-    const cityOffers = offers[`Amsterdam`];
     const tree = renderer
       .create(
           <BrowserRouter>
             <SortedPlaceList
-              offers={cityOffers}
-              city = {`Amsterdam`}
+              offers={offers}
+              city = {`Cologne`}
               state = {SortType.DEFAULT}
               onChangeItem={() => {}}
               onPlaceCardHover={() => {}}

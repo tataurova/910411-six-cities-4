@@ -2,7 +2,6 @@ export const MapSettings = {
   ICON_URL: `img/pin.svg`,
   ACTIVE_ICON_URL: `img/pin-active.svg`,
   ICON_SIZE: [30, 30],
-  ZOOM: 12,
 };
 
 export const CardType = {

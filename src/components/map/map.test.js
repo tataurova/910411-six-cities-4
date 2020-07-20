@@ -5,8 +5,8 @@ import offers from "../../mocks/offers.js";
 
 describe(`<Map />`, () => {
   it(`Should Map render correctly`, () => {
-    const activeCity = `Amsterdam`;
-    const cityOffers = offers[activeCity];
+    const activeCity = `Cologne`;
+    const cityOffers = offers;
     const hoveredCardId = 1;
     const tree = renderer
       .create(

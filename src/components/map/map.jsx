@@ -2,7 +2,6 @@ import React from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
 import {placeFullCardType} from "../../../types.js";
-import {cityCoordinates} from "../../mocks/cities.js";
 import {MapSettings} from "../../const.js";
 import {addMarkersToMap} from "../../utils/map.js";
 
@@ -12,7 +11,7 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    const {offers, activeCity, hoveredCardId} = this.props;
+    const {offers, hoveredCardId} = this.props;
     this.leafletIcon = leaflet.icon({
       iconSize: MapSettings.ICON_SIZE,
       iconUrl: MapSettings.ICON_URL,
@@ -21,14 +20,14 @@ class Map extends React.Component {
       iconSize: MapSettings.ICON_SIZE,
       iconUrl: MapSettings.ACTIVE_ICON_URL,
     });
-    const activeCityCoordinates = cityCoordinates[activeCity];
+    const activeCityCoordinates = offers[0].cityCoordinates;
     this.map = leaflet.map(`map`, {
       center: activeCityCoordinates,
-      zoom: MapSettings.ZOOM,
+      zoom: offers[0].cityZoom,
       zoomControl: false,
       marker: true,
     });
-    this.map.setView(activeCityCoordinates, MapSettings.ZOOM);
+    this.map.setView(activeCityCoordinates, offers[0].cityZoom);
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
@@ -40,11 +39,11 @@ class Map extends React.Component {
   componentDidUpdate(prevProps) {
     const shouldUpdateMarkers = this.props.activeCity !== prevProps.activeCity;
     const shouldHighlightMarker = this.props.hoveredCardId !== prevProps.hoveredCardId;
-    const activeCityCoordinates = cityCoordinates[this.props.activeCity];
+    const activeCityCoordinates = this.props.offers[0].cityCoordinates;
 
     if (shouldUpdateMarkers) {
       this.markersGroup.clearLayers();
-      this.map.setView(activeCityCoordinates, MapSettings.ZOOM);
+      this.map.setView(activeCityCoordinates, this.props.offers[0].cityZoom);
       this.markersGroup = addMarkersToMap(this.props.offers, this.props.hoveredCardId, this.leafletIcon, this.leafletActiveIcon, this.map);
 
     }
