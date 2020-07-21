@@ -29,16 +29,16 @@ describe(`<MainPage />`, () => {
   it(`Should MainPage render correctly without offers`, () => {
     const tree = renderer
       .create(
-        <BrowserRouter>
-          <MainPage
-            cityOffers = {[]}
-            cities = {cities}
-            city = {activeCity}
-            onMenuClick = {() => {}}
-            isLoading = {false}
-            error = {-1}
-          />
-        </BrowserRouter>)
+          <BrowserRouter>
+            <MainPage
+              cityOffers = {[]}
+              cities = {cities}
+              city = {activeCity}
+              onMenuClick = {() => {}}
+              isLoading = {false}
+              error = {-1}
+            />
+          </BrowserRouter>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
