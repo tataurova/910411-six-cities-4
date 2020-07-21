@@ -22,13 +22,28 @@ describe(`Operation work correctly`, () => {
       });
   });
 
+  it(`Should make a call of action type for error for error from server`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`/hotels`)
+      .reply(404, mockData);
+
+    const dispatch = jest.fn();
+    const offersLoader = Operation.loadOffers();
+
+    return offersLoader(dispatch, () => {}, api)
+      .catch(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+      });
+  });
+
   it(`Should make a error 401 from server`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
       .onGet(`/hotels`)
       .reply(401, [{fake: true}]);
 
-    expect(api.get(`/hotels`)).rejects.toThrow();
+    expect(api.get(`/hotels`)).rejects.toThrowError();
   });
 
   it(`Should make a error 404 from server`, function () {
@@ -36,7 +51,7 @@ describe(`Operation work correctly`, () => {
     apiMock
       .onGet(`/hotels`)
       .reply(404, [{fake: true}]);
-    expect(api.get(`/hotels`)).rejects.toThrow();
+    expect(api.get(`/hotels`)).rejects.toThrowError();
   });
 });
 
@@ -45,6 +60,7 @@ describe(`Reducer tests`, () => {
     expect(reducer(void 0, {})).toEqual({
       isLoading: false,
       offers: [],
+      error: -1,
     });
   });
 
@@ -52,12 +68,14 @@ describe(`Reducer tests`, () => {
     expect(reducer({
       isLoading: false,
       offers: [],
+      error: -1,
     }, {
       type: ActionType.LOAD_OFFERS,
       payload: offers,
     })).toEqual({
       isLoading: false,
       offers,
+      error: -1,
     });
 
     expect(reducer({
@@ -68,6 +86,16 @@ describe(`Reducer tests`, () => {
     })).toEqual({
       isLoading: true,
     });
+
+    expect(reducer({
+      error: -1,
+    }, {
+      type: ActionType.WRITE_ERROR,
+      payload: 404,
+    })).toEqual({
+      error: 404,
+      isLoading: false,
+    });
   });
 });
 
@@ -76,6 +104,13 @@ describe(`Action creator works correctly`, () => {
     expect(ActionCreator.loadOffers(offers)).toEqual({
       type: ActionType.LOAD_OFFERS,
       payload: offers,
+    });
+  });
+
+  it(`Action creator of the writing error returns correct action`, () => {
+    expect(ActionCreator.writeError(404)).toEqual({
+      type: ActionType.WRITE_ERROR,
+      payload: 404,
     });
   });
 });

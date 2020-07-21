@@ -4,7 +4,7 @@ import {placeCardType} from "../../../types.js";
 import Header from "../header/header.jsx";
 import Main from "../main/main.jsx";
 
-const MainPage = ({cityOffers, cities, city, onMenuClick, isLoading}) => {
+const MainPage = ({cityOffers, cities, city, onMenuClick, isLoading, error}) => {
   return (
     <>
       <div className="page page--gray page--main">
@@ -15,6 +15,7 @@ const MainPage = ({cityOffers, cities, city, onMenuClick, isLoading}) => {
           city = {city}
           onMenuClick = {onMenuClick}
           isLoading = {isLoading}
+          error = {error}
         />
       </div>
     </>
@@ -29,4 +30,5 @@ MainPage.propTypes = {
   city: PropTypes.string.isRequired,
   onMenuClick: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.number.isRequired,
 };

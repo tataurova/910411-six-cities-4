@@ -13,6 +13,7 @@ describe(`Tests for redux functions in App component`, () => {
       DATA: {
         isLoading: false,
         offers: [],
+        error: -1,
       },
       APP: {
         cities: [],
@@ -26,6 +27,7 @@ describe(`Tests for redux functions in App component`, () => {
       cities: [],
       city: ``,
       cityOffers: [],
+      error: -1,
     };
 
     expect(mapStateToProps(initialState)).toEqual(result);
@@ -45,6 +47,7 @@ describe(`Tests for App component`, () => {
     DATA: {
       isLoading: false,
       offers,
+      error: -1,
     },
     APP: {
       cities,

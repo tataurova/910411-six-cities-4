@@ -47,6 +47,7 @@ export const mapStateToProps = (state) => ({
   cities: state[NameSpace.APP].cities,
   city: state[NameSpace.APP].city,
   cityOffers: getMemoizedCityOffers(state),
+  error: state[NameSpace.DATA].error,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -64,4 +65,5 @@ App.propTypes = {
   city: PropTypes.string.isRequired,
   cityOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
   onMenuClick: PropTypes.func.isRequired,
+  error: PropTypes.number.isRequired,
 };

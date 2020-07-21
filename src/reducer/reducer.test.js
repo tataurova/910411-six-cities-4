@@ -6,6 +6,7 @@ describe(`Reducer tests`, () => {
       DATA: {
         isLoading: false,
         offers: [],
+        error: -1,
       },
       APP: {
         cities: [],

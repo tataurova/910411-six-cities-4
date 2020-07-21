@@ -1,10 +1,6 @@
 import axios from "axios";
 
-const Error = {
-  UNAUTHORIZED: 401
-};
-/* eslint-disable */
-export const createAPI = (onUnauthorized) => {
+export const createAPI = () => {
   const api = axios.create({
     baseURL: `https://4.react.pages.academy/six-cities`,
     timeout: 5000,
@@ -16,13 +12,9 @@ export const createAPI = (onUnauthorized) => {
 
   const onFail = (err) => {
     const {response} = err;
-
-    if (response.status === Error.UNAUTHORIZED) {
-      onUnauthorized();
-
+    if (response.status > 400) {
       throw err;
     }
-
     throw err;
   };
 

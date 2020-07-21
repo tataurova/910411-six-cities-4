@@ -14,6 +14,7 @@ describe(`<App />`, () => {
       DATA: {
         isLoading: false,
         offers,
+        error: -1,
       },
       APP: {
         cities,

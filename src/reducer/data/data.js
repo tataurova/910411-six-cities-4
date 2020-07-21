@@ -5,11 +5,13 @@ import {ActionCreator as AppActionCreator} from "../app/app.js";
 const initialState = {
   isLoading: false,
   offers: [],
+  error: -1,
 };
 
 const ActionType = {
   SET_LOADING_STATUS: `SET_LOADING_STATUS`,
   LOAD_OFFERS: `LOAD_OFFERS`,
+  WRITE_ERROR: `WRITE_ERROR`,
 };
 
 const ActionCreator = {
@@ -25,6 +27,12 @@ const ActionCreator = {
       payload: offers,
     };
   },
+  writeError: (error) => {
+    return {
+      type: ActionType.WRITE_ERROR,
+      payload: error,
+    };
+  },
 };
 
 const Operation = {
@@ -35,6 +43,9 @@ const Operation = {
         const offers = response.data.map((offer) => getOffer(offer));
         dispatch(ActionCreator.loadOffers(offers));
         dispatch(AppActionCreator.setCities(offers));
+      })
+      .catch((error) => {
+        dispatch(ActionCreator.writeError(error.status));
       });
   },
 };
@@ -49,6 +60,11 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         isLoading: false,
         offers: action.payload,
+      });
+    case ActionType.WRITE_ERROR:
+      return extend(state, {
+        error: action.payload,
+        isLoading: false,
       });
   }
 

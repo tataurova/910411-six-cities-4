@@ -17,6 +17,7 @@ describe(`<Main />`, () => {
               city = {activeCity}
               onMenuClick = {() => {}}
               isLoading = {false}
+              error = {-1}
             />
           </BrowserRouter>)
       .toJSON();
