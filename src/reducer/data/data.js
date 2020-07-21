@@ -1,18 +1,15 @@
 import {extend} from "../../utils/common.js";
 import {getOffer} from "../../adapters/offers.js";
+import {ActionCreator as AppActionCreator} from "../app/app.js";
 
 const initialState = {
   isLoading: false,
   offers: [],
-  cities: [],
-  city: ``,
-  cityOffers: [],
 };
 
 const ActionType = {
   SET_LOADING_STATUS: `SET_LOADING_STATUS`,
   LOAD_OFFERS: `LOAD_OFFERS`,
-  CHANGE_CITY: `CHANGE_CITY`,
 };
 
 const ActionCreator = {
@@ -28,10 +25,6 @@ const ActionCreator = {
       payload: offers,
     };
   },
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
 };
 
 const Operation = {
@@ -39,7 +32,9 @@ const Operation = {
     dispatch(ActionCreator.setLoadingStatus(true));
     return api.get(`/hotels`)
       .then((response) => {
-        dispatch(ActionCreator.loadOffers(response.data));
+        const offers = response.data.map((offer) => getOffer(offer));
+        dispatch(ActionCreator.loadOffers(offers));
+        dispatch(AppActionCreator.setCities(offers));
       });
   },
 };
@@ -51,20 +46,9 @@ const reducer = (state = initialState, action) => {
         isLoading: action.payload,
       });
     case ActionType.LOAD_OFFERS:
-      const offers = action.payload.map((offer) => getOffer(offer));
-      const cities = new Set(action.payload.map((offer) => offer.city.name));
-      const firstCity = [...cities][0];
       return extend(state, {
         isLoading: false,
-        offers,
-        cities: [...cities],
-        city: firstCity,
-        cityOffers: offers.filter((el) => el.city === firstCity),
-      });
-    case ActionType.CHANGE_CITY:
-      return extend(state, {
-        city: action.payload,
-        cityOffers: state.offers.filter((offer) => offer.city === action.payload),
+        offers: action.payload,
       });
   }
 

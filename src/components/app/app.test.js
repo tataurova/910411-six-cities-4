@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import App from "./app.jsx";
 import offers from "../../mocks/offers.js";
-import cities from "../../mocks/cities.js";
+import {cities} from "../../mocks/cities.js";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 
@@ -11,11 +11,14 @@ describe(`<App />`, () => {
     const mockStore = configureStore([]);
 
     const store = mockStore({
-      isLoading: false,
-      offers,
-      cities,
-      city: `Cologne`,
-      cityOffers: offers,
+      DATA: {
+        isLoading: false,
+        offers,
+      },
+      APP: {
+        cities,
+        city: `Cologne`,
+      },
       onMenuClick: () => {},
     });
     const tree = renderer

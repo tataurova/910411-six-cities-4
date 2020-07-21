@@ -1,28 +1,24 @@
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
-import {reducer, ActionType, Operation, ActionCreator} from "./data.js";
+import {reducer, ActionType, ActionCreator, Operation} from "./data.js";
 import offers, {serverOffers} from "../../mocks/offers";
 
 const api = createAPI(() => {});
-// const mockData = offers;
+const mockData = serverOffers;
 
 describe(`Operation work correctly`, () => {
   it(`Should make a correct API call to /hotels`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
       .onGet(`/hotels`)
-      .reply(200, [{fake: true}]);
+      .reply(200, mockData);
 
     const dispatch = jest.fn();
     const offersLoader = Operation.loadOffers();
 
     return offersLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOAD_OFFERS,
-          payload: [{fake: true}],
-        });
+        expect(dispatch).toHaveBeenCalledTimes(3);
       });
   });
 
@@ -32,10 +28,7 @@ describe(`Operation work correctly`, () => {
       .onGet(`/hotels`)
       .reply(401, [{fake: true}]);
 
-    api.get(`/hotels`)
-      .then(() => {
-        expect(api).toThrowError(`Request failed with status code 401`);
-      });
+    expect(api.get(`/hotels`)).rejects.toThrow();
   });
 
   it(`Should make a error 404 from server`, function () {
@@ -43,11 +36,7 @@ describe(`Operation work correctly`, () => {
     apiMock
       .onGet(`/hotels`)
       .reply(404, [{fake: true}]);
-
-    api.get(`/hotels`)
-      .then(() => {
-        expect(api).toThrowError(`Request failed with status code 404`);
-      });
+    expect(api.get(`/hotels`)).rejects.toThrow();
   });
 });
 
@@ -56,58 +45,33 @@ describe(`Reducer tests`, () => {
     expect(reducer(void 0, {})).toEqual({
       isLoading: false,
       offers: [],
-      cities: [],
-      city: ``,
-      cityOffers: [],
     });
   });
 
   it(`The reducer should change the initial values to new ones`, () => {
     expect(reducer({
       isLoading: false,
-      offers,
-      cities: [],
-      city: `Paris`,
-      cityOffers: [],
+      offers: [],
     }, {
-      type: ActionType.CHANGE_CITY,
-      payload: `Cologne`,
+      type: ActionType.LOAD_OFFERS,
+      payload: offers,
     })).toEqual({
       isLoading: false,
       offers,
-      cities: [],
-      city: `Cologne`,
-      cityOffers: offers,
     });
 
     expect(reducer({
       isLoading: false,
-      offers: [],
-      cities: [],
-      city: ``,
-      cityOffers: [],
     }, {
-      type: ActionType.LOAD_OFFERS,
-      payload: serverOffers,
+      type: ActionType.SET_LOADING_STATUS,
+      payload: true,
     })).toEqual({
-      isLoading: false,
-      offers,
-      cities: [`Cologne`],
-      city: `Cologne`,
-      cityOffers: offers,
+      isLoading: true,
     });
   });
 });
 
 describe(`Action creator works correctly`, () => {
-  it(`Action creator of the city change returns correct action`, () => {
-    const city = `Paris`;
-    expect(ActionCreator.changeCity(city)).toEqual({
-      type: ActionType.CHANGE_CITY,
-      payload: city,
-    });
-  });
-
   it(`Action creator of the load offers returns correct action`, () => {
     expect(ActionCreator.loadOffers(offers)).toEqual({
       type: ActionType.LOAD_OFFERS,
