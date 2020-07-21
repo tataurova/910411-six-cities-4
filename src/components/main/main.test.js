@@ -26,23 +26,4 @@ describe(`<Main />`, () => {
 
     expect(tree).toMatchSnapshot();
   });
-
-  it(`Should Main render correctly without offers`, () => {
-    const cityOffers = [];
-    const tree = renderer
-      .create(
-          <BrowserRouter>
-            <Main
-              offers = {cityOffers}
-              cities = {cities}
-              city = {activeCity}
-              onMenuClick = {() => {}}
-              isLoading = {false}
-              error = {-1}
-            />
-          </BrowserRouter>)
-      .toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
 });
