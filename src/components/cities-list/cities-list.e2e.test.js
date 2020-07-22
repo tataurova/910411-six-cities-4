@@ -1,7 +1,7 @@
 import React from "react";
 import CitiesList from "./cities-list.jsx";
 import {mount} from "enzyme";
-import cities from "../../mocks/cities.js";
+import {cities} from "../../mocks/cities.js";
 
 describe(`<CitiesList />`, () => {
   it(`When you click on the city, the function onMenuClick is called with arguments from dataset`, () => {

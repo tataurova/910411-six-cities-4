@@ -34,18 +34,17 @@ describe(`Utils tests`, () => {
 
   it(`The extend function should return a new object with 2 new value`, () => {
     const state = {
-      city: `Paris`,
-      offers: offers[`Paris`],
+      city: `Cologne`,
+      offers,
       sortType: SortType.DEFAULT,
       hoveredCardId: 0,
     };
     const changes = {
       city: `Amsterdam`,
-      offers: offers[`Amsterdam`],
     };
     const result = {
       city: `Amsterdam`,
-      offers: offers[`Amsterdam`],
+      offers,
       sortType: SortType.DEFAULT,
       hoveredCardId: 0,
     };
@@ -69,17 +68,13 @@ describe(`Utils tests`, () => {
       id: 4,
       city: `secondCity`,
     };
-    const mockOffers = {
-      firstCity: [firstOffer, secondOffer],
-      secondCity: [thirdOffer, fourthOffer],
-    };
+    const mockOffers = [firstOffer, secondOffer, thirdOffer, fourthOffer];
     const offerId = `4`;
     const result = {
       offer: fourthOffer,
-      nearOffers: [thirdOffer],
+      nearOffers: [firstOffer, secondOffer, thirdOffer],
     };
     expect(getOfferInfo(mockOffers, offerId)).toEqual(result);
-    expect(getOfferInfo(mockOffers, `5`)).toEqual({});
   });
 
   it(`getSortTypeName function should return a name of sortType`, () => {

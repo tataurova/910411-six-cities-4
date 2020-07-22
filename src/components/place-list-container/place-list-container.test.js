@@ -7,12 +7,11 @@ import {DEFAULT_HOVERED_CARD} from "../../const.js";
 
 describe(`<PlaceListContainer />`, () => {
   it(`Should PlaceListContainer render correctly`, () => {
-    const cityOffers = offers[`Amsterdam`];
     const tree = renderer
       .create(
           <BrowserRouter>
             <PlaceListContainer
-              offers = {cityOffers}
+              offers = {offers}
               city = {`Amsterdam`}
               state = {DEFAULT_HOVERED_CARD}
               onChangeItem = {() => {}}

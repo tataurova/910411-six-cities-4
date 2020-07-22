@@ -4,11 +4,11 @@ import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/app/app.js";
 import {placeCardType} from "../../../types.js";
-import cities from "../../mocks/cities.js";
-import citiesOffers from "../../mocks/offers.js";
 import {getOfferInfo} from "../../utils/offers.js";
+import {getMemoizedCityOffers} from "../../reducer/app/selectors.js";
+import NameSpace from "../../reducer/name-space.js";
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -17,7 +17,6 @@ class App extends React.PureComponent {
 
   _renderApp() {
     return <MainPage
-      cities = {cities}
       {...this.props}
     />;
   }
@@ -30,9 +29,8 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer/:id" render={(props) =>
-            <PlaceFullCard
-              offerInfo = {getOfferInfo(citiesOffers, props.match.params.id)}
-              // onPlaceCardHover = {this.props.onPlaceCardHover}
+            this.props.cityOffers.length > 0 && <PlaceFullCard
+              offerInfo = {getOfferInfo(this.props.offers, props.match.params.id)}
               {...props.match.params}
             />
           }
@@ -44,8 +42,12 @@ class App extends React.PureComponent {
 }
 
 export const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
+  isLoading: state[NameSpace.DATA].isLoading,
+  offers: state[NameSpace.DATA].offers,
+  cities: state[NameSpace.APP].cities,
+  city: state[NameSpace.APP].city,
+  cityOffers: getMemoizedCityOffers(state),
+  error: state[NameSpace.DATA].error,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -58,7 +60,10 @@ export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 App.propTypes = {
-  city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  city: PropTypes.string.isRequired,
+  cityOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
   onMenuClick: PropTypes.func.isRequired,
+  error: PropTypes.number.isRequired,
 };

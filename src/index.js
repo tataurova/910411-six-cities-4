@@ -1,14 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app.jsx';
-import {createStore} from "redux";
+import {createStore, compose, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
-import {reducer} from "./reducer.js";
+import reducer from "./reducer/reducer.js";
+import thunk from "redux-thunk";
+import {createAPI} from "./api.js";
+import {Operation as DataOperation} from "./reducer/data/data.js";
 
-const store = createStore(
+const api = createAPI();
+
+export const store = createStore(
     reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    compose(
+        applyMiddleware(thunk.withExtraArgument(api)),
+        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    )
 );
+
+store.dispatch(DataOperation.loadOffers());
 
 const init = () => {
   ReactDOM.render(

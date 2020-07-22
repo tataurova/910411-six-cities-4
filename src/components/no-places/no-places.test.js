@@ -9,6 +9,8 @@ describe(`<NoPlaces />`, () => {
       .create(
           <NoPlaces
             activeCity={activeCity}
+            isLoading = {false}
+            error = {-1}
           />
       )
       .toJSON();

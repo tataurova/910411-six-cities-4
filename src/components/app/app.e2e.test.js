@@ -5,15 +5,32 @@ import App from "./app.jsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {mount} from "enzyme";
+import {cities} from "../../mocks/cities.js";
 
 describe(`Tests for redux functions in App component`, () => {
-  it(`MapStateToProps returns initial state`, () => {
+  it(`MapStateToProps returns props from initial state`, () => {
     const initialState = {
-      city: `Paris`,
-      offers: offers[`Paris`],
+      DATA: {
+        isLoading: false,
+        offers: [],
+        error: -1,
+      },
+      APP: {
+        cities: [],
+        city: ``,
+      },
     };
 
-    expect(mapStateToProps(initialState)).toEqual(initialState);
+    const result = {
+      isLoading: false,
+      offers: [],
+      cities: [],
+      city: ``,
+      cityOffers: [],
+      error: -1,
+    };
+
+    expect(mapStateToProps(initialState)).toEqual(result);
   });
 
   it(`MapDispatchToProps should be called for onMenuClick with right type and payload`, () => {
@@ -27,8 +44,15 @@ describe(`Tests for redux functions in App component`, () => {
 describe(`Tests for App component`, () => {
   const mockStore = configureStore([]);
   const initialState = {
-    city: `Cologne`,
-    offers: offers[`Cologne`],
+    DATA: {
+      isLoading: false,
+      offers,
+      error: -1,
+    },
+    APP: {
+      cities,
+      city: `Cologne`,
+    },
     onMenuClick: () => {},
   };
   const store = mockStore(initialState);

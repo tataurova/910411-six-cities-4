@@ -37,7 +37,7 @@ exports[`<Main /> Should Main render correctly 1`] = `
           className="locations__item"
         >
           <a
-            className="locations__item-link tabs__item "
+            className="locations__item-link tabs__item tabs__item--active"
             href="#"
           >
             <span
@@ -67,7 +67,7 @@ exports[`<Main /> Should Main render correctly 1`] = `
           className="locations__item"
         >
           <a
-            className="locations__item-link tabs__item tabs__item--active"
+            className="locations__item-link tabs__item "
             href="#"
           >
             <span
@@ -130,7 +130,7 @@ exports[`<Main /> Should Main render correctly 1`] = `
         >
           2
            places to stay in 
-          Amsterdam
+          Cologne
         </b>
         <form
           action="#"
@@ -204,6 +204,13 @@ exports[`<Main /> Should Main render correctly 1`] = `
             onMouseLeave={[Function]}
           >
             <div
+              className="place-card__mark"
+            >
+              <span>
+                Premium
+              </span>
+            </div>
+            <div
               className="cities__image-wrapper place-card__image-wrapper"
             >
               <a
@@ -213,7 +220,7 @@ exports[`<Main /> Should Main render correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-03.jpg"
+                  src="img/apartment-01.jpg"
                   width="260"
                 />
               </a>
@@ -231,7 +238,7 @@ exports[`<Main /> Should Main render correctly 1`] = `
                     className="place-card__price-value"
                   >
                     €
-                    1800
+                    120
                   </b>
                   <span
                     className="place-card__price-text"
@@ -268,7 +275,7 @@ exports[`<Main /> Should Main render correctly 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "40%",
+                        "width": "80%",
                       }
                     }
                   />
@@ -283,10 +290,10 @@ exports[`<Main /> Should Main render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="/offer/5"
+                  href="/offer/1"
                   onClick={[Function]}
                 >
-                  Mock title
+                  Canal View Prinsengracht
                 </a>
               </h2>
               <p
@@ -311,7 +318,7 @@ exports[`<Main /> Should Main render correctly 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="img/apartment-03.jpg"
+                  src="img/room.jpg"
                   width="260"
                 />
               </a>
@@ -329,7 +336,7 @@ exports[`<Main /> Should Main render correctly 1`] = `
                     className="place-card__price-value"
                   >
                     €
-                    18000
+                    80
                   </b>
                   <span
                     className="place-card__price-text"
@@ -366,7 +373,7 @@ exports[`<Main /> Should Main render correctly 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "20%",
+                        "width": "80%",
                       }
                     }
                   />
@@ -381,16 +388,16 @@ exports[`<Main /> Should Main render correctly 1`] = `
                 className="place-card__name"
               >
                 <a
-                  href="/offer/6"
+                  href="/offer/2"
                   onClick={[Function]}
                 >
-                  Mock title
+                  Wood and stone place
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Apartment
+                Private room
               </p>
             </div>
           </article>
@@ -412,151 +419,6 @@ exports[`<Main /> Should Main render correctly 1`] = `
           />
         </section>
       </div>
-    </div>
-  </div>
-</main>
-`;
-
-exports[`<Main /> Should Main render correctly without offers 1`] = `
-<main
-  className="page__main page__main--index page__main--index-empty"
->
-  <h1
-    className="visually-hidden"
-  >
-    Cities
-  </h1>
-  <div
-    className="tabs"
-  >
-    <section
-      className="locations container"
-    >
-      <ul
-        className="locations__list tabs__list"
-      >
-        <li
-          className="locations__item"
-        >
-          <a
-            className="locations__item-link tabs__item "
-            href="#"
-          >
-            <span
-              data-city="Paris"
-              onClick={[Function]}
-            >
-              Paris
-            </span>
-          </a>
-        </li>
-        <li
-          className="locations__item"
-        >
-          <a
-            className="locations__item-link tabs__item "
-            href="#"
-          >
-            <span
-              data-city="Cologne"
-              onClick={[Function]}
-            >
-              Cologne
-            </span>
-          </a>
-        </li>
-        <li
-          className="locations__item"
-        >
-          <a
-            className="locations__item-link tabs__item "
-            href="#"
-          >
-            <span
-              data-city="Brussels"
-              onClick={[Function]}
-            >
-              Brussels
-            </span>
-          </a>
-        </li>
-        <li
-          className="locations__item"
-        >
-          <a
-            className="locations__item-link tabs__item tabs__item--active"
-            href="#"
-          >
-            <span
-              data-city="Amsterdam"
-              onClick={[Function]}
-            >
-              Amsterdam
-            </span>
-          </a>
-        </li>
-        <li
-          className="locations__item"
-        >
-          <a
-            className="locations__item-link tabs__item "
-            href="#"
-          >
-            <span
-              data-city="Hamburg"
-              onClick={[Function]}
-            >
-              Hamburg
-            </span>
-          </a>
-        </li>
-        <li
-          className="locations__item"
-        >
-          <a
-            className="locations__item-link tabs__item "
-            href="#"
-          >
-            <span
-              data-city="Dusseldorf"
-              onClick={[Function]}
-            >
-              Dusseldorf
-            </span>
-          </a>
-        </li>
-      </ul>
-    </section>
-  </div>
-  <div
-    className="cities"
-  >
-    
-    <div
-      className="cities__places-container cities__places-container--empty container"
-    >
-      <section
-        className="cities__no-places"
-      >
-        <div
-          className="cities__status-wrapper tabs__content"
-        >
-          <b
-            className="cities__status"
-          >
-            No places to stay available
-          </b>
-          <p
-            className="cities__status-description"
-          >
-            We could not find any property available at the moment in 
-            Amsterdam
-          </p>
-        </div>
-      </section>
-      <div
-        className="cities__right-section"
-      />
     </div>
   </div>
 </main>
