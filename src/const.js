@@ -21,6 +21,12 @@ export const AuthorizationStatus = {
   NO_AUTH: `NO_AUTH`,
 };
 
+export const AppRoute = {
+  MAIN: `/`,
+  LOGIN: `/login`,
+  PLACE_FULL_CARD: `/offer`,
+};
+
 export const SORT_TYPES = [
   `Popular`,
   `Price: low to high`,

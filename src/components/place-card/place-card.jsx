@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {placeCardType} from "../../../types.js";
 import {Link} from "react-router-dom";
-import {INITIAL_STATE_HOVERED_CARD, CardType} from "../../const.js";
+import {INITIAL_STATE_HOVERED_CARD, AppRoute, CardType} from "../../const.js";
 
 class PlaceCard extends React.PureComponent {
   constructor(props) {
@@ -56,7 +56,7 @@ class PlaceCard extends React.PureComponent {
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to={`/offer/${id}`}>{title}</Link>
+            <Link to={`${AppRoute.PLACE_FULL_CARD}/${id}`}>{title}</Link>
           </h2>
           <p className="place-card__type">{type}</p>
         </div>

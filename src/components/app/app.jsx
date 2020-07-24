@@ -12,6 +12,7 @@ import NameSpace from "../../reducer/name-space.js";
 import Login from "../login/login.jsx";
 import withAuthentication from "../../hocs/with-authentication/with-authentication.jsx";
 import {Operation as UserOperation} from "../../reducer/user/user";
+import {AppRoute} from "../../const.js";
 
 const LoginWithAuthentication = withAuthentication(Login);
 
@@ -31,10 +32,10 @@ class App extends React.PureComponent {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={AppRoute.MAIN}>
             {this._renderApp()}
           </Route>
-          <Route exact path="/offer/:id" render={(props) =>
+          <Route exact path={`${AppRoute.PLACE_FULL_CARD}/:id`} render={(props) =>
             cityOffers.length > 0 && <PlaceFullCard
               offerInfo = {getOfferInfo(offers, props.match.params.id)}
               {...props.match.params}
@@ -43,7 +44,7 @@ class App extends React.PureComponent {
             />
           }
           />
-          <Route exact path="/auth">
+          <Route exact path={AppRoute.LOGIN}>
             <LoginWithAuthentication
               onSubmitForm = {login}
             />

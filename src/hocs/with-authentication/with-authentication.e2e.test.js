@@ -2,7 +2,7 @@ import {mount} from "enzyme";
 import React from "react";
 import withAuthentication from "./with-authentication.jsx";
 import PropTypes from "prop-types";
-/* eslint-disable */
+
 const MockComponent = (props) => {
   const {state, loginRef, passwordRef, onChange, onSubmit} = props;
   return (
@@ -33,9 +33,9 @@ const MockComponentWrapped = withAuthentication(MockComponent);
 describe(`withAuthentication`, () => {
   const login = jest.fn();
   const main = mount(
-    <MockComponentWrapped
-      onSubmitForm = {login}
-    />
+      <MockComponentWrapped
+        onSubmitForm = {login}
+      />
   );
   const instance = main.instance();
   jest.spyOn(instance, `handleChange`);
@@ -81,15 +81,15 @@ describe(`withAuthentication`, () => {
 
   });
 
-  // it(`After the submit not valid form, the function passed to props is not called`, () => {
-  //
-  //   emailInput.simulate(`change`, {target: {name: `email`, value: `test@@@@`}});
-  //   passwordInput.simulate(`change`, {target: {name: `password`, value: ``}});
-  //   main.setState({ loginValid: false, // validity does not change in jest
-  //     passwordValid: true,
-  //     formValid: false});
-  //   submitButton.simulate(`submit`);
-  //   expect(login).toHaveBeenCalledTimes(0);
-  //
-  // });
+  it(`After the submit not valid form, the function passed to props is not called`, () => {
+
+    emailInput.simulate(`change`, {target: {name: `email`, value: `test@@@@`}});
+    passwordInput.simulate(`change`, {target: {name: `password`, value: ``}});
+    main.setState({loginValid: false, // validity does not change in jest
+      passwordValid: true,
+      formValid: false});
+    submitButton.simulate(`submit`);
+    expect(login).toHaveBeenCalledTimes(0);
+
+  });
 });
