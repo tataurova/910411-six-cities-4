@@ -5,9 +5,8 @@ const isValid = (input) => {
   return input.current.validity.valid;
 };
 
-/* eslint-disable */
 const withAuthentication = (Component) => {
-  return class WithSelectedItem extends React.PureComponent {
+  class WithAuthentication extends React.PureComponent {
     constructor(props) {
       super(props);
 
@@ -57,7 +56,11 @@ const withAuthentication = (Component) => {
         {...this.props}
       />;
     }
+  }
+  WithAuthentication.propTypes = {
+    onSubmitForm: PropTypes.func.isRequired,
   };
+  return WithAuthentication;
 };
 
 export default withAuthentication;
