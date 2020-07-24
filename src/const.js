@@ -16,6 +16,11 @@ export const SortType = {
   RATING_DOWN: `rating-down`,
 };
 
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
 export const SORT_TYPES = [
   `Popular`,
   `Price: low to high`,
@@ -33,4 +38,11 @@ export const DEFAULT_HOVERED_CARD = 0;
 
 export const DEFAULT_SORT_STATE = false;
 
-export const MIN_ERROR_CODE = 400;
+export const MIN_ERROR_CODE = 399;
+
+export const MAX_TIMEOUT = 5000;
+
+export const LOGIN_MIN_LENGTH = 6;
+
+export const PASSWORD_MIN_LENGTH = 1;
+

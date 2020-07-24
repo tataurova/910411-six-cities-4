@@ -19,6 +19,8 @@ describe(`<MainPage />`, () => {
               onMenuClick = {() => {}}
               isLoading = {false}
               error = {-1}
+              authorizationStatus = {`NO_AUTH`}
+              user = {``}
             />
           </BrowserRouter>)
       .toJSON();
@@ -37,6 +39,8 @@ describe(`<MainPage />`, () => {
               onMenuClick = {() => {}}
               isLoading = {false}
               error = {-1}
+              authorizationStatus = {`NO_AUTH`}
+              user = {``}
             />
           </BrowserRouter>)
       .toJSON();

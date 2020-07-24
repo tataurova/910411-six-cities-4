@@ -6,7 +6,10 @@ describe(`<Header />`, () => {
   it(`Should Header render correctly`, () => {
     const tree = renderer
       .create(
-          <Header />)
+          <Header
+            authorizationStatus = {`NO_AUTH`}
+            user = {``}
+          />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

@@ -19,6 +19,10 @@ describe(`Tests for redux functions in App component`, () => {
         cities: [],
         city: ``,
       },
+      AUTH: {
+        authorizationStatus: `NO_AUTH`,
+        user: ``,
+      },
     };
 
     const result = {
@@ -28,6 +32,8 @@ describe(`Tests for redux functions in App component`, () => {
       city: ``,
       cityOffers: [],
       error: -1,
+      authorizationStatus: `NO_AUTH`,
+      user: ``,
     };
 
     expect(mapStateToProps(initialState)).toEqual(result);
@@ -53,6 +59,10 @@ describe(`Tests for App component`, () => {
       cities,
       city: `Cologne`,
     },
+    AUTH: {
+      authorizationStatus: `NO_AUTH`,
+      user: ``,
+    },
     onMenuClick: () => {},
   };
   const store = mockStore(initialState);
@@ -66,16 +76,6 @@ describe(`Tests for App component`, () => {
   it(`Initial state from store should be right`, () => {
 
     expect(tree.props().store.getState()).toBe(initialState);
-
-  });
-
-  it(`After clicking on the header, the link properties are passed the path to the offer page`, () => {
-
-    const headers = tree.find(`.place-card__name`);
-    const header = headers.at(0);
-    header.simulate(`click`);
-    const link = tree.find(`Link`).at(0);
-    expect(link.props().to).toBe(`/offer/1`);
 
   });
 });
