@@ -33,7 +33,7 @@ const Login = ({state, onSubmit, onChange, loginRef, passwordRef}) => {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={state.formValid ? onSubmit : null}>
+            <form className="login__form form" action="#" method="post" onSubmit={state.loginValid && state.passwordValid ? onSubmit : null}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -79,7 +79,6 @@ export default Login;
 
 Login.propTypes = {
   state: PropTypes.shape({
-    formValid: PropTypes.bool,
     loginValid: PropTypes.bool,
     passwordValid: PropTypes.bool,
   }),
@@ -91,7 +90,6 @@ Login.propTypes = {
 
 Login.defaultProps = {
   state: PropTypes.shape({
-    formValid: null,
     loginValid: null,
     passwordValid: null,
   }),

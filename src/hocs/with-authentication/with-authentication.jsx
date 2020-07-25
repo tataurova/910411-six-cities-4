@@ -1,5 +1,7 @@
 import React, {createRef} from "react";
 import PropTypes from "prop-types";
+import {LoginInput} from "../../const.js";
+import {extend} from "../../utils/common.js";
 
 const isValid = (input) => {
   return input.current.validity.valid;
@@ -16,7 +18,6 @@ const withAuthentication = (Component) => {
       this.state = {
         loginValid: null,
         passwordValid: null,
-        formValid: null,
       };
 
       this.loginRef = createRef();
@@ -26,15 +27,13 @@ const withAuthentication = (Component) => {
 
     handleChange(evt) {
       evt.preventDefault();
-      let {loginValid, passwordValid} = this.state;
       const {name} = evt.target;
-      if (name === `email`) {
-        loginValid = isValid(this.loginRef);
+      if (name === LoginInput.EMAIL) {
+        this.setState(extend(this.state, {loginValid: isValid(this.loginRef)}));
       }
-      if (name === `password`) {
-        passwordValid = isValid(this.passwordRef);
+      if (name === LoginInput.PASSWORD) {
+        this.setState(extend(this.state, {passwordValid: isValid(this.passwordRef)}));
       }
-      this.setState({loginValid, passwordValid, formValid: loginValid && passwordValid});
     }
 
     handleSubmit(evt) {

@@ -7,7 +7,7 @@ const MockComponent = (props) => {
   const {state, loginRef, passwordRef, onChange, onSubmit} = props;
   return (
     <div>
-      <form action="#" method="post" onSubmit={state.formValid ? onSubmit : null}>
+      <form action="#" method="post" onSubmit={state.loginValid && state.passwordValid ? onSubmit : null}>
         <input type="email" name="email" ref={loginRef} onChange={onChange}></input>
         <input type="password" name="password" ref={passwordRef} onChange={onChange}></input>
         <button type="submit">Sign in</button>
@@ -18,7 +18,6 @@ const MockComponent = (props) => {
 
 MockComponent.propTypes = {
   state: PropTypes.shape({
-    formValid: PropTypes.bool,
     loginValid: PropTypes.bool,
     passwordValid: PropTypes.bool,
   }),
@@ -51,7 +50,6 @@ describe(`withAuthentication`, () => {
     expect(main.state()).toEqual({
       loginValid: null,
       passwordValid: null,
-      formValid: null,
     });
 
     emailInput.simulate(`change`, {target: {name: `email`, value: `test@test.ru`}});
@@ -60,7 +58,6 @@ describe(`withAuthentication`, () => {
     expect(main.state()).toEqual({
       loginValid: true,
       passwordValid: true,
-      formValid: true,
     });
 
     jest.clearAllMocks();
@@ -86,8 +83,7 @@ describe(`withAuthentication`, () => {
     emailInput.simulate(`change`, {target: {name: `email`, value: `test@@@@`}});
     passwordInput.simulate(`change`, {target: {name: `password`, value: ``}});
     main.setState({loginValid: false, // validity does not change in jest
-      passwordValid: true,
-      formValid: false});
+      passwordValid: true});
     submitButton.simulate(`submit`);
     expect(login).toHaveBeenCalledTimes(0);
 

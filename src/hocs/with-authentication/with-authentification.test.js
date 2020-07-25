@@ -12,7 +12,9 @@ const MockComponentWrapped = withAuthentication(MockComponent);
 
 it(`withAuthentication is rendered correctly`, () => {
   const tree = renderer.create((
-    <MockComponentWrapped />
+    <MockComponentWrapped
+      onSubmitForm = {() => {}}
+    />
   )).toJSON();
 
   expect(tree).toMatchSnapshot();

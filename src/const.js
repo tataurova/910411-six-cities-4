@@ -27,6 +27,11 @@ export const AppRoute = {
   PLACE_FULL_CARD: `/offer`,
 };
 
+export const LoginInput = {
+  EMAIL: `email`,
+  PASSWORD: `password`,
+};
+
 export const SORT_TYPES = [
   `Popular`,
   `Price: low to high`,
