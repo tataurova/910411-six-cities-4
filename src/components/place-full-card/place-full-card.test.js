@@ -17,6 +17,8 @@ describe(`<PlaceFullCard />`, () => {
               offerInfo = {offerInfo}
               id = {`1`}
               onPlaceCardHover = {() => {}}
+              authorizationStatus = {`NO_AUTH`}
+              user = {``}
             />
           </BrowserRouter>)
       .toJSON();

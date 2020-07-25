@@ -20,6 +20,10 @@ describe(`<App />`, () => {
         cities,
         city: `Cologne`,
       },
+      AUTH: {
+        authorizationStatus: `NO_AUTH`,
+        user: ``,
+      },
       onMenuClick: () => {},
     });
     const tree = renderer

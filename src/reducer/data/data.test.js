@@ -22,7 +22,7 @@ describe(`Operation work correctly`, () => {
       });
   });
 
-  it(`Should make a call of action type for error for error from server`, function () {
+  it(`Should make a call of action type for error from server`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
       .onGet(`/hotels`)

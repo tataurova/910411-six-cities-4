@@ -43,7 +43,7 @@ describe(`Action creator works correctly`, () => {
     });
   });
 
-  it(`Action creator of the city change returns correct action`, () => {
+  it(`Action creator of the set cities returns correct action`, () => {
     expect(ActionCreator.setCities(offers)).toEqual({
       type: ActionType.SET_CITIES,
       payload: [`Cologne`],

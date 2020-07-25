@@ -9,6 +9,12 @@ import {placeCardType} from "../../../types.js";
 import {getOfferInfo} from "../../utils/offers.js";
 import {getMemoizedCityOffers} from "../../reducer/app/selectors.js";
 import NameSpace from "../../reducer/name-space.js";
+import Login from "../login/login.jsx";
+import withAuthentication from "../../hocs/with-authentication/with-authentication.jsx";
+import {Operation as UserOperation} from "../../reducer/user/user";
+import {AppRoute} from "../../const.js";
+
+const LoginWithAuthentication = withAuthentication(Login);
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -22,19 +28,27 @@ class App extends React.PureComponent {
   }
 
   render() {
+    const {offers, cityOffers, login, authorizationStatus, user} = this.props;
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact path={AppRoute.MAIN}>
             {this._renderApp()}
           </Route>
-          <Route exact path="/offer/:id" render={(props) =>
-            this.props.cityOffers.length > 0 && <PlaceFullCard
-              offerInfo = {getOfferInfo(this.props.offers, props.match.params.id)}
+          <Route exact path={`${AppRoute.PLACE_FULL_CARD}/:id`} render={(props) =>
+            cityOffers.length > 0 && <PlaceFullCard
+              offerInfo = {getOfferInfo(offers, props.match.params.id)}
               {...props.match.params}
+              authorizationStatus = {authorizationStatus}
+              user = {user}
             />
           }
           />
+          <Route exact path={AppRoute.LOGIN}>
+            <LoginWithAuthentication
+              onSubmitForm = {login}
+            />
+          </Route>
         </Switch>
       </BrowserRouter>
     );
@@ -48,9 +62,14 @@ export const mapStateToProps = (state) => ({
   city: state[NameSpace.APP].city,
   cityOffers: getMemoizedCityOffers(state),
   error: state[NameSpace.DATA].error,
+  authorizationStatus: state[NameSpace.AUTH].authorizationStatus,
+  user: state[NameSpace.AUTH].user,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
   onMenuClick(city) {
     dispatch(ActionCreator.changeCity(city));
   },
@@ -66,4 +85,7 @@ App.propTypes = {
   cityOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
   onMenuClick: PropTypes.func.isRequired,
   error: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
 };

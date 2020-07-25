@@ -7,8 +7,13 @@ import reducer from "./reducer/reducer.js";
 import thunk from "redux-thunk";
 import {createAPI} from "./api.js";
 import {Operation as DataOperation} from "./reducer/data/data.js";
+import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
 
-const api = createAPI();
+const onUnauthorized = () => {
+  store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+};
+
+const api = createAPI(onUnauthorized);
 
 export const store = createStore(
     reducer,
@@ -17,8 +22,6 @@ export const store = createStore(
         window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
     )
 );
-
-store.dispatch(DataOperation.loadOffers());
 
 const init = () => {
   ReactDOM.render(
@@ -29,4 +32,8 @@ const init = () => {
   );
 };
 
+store.dispatch(UserOperation.checkAuth());
+store.dispatch(DataOperation.loadOffers());
 init();
+
+

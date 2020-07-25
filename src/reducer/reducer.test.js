@@ -12,6 +12,10 @@ describe(`Reducer tests`, () => {
         cities: [],
         city: ``,
       },
+      AUTH: {
+        authorizationStatus: `NO_AUTH`,
+        user: ``,
+      },
     });
   });
 });

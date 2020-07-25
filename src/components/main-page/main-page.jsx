@@ -4,11 +4,14 @@ import {placeCardType} from "../../../types.js";
 import Header from "../header/header.jsx";
 import Main from "../main/main.jsx";
 
-const MainPage = ({cityOffers, cities, city, onMenuClick, isLoading, error}) => {
+const MainPage = ({cityOffers, cities, city, onMenuClick, isLoading, error, authorizationStatus, user}) => {
   return (
     <>
       <div className="page page--gray page--main">
-        <Header />
+        <Header
+          authorizationStatus = {authorizationStatus}
+          user = {user}
+        />
         <Main
           offers = {cityOffers}
           cities = {cities}
@@ -31,4 +34,6 @@ MainPage.propTypes = {
   onMenuClick: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   error: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
 };

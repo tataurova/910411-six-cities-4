@@ -4,7 +4,7 @@ import PlaceList from "../place-list/place-list.jsx";
 import {CardType, DEFAULT_SORT_STATE} from "../../const.js";
 import PropTypes from "prop-types";
 import {placeCardType} from "../../../types.js";
-import withSelectedItem from "../../hocs/with-selected-item.jsx";
+import withSelectedItem from "../../hocs/with-selected-item/with-selected-item.jsx";
 
 const SortWithSelectedItem = withSelectedItem(Sort, DEFAULT_SORT_STATE);
 
