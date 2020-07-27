@@ -12,6 +12,7 @@ describe(`Tests for redux functions in App component`, () => {
     const initialState = {
       DATA: {
         isLoading: false,
+        isSending: false,
         offers: [],
         error: -1,
       },
@@ -27,6 +28,7 @@ describe(`Tests for redux functions in App component`, () => {
 
     const result = {
       isLoading: false,
+      isSending: false,
       offers: [],
       cities: [],
       city: ``,
@@ -45,6 +47,19 @@ describe(`Tests for redux functions in App component`, () => {
     mapDispatchToProps(dispatch).onMenuClick(`Amsterdam`);
     expect(dispatch.mock.calls[0][0]).toEqual({type: `CHANGE_CITY`, payload: `Amsterdam`});
   });
+
+  it(`MapDispatchToProps should be called for sendComment with right type and payload`, () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).sendComment({comment: `test`, rating: 1});
+    expect(dispatch).toHaveBeenCalledTimes(1);
+  });
+
+  it(`MapDispatchToProps should be called for login with right type and payload`, () => {
+    const dispatch = jest.fn();
+
+    mapDispatchToProps(dispatch).login({login: `test@test.ru`, password: 123});
+    expect(dispatch).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe(`Tests for App component`, () => {
@@ -52,6 +67,7 @@ describe(`Tests for App component`, () => {
   const initialState = {
     DATA: {
       isLoading: false,
+      isSending: false,
       offers,
       error: -1,
     },

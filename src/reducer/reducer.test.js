@@ -5,6 +5,7 @@ describe(`Reducer tests`, () => {
     expect(reducer(void 0, {})).toEqual({
       DATA: {
         isLoading: false,
+        isSending: false,
         offers: [],
         error: -1,
       },

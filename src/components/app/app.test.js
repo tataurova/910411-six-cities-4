@@ -13,6 +13,7 @@ describe(`<App />`, () => {
     const store = mockStore({
       DATA: {
         isLoading: false,
+        isSending: false,
         offers,
         error: -1,
       },

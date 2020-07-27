@@ -6,7 +6,7 @@ import offers, {serverOffers} from "../../mocks/offers";
 const api = createAPI(() => {});
 const mockData = serverOffers;
 
-describe(`Operation work correctly`, () => {
+describe(`Operation works correctly`, () => {
   it(`Should make a correct API call to /hotels`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
@@ -17,6 +17,22 @@ describe(`Operation work correctly`, () => {
     const offersLoader = Operation.loadOffers();
 
     return offersLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(4);
+      });
+  });
+
+  it(`Should make a correct API call to /comment`, function () {
+    const apiMock = new MockAdapter(api);
+    const id = 1;
+    apiMock
+      .onPost(`/comment/1`)
+      .reply(200, [{comment: `test`, rating: 0}]);
+
+    const dispatch = jest.fn();
+    const commentSender = Operation.sendComment({comment: `test`, rating: 0}, id);
+
+    return commentSender(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(3);
       });
@@ -35,6 +51,15 @@ describe(`Operation work correctly`, () => {
       .catch(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
       });
+  });
+
+  it(`Should make a error 400 from server`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`/comment/1`)
+      .reply(400, [{fake: true}]);
+
+    expect(api.get(`/comment/1`)).rejects.toThrowError();
   });
 
   it(`Should make a error 401 from server`, function () {
@@ -59,6 +84,7 @@ describe(`Reducer tests`, () => {
   it(`The reducer without additional parameters should return the initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
       isLoading: false,
+      isSending: false,
       offers: [],
       error: -1,
     });
@@ -88,13 +114,21 @@ describe(`Reducer tests`, () => {
     });
 
     expect(reducer({
+      isSending: false,
+    }, {
+      type: ActionType.SET_SENDING_STATUS,
+      payload: true,
+    })).toEqual({
+      isSending: true,
+    });
+
+    expect(reducer({
       error: -1,
     }, {
       type: ActionType.WRITE_ERROR,
       payload: 404,
     })).toEqual({
       error: 404,
-      isLoading: false,
     });
   });
 });
@@ -111,6 +145,20 @@ describe(`Action creator works correctly`, () => {
     expect(ActionCreator.writeError(404)).toEqual({
       type: ActionType.WRITE_ERROR,
       payload: 404,
+    });
+  });
+
+  it(`Action creator of the setting loading status returns correct action`, () => {
+    expect(ActionCreator.setLoadingStatus(true)).toEqual({
+      type: ActionType.SET_LOADING_STATUS,
+      payload: true,
+    });
+  });
+
+  it(`Action creator of the setting sending status returns correct action`, () => {
+    expect(ActionCreator.setSendingStatus(true)).toEqual({
+      type: ActionType.SET_SENDING_STATUS,
+      payload: true,
     });
   });
 });

@@ -37,7 +37,7 @@ const Login = ({state, onSubmit, onChange, loginRef, passwordRef}) => {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
-                  className={`login__input form__input ${state.loginValid === false ? `error` : ``}`}
+                  className={`login__input form__input ${state.loginValid === false ? `input-error` : ``}`}
                   type="email"
                   name="email"
                   placeholder="Email"
@@ -50,7 +50,7 @@ const Login = ({state, onSubmit, onChange, loginRef, passwordRef}) => {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
-                  className={`login__input form__input ${state.passwordValid === false ? `error` : ``}`}
+                  className={`login__input form__input ${state.passwordValid === false ? `input-error` : ``}`}
                   type="password"
                   name="password"
                   placeholder="Password"

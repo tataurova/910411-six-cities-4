@@ -19,6 +19,9 @@ describe(`<PlaceFullCard />`, () => {
               onPlaceCardHover = {() => {}}
               authorizationStatus = {`NO_AUTH`}
               user = {``}
+              isSending = {false}
+              error = {-1}
+              onSubmitForm = {() => {}}
             />
           </BrowserRouter>)
       .toJSON();

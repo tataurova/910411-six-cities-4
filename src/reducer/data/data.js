@@ -4,6 +4,7 @@ import {ActionCreator as AppActionCreator} from "../app/app.js";
 
 const initialState = {
   isLoading: false,
+  isSending: false,
   offers: [],
   error: -1,
 };
@@ -12,6 +13,7 @@ const ActionType = {
   SET_LOADING_STATUS: `SET_LOADING_STATUS`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   WRITE_ERROR: `WRITE_ERROR`,
+  SET_SENDING_STATUS: `SET_SENDING_STATUS`,
 };
 
 const ActionCreator = {
@@ -33,6 +35,12 @@ const ActionCreator = {
       payload: error,
     };
   },
+  setSendingStatus: (status) => {
+    return {
+      type: ActionType.SET_SENDING_STATUS,
+      payload: status,
+    };
+  },
 };
 
 const Operation = {
@@ -41,11 +49,27 @@ const Operation = {
     return api.get(`/hotels`)
       .then((response) => {
         const offers = response.data.map((offer) => getOffer(offer));
+        dispatch(ActionCreator.setLoadingStatus(false));
         dispatch(ActionCreator.loadOffers(offers));
         dispatch(AppActionCreator.setCities(offers));
       })
       .catch((error) => {
-        dispatch(ActionCreator.writeError(error.status));
+        dispatch(ActionCreator.writeError(error.response.status));
+        dispatch(ActionCreator.setLoadingStatus(false));
+      });
+  },
+  sendComment: (commentData, id) => (dispatch, getState, api) => {
+    dispatch(ActionCreator.setSendingStatus(true));
+    return api.post(`/comments/${id}`, {
+      comment: commentData.comment,
+      rating: commentData.rating})
+      .then(() => {
+        dispatch(ActionCreator.setSendingStatus(false));
+        dispatch(ActionCreator.writeError(initialState.error));
+      })
+      .catch((error) => {
+        dispatch(ActionCreator.writeError(error.response.status));
+        dispatch(ActionCreator.setSendingStatus(false));
       });
   },
 };
@@ -58,13 +82,15 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.LOAD_OFFERS:
       return extend(state, {
-        isLoading: false,
         offers: action.payload,
       });
     case ActionType.WRITE_ERROR:
       return extend(state, {
         error: action.payload,
-        isLoading: false,
+      });
+    case ActionType.SET_SENDING_STATUS:
+      return extend(state, {
+        isSending: action.payload,
       });
   }
 

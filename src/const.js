@@ -32,6 +32,14 @@ export const LoginInput = {
   PASSWORD: `password`,
 };
 
+export const RatingValue = {
+  ONE: `1`,
+  TWO: `2`,
+  THREE: `3`,
+  FOUR: `4`,
+  FIVE: `5`,
+};
+
 export const SORT_TYPES = [
   `Popular`,
   `Price: low to high`,
