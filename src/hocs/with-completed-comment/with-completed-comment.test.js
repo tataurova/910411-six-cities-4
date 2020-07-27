@@ -16,7 +16,7 @@ it(`withCompletedComment is rendered correctly`, () => {
       onSubmitForm = {() => {}}
       isSending = {false}
       error = {-1}
-      id = {1}
+      id = {`1`}
     />
   )).toJSON();
 

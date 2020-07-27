@@ -33,7 +33,7 @@ describe(`withCompletedComment`, () => {
   const main = mount(
       <MockComponentWrapped
         onSubmitForm = {onSubmitForm}
-        id = {1}
+        id = {`1`}
         isSending = {false}
         error = {-1}
       />
