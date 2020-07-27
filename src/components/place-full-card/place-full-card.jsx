@@ -2,12 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import ReviewsList from "../reviews-list/reviews-list.jsx";
 import Map from "../map/map.jsx";
+import CommentForm from "../comment-form/comment-form.jsx";
 import {placeFullCardType} from "../../../types";
 import PlaceList from "../place-list/place-list.jsx";
 import Header from "../header/header.jsx";
 import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT, SortType, AuthorizationStatus} from "../../const.js";
+import {withCompletedComment} from "../../hocs/with-completed-comment/with-completed-comment.js";
 
-const PlaceFullCard = ({offerInfo, id, authorizationStatus, user}) => {
+const CommentFormWithCompletedComment = withCompletedComment(CommentForm);
+
+const PlaceFullCard = ({offerInfo, id, authorizationStatus, user, onSubmitForm, isSending, error}) => {
   const idNumber = Number(id);
   const {offer, nearOffers} = offerInfo;
   const activeCity = offer.city;
@@ -100,66 +104,18 @@ const PlaceFullCard = ({offerInfo, id, authorizationStatus, user}) => {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ReviewsList reviews={reviews}/>
-                {authorizationStatus === AuthorizationStatus.AUTH && <form className="reviews__form form" action="#" method="post">
-                  <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                  <div className="reviews__rating-form form__rating">
-                    <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars"
-                      type="radio"/>
-                    <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars"
-                      type="radio"/>
-                    <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars"
-                      type="radio"/>
-                    <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars"
-                      type="radio"/>
-                    <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star"
-                      type="radio"/>
-                    <label htmlFor="1-star" className="reviews__rating-label form__rating-label"
-                      title="terribly">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-                  </div>
-                  <textarea className="reviews__textarea form__textarea" id="review" name="review"
-                    placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
-                  <div className="reviews__button-wrapper">
-                    <p className="reviews__help">
-                      To submit review please make sure to set <span className="reviews__star">rating</span> and describe
-                      your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                    </p>
-                    <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
-                  </div>
-                </form>}
+                {authorizationStatus === AuthorizationStatus.AUTH && <CommentFormWithCompletedComment
+                  onSubmitForm={onSubmitForm}
+                  id={id}
+                  isSending={isSending}
+                  error={error}
+                />}
               </section>
             </div>
           </div>
           <section className="property__map map">
             <Map
-              offers ={nearOffers.slice(0, MAP_NEAR_PLACES_MAX_COUNT).concat(offer)}
+              offers={nearOffers.slice(0, MAP_NEAR_PLACES_MAX_COUNT).concat(offer)}
               activeCity={activeCity}
               hoveredCardId={idNumber}
             />
@@ -192,4 +148,7 @@ PlaceFullCard.propTypes = {
   id: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
+  isSending: PropTypes.bool.isRequired,
+  error: PropTypes.number.isRequired,
+  onSubmitForm: PropTypes.func.isRequired,
 };

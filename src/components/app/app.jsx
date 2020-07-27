@@ -11,7 +11,8 @@ import {getMemoizedCityOffers} from "../../reducer/app/selectors.js";
 import NameSpace from "../../reducer/name-space.js";
 import Login from "../login/login.jsx";
 import withAuthentication from "../../hocs/with-authentication/with-authentication.jsx";
-import {Operation as UserOperation} from "../../reducer/user/user";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 import {AppRoute} from "../../const.js";
 
 const LoginWithAuthentication = withAuthentication(Login);
@@ -28,7 +29,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {offers, cityOffers, login, authorizationStatus, user} = this.props;
+    const {offers, cityOffers, login, authorizationStatus, user, sendComment, isSending, error} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -41,6 +42,9 @@ class App extends React.PureComponent {
               {...props.match.params}
               authorizationStatus = {authorizationStatus}
               user = {user}
+              onSubmitForm = {sendComment}
+              isSending = {isSending}
+              error = {error}
             />
           }
           />
@@ -64,6 +68,7 @@ export const mapStateToProps = (state) => ({
   error: state[NameSpace.DATA].error,
   authorizationStatus: state[NameSpace.AUTH].authorizationStatus,
   user: state[NameSpace.AUTH].user,
+  isSending: state[NameSpace.DATA].isSending,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -73,6 +78,9 @@ export const mapDispatchToProps = (dispatch) => ({
   onMenuClick(city) {
     dispatch(ActionCreator.changeCity(city));
   },
+  sendComment(comment, id) {
+    dispatch(DataOperation.sendComment(comment, id));
+  }
 });
 
 export {App};
@@ -88,4 +96,6 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
+  isSending: PropTypes.bool.isRequired,
+  sendComment: PropTypes.func.isRequired,
 };
