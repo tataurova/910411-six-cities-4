@@ -6,35 +6,19 @@ import offers, {serverOffers} from "../../mocks/offers";
 const api = createAPI(() => {});
 const mockData = serverOffers;
 
-describe(`Operation works correctly`, () => {
+describe(`Operation for API to /hotels works correctly`, () => {
+  const dispatch = jest.fn();
+  const offersLoader = Operation.loadOffers();
+
   it(`Should make a correct API call to /hotels`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
       .onGet(`/hotels`)
       .reply(200, mockData);
 
-    const dispatch = jest.fn();
-    const offersLoader = Operation.loadOffers();
-
     return offersLoader(dispatch, () => {}, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(4);
-      });
-  });
-
-  it(`Should make a correct API call to /comment`, function () {
-    const apiMock = new MockAdapter(api);
-    const id = 1;
-    apiMock
-      .onPost(`/comment/1`)
-      .reply(200, [{comment: `test`, rating: 0}]);
-
-    const dispatch = jest.fn();
-    const commentSender = Operation.sendComment({comment: `test`, rating: 0}, id);
-
-    return commentSender(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
       });
   });
 
@@ -44,22 +28,10 @@ describe(`Operation works correctly`, () => {
       .onGet(`/hotels`)
       .reply(404, mockData);
 
-    const dispatch = jest.fn();
-    const offersLoader = Operation.loadOffers();
-
     return offersLoader(dispatch, () => {}, api)
       .catch(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
       });
-  });
-
-  it(`Should make a error 400 from server`, function () {
-    const apiMock = new MockAdapter(api);
-    apiMock
-      .onGet(`/comment/1`)
-      .reply(400, [{fake: true}]);
-
-    expect(api.get(`/comment/1`)).rejects.toThrowError();
   });
 
   it(`Should make a error 401 from server`, function () {
@@ -77,6 +49,86 @@ describe(`Operation works correctly`, () => {
       .onGet(`/hotels`)
       .reply(404, [{fake: true}]);
     expect(api.get(`/hotels`)).rejects.toThrowError();
+  });
+});
+
+describe(`Operation for API to /comments works correctly`, () => {
+  const id = 1;
+  const dispatch = jest.fn();
+  const commentSender = Operation.sendComment({comment: `test`, rating: 0}, id);
+
+  it(`Should make a correct API call to /comments`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onPost(`/comments/1`)
+      .reply(200, [{comment: `test`, rating: 0}]);
+
+    return commentSender(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+      });
+  });
+
+  it(`Should make a call of action type for error from server`, function () {
+
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onPost(`/comments/1`)
+      .reply(400, [{fake: true}]);
+
+    return commentSender(dispatch, () => {}, api)
+      .catch(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+      });
+  });
+
+  it(`Should make a error 400 from server`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onPost(`/comments/1`)
+      .reply(400, [{fake: true}]);
+
+    expect(api.post(`/comments/1`)).rejects.toThrowError();
+  });
+});
+
+describe(`Operation for API to /favorite works correctly`, () => {
+  const dispatch = jest.fn();
+  const favoriteFlagSender = Operation.setToFavorite(1, 1);
+  const mockOffer = serverOffers[0];
+
+  it(`Should make a correct API call to /favorite`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onPost(`/favorite/1/1`, {fake: true})
+      .reply(200, mockOffer);
+
+    return favoriteFlagSender(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+      });
+  });
+
+  it(`Should make a call of action type for error from server`, function () {
+
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onPost(`/favorite/1/1`)
+      .reply(400, [{fake: true}]);
+
+    return favoriteFlagSender(dispatch, () => {}, api)
+      .catch(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+      });
+  });
+
+  it(`Should make a error 400 from server`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onPost(`/favorite/1/1`)
+      .reply(400, [{fake: true}]);
+
+    expect(api.post(`/favorite/1/1`)).rejects.toThrowError();
   });
 });
 
@@ -162,5 +214,3 @@ describe(`Action creator works correctly`, () => {
     });
   });
 });
-
-

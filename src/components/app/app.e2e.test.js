@@ -76,21 +76,20 @@ describe(`Tests for App component`, () => {
       city: `Cologne`,
     },
     AUTH: {
-      authorizationStatus: `NO_AUTH`,
-      user: ``,
+      authorizationStatus: `AUTH`,
+      user: `test@test.ru`,
     },
     onMenuClick: () => {},
   };
+
   const store = mockStore(initialState);
 
-  const tree = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-  );
-
   it(`Initial state from store should be right`, () => {
-
+    const tree = mount(
+        <Provider store={store}>
+          <App />
+        </Provider>
+    );
     expect(tree.props().store.getState()).toBe(initialState);
 
   });

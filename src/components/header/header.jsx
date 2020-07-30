@@ -16,7 +16,7 @@ const Header = ({authorizationStatus, user}) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={authorizationStatus === AuthorizationStatus.NO_AUTH ? AppRoute.LOGIN : `#`}>
+                <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   {authorizationStatus === AuthorizationStatus.NO_AUTH ? <span className="header__login">Sign in</span> : <span className="header__user-name user__name">{user}</span>}

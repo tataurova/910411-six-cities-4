@@ -1,8 +1,9 @@
 import {SortType} from "./const.js";
 import {extend} from "./utils/common.js";
 import {sortOffers, getSortTypeName} from "./utils/sort.js";
-import {getOfferInfo} from "./utils/offers.js";
+import {getOfferInfo, getUpdatedOffers} from "./utils/offers.js";
 import offers from "./mocks/offers.js";
+import {serverOffers} from "./mocks/offers";
 
 describe(`Utils tests`, () => {
   it(`The sort function should return sorted offers`, () => {
@@ -84,5 +85,10 @@ describe(`Utils tests`, () => {
     expect(getSortTypeName(SortType.PRICE_UP)).toEqual(`Price: low to high`);
     expect(getSortTypeName(SortType.DEFAULT)).toEqual(`Popular`);
     expect(getSortTypeName(`unknown sort type`)).toEqual(`Popular`);
+  });
+
+  it(`getUpdatedOffers function should return updatedOffers`, () => {
+    const serverOffer = serverOffers[0];
+    expect(getUpdatedOffers(serverOffer, offers)).toEqual(offers);
   });
 });

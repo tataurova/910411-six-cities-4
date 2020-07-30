@@ -25,6 +25,7 @@ export const AppRoute = {
   MAIN: `/`,
   LOGIN: `/login`,
   PLACE_FULL_CARD: `/offer`,
+  FAVORITES: `/favorites`,
 };
 
 export const LoginInput = {
@@ -64,4 +65,6 @@ export const MAX_TIMEOUT = 5000;
 export const LOGIN_MIN_LENGTH = 6;
 
 export const PASSWORD_MIN_LENGTH = 1;
+
+export const DEFAULT_RATING = 0;
 

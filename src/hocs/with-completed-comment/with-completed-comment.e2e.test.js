@@ -1,6 +1,6 @@
 import {mount} from "enzyme";
 import React from "react";
-import withCompletedComment from "./with-completed-comment.js";
+import withCompletedComment from "./with-completed-comment.jsx";
 import PropTypes from "prop-types";
 
 const MockComponent = (props) => {

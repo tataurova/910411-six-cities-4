@@ -7,7 +7,7 @@ import {placeFullCardType} from "../../../types";
 import PlaceList from "../place-list/place-list.jsx";
 import Header from "../header/header.jsx";
 import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT, SortType, AuthorizationStatus} from "../../const.js";
-import {withCompletedComment} from "../../hocs/with-completed-comment/with-completed-comment.js";
+import {withCompletedComment} from "../../hocs/with-completed-comment/with-completed-comment.jsx";
 
 const CommentFormWithCompletedComment = withCompletedComment(CommentForm);
 

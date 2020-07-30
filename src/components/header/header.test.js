@@ -17,4 +17,18 @@ describe(`<Header />`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`Should Header render correctly`, () => {
+    const tree = renderer
+      .create(
+          <BrowserRouter>
+            <Header
+              authorizationStatus = {`AUTH`}
+              user = {`test@test.ru`}
+            />
+          </BrowserRouter>)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

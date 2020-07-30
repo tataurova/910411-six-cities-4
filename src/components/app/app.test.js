@@ -36,4 +36,34 @@ describe(`<App />`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`Render App with authorization`, () => {
+    const mockStore = configureStore([]);
+
+    const store = mockStore({
+      DATA: {
+        isLoading: false,
+        isSending: false,
+        offers,
+        error: -1,
+      },
+      APP: {
+        cities,
+        city: `Cologne`,
+      },
+      AUTH: {
+        authorizationStatus: `AUTH`,
+        user: `test@test.ru`,
+      },
+      onMenuClick: () => {},
+    });
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <App />
+          </Provider>)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

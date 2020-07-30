@@ -10,6 +10,7 @@ export const getOffer = (data) => {
     price: data.price,
     rating: data.rating,
     premium: data.is_premium,
+    favorite: data.is_favorite,
     photo: data.preview_image,
     bedrooms: data.bedrooms,
     adults: data.max_adults,

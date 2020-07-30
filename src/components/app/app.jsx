@@ -2,18 +2,22 @@ import React from 'react';
 import MainPage from '../main-page/main-page.jsx';
 import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app.js";
 import {placeCardType} from "../../../types.js";
 import {getOfferInfo} from "../../utils/offers.js";
 import {getMemoizedCityOffers} from "../../reducer/app/selectors.js";
+import {getMemoizedOffers} from "../../reducer/data/selectors.js";
 import NameSpace from "../../reducer/name-space.js";
 import Login from "../login/login.jsx";
 import withAuthentication from "../../hocs/with-authentication/with-authentication.jsx";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {AppRoute} from "../../const.js";
+import {AppRoute, AuthorizationStatus} from "../../const.js";
+import history from "../../history.js";
+import Favorites from "../favorites/favorites.jsx";
+import PrivateRoute from "../private-route/private-route.jsx";
 
 const LoginWithAuthentication = withAuthentication(Login);
 
@@ -23,15 +27,19 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    return <MainPage
-      {...this.props}
-    />;
+    if (this.props.authorizationStatus === AuthorizationStatus.AUTH) {
+      return <MainPage
+        {...this.props}
+      />;
+    } else {
+      return history.push(AppRoute.LOGIN);
+    }
   }
 
   render() {
     const {offers, cityOffers, login, authorizationStatus, user, sendComment, isSending, error} = this.props;
     return (
-      <BrowserRouter>
+      <Router history = {history}>
         <Switch>
           <Route exact path={AppRoute.MAIN}>
             {this._renderApp()}
@@ -53,15 +61,27 @@ class App extends React.PureComponent {
               onSubmitForm = {login}
             />
           </Route>
+          <PrivateRoute
+            exact
+            path={AppRoute.FAVORITES}
+            render={() => {
+              return (
+                <Favorites
+                  authorizationStatus = {authorizationStatus}
+                  user = {user}
+                />
+              );
+            }}
+          />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
 
 export const mapStateToProps = (state) => ({
   isLoading: state[NameSpace.DATA].isLoading,
-  offers: state[NameSpace.DATA].offers,
+  offers: getMemoizedOffers(state),
   cities: state[NameSpace.APP].cities,
   city: state[NameSpace.APP].city,
   cityOffers: getMemoizedCityOffers(state),

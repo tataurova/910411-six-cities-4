@@ -4,6 +4,15 @@ import MainPage from "./main-page.jsx";
 import offers from "../../mocks/offers.js";
 import {cities} from "../../mocks/cities.js";
 import {BrowserRouter} from "react-router-dom";
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
+
+const onBookmarkButtonCLick = jest.fn();
+const mockStore = configureStore([]);
+const initialState = {
+  onBookmarkButtonCLick,
+};
+const store = mockStore(initialState);
 
 describe(`<MainPage />`, () => {
   const activeCity = `Cologne`;
@@ -11,18 +20,20 @@ describe(`<MainPage />`, () => {
   it(`Should MainPage render correctly`, () => {
     const tree = renderer
       .create(
-          <BrowserRouter>
-            <MainPage
-              cityOffers = {offers}
-              cities = {cities}
-              city = {activeCity}
-              onMenuClick = {() => {}}
-              isLoading = {false}
-              error = {-1}
-              authorizationStatus = {`NO_AUTH`}
-              user = {``}
-            />
-          </BrowserRouter>)
+          <Provider store = {store}>
+            <BrowserRouter>
+              <MainPage
+                cityOffers = {offers}
+                cities = {cities}
+                city = {activeCity}
+                onMenuClick = {() => {}}
+                isLoading = {false}
+                error = {-1}
+                authorizationStatus = {`NO_AUTH`}
+                user = {``}
+              />
+            </BrowserRouter>
+          </Provider>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -33,6 +44,7 @@ describe(`<MainPage />`, () => {
       .create(
           <BrowserRouter>
             <MainPage
+              store = {store}
               cityOffers = {[]}
               cities = {cities}
               city = {activeCity}

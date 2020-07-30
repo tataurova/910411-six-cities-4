@@ -1,6 +1,7 @@
 import {extend} from "../../utils/common.js";
 import {getOffer} from "../../adapters/offers.js";
 import {ActionCreator as AppActionCreator} from "../app/app.js";
+import {getUpdatedOffers} from "../../utils/offers.js";
 
 const initialState = {
   isLoading: false,
@@ -66,6 +67,21 @@ const Operation = {
       .then(() => {
         dispatch(ActionCreator.setSendingStatus(false));
         dispatch(ActionCreator.writeError(initialState.error));
+      })
+      .catch((error) => {
+        dispatch(ActionCreator.writeError(error.response.status));
+        dispatch(ActionCreator.setSendingStatus(false));
+      });
+  },
+  setToFavorite: (id, status) => (dispatch, getState, api) => {
+    dispatch(ActionCreator.setSendingStatus(true));
+    const statusParameter = status ? 1 : 0;
+    return api.post(`/favorite/${id}/${statusParameter}`)
+      .then((response) => {
+        dispatch(ActionCreator.setSendingStatus(false));
+        dispatch(ActionCreator.writeError(initialState.error));
+        const offers = getUpdatedOffers(response.data, getState().DATA.offers.slice());
+        dispatch(ActionCreator.loadOffers(offers));
       })
       .catch((error) => {
         dispatch(ActionCreator.writeError(error.response.status));
