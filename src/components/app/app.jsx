@@ -32,7 +32,6 @@ class App extends React.PureComponent {
         {...this.props}
       />;
     } else {
-      console.log(`login`);
       return history.push(AppRoute.LOGIN);
     }
   }
