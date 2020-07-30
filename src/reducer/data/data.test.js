@@ -94,23 +94,40 @@ describe(`Operation for API to /comments works correctly`, () => {
 
 describe(`Operation for API to /favorite works correctly`, () => {
   const dispatch = jest.fn();
-  const favoriteFlagSender = Operation.setToFavorite(1, 1);
   const mockOffer = serverOffers[0];
-
-  it(`Should make a correct API call to /favorite`, function () {
+  const getState = jest.fn(() => {
+    return {DATA: {offers}};
+  });
+  it(`Should make a correct API call to /favorite/1/1`, function () {
+    const favoriteFlagSender = Operation.setToFavorite(1, 1);
     const apiMock = new MockAdapter(api);
     apiMock
-      .onPost(`/favorite/1/1`, {fake: true})
+      .onPost(`/favorite/1/1`)
       .reply(200, mockOffer);
 
-    return favoriteFlagSender(dispatch, () => {}, api)
+    return favoriteFlagSender(dispatch, getState, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(4);
+      });
+  });
+
+  it(`Should make a correct API call to /favorite/1/0`, function () {
+    jest.clearAllMocks();
+    const favoriteFlagSender = Operation.setToFavorite(1, 0);
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onPost(`/favorite/1/0`)
+      .reply(200, mockOffer);
+
+    return favoriteFlagSender(dispatch, getState, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(4);
       });
   });
 
   it(`Should make a call of action type for error from server`, function () {
-
+    jest.clearAllMocks();
+    const favoriteFlagSender = Operation.setToFavorite(1, 1);
     const apiMock = new MockAdapter(api);
     apiMock
       .onPost(`/favorite/1/1`)
