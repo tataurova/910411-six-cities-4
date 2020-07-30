@@ -11,7 +11,7 @@ describe(`<CommentForm />`, () => {
     const tree = renderer
       .create(<CommentForm
         state = {state}
-        isSending = {false}
+        isFetching = {false}
         error = {-1}
         onChange = {() => {}}
         onSubmit = {() => {}}
@@ -29,7 +29,7 @@ describe(`<CommentForm />`, () => {
     const tree = renderer
       .create(<CommentForm
         state = {state}
-        isSending = {false}
+        isFetching = {false}
         error = {400}
         onChange = {() => {}}
         onSubmit = {() => {}}
@@ -47,7 +47,7 @@ describe(`<CommentForm />`, () => {
     const tree = renderer
       .create(<CommentForm
         state = {state}
-        isSending = {false}
+        isFetching = {false}
         error = {-1}
         onChange = {() => {}}
         onSubmit = {() => {}}
@@ -67,7 +67,7 @@ describe(`<CommentForm />`, () => {
     const tree = renderer
       .create(<CommentForm
         state = {state}
-        isSending = {false}
+        isFetching = {false}
         error = {-1}
         onChange = {() => {}}
         onSubmit = {() => {}}

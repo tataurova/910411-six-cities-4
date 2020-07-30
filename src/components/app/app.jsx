@@ -32,12 +32,13 @@ class App extends React.PureComponent {
         {...this.props}
       />;
     } else {
+      console.log(`login`);
       return history.push(AppRoute.LOGIN);
     }
   }
 
   render() {
-    const {offers, cityOffers, login, authorizationStatus, user, sendComment, isSending, error} = this.props;
+    const {offers, cityOffers, login, authorizationStatus, user, sendComment, isFetching, error} = this.props;
     return (
       <Router history = {history}>
         <Switch>
@@ -51,7 +52,7 @@ class App extends React.PureComponent {
               authorizationStatus = {authorizationStatus}
               user = {user}
               onSubmitForm = {sendComment}
-              isSending = {isSending}
+              isFetching = {isFetching}
               error = {error}
             />
           }
@@ -80,7 +81,7 @@ class App extends React.PureComponent {
 }
 
 export const mapStateToProps = (state) => ({
-  isLoading: state[NameSpace.DATA].isLoading,
+  isFetching: state[NameSpace.DATA].isFetching,
   offers: getMemoizedOffers(state),
   cities: state[NameSpace.APP].cities,
   city: state[NameSpace.APP].city,
@@ -88,7 +89,6 @@ export const mapStateToProps = (state) => ({
   error: state[NameSpace.DATA].error,
   authorizationStatus: state[NameSpace.AUTH].authorizationStatus,
   user: state[NameSpace.AUTH].user,
-  isSending: state[NameSpace.DATA].isSending,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -116,6 +116,6 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
-  isSending: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   sendComment: PropTypes.func.isRequired,
 };

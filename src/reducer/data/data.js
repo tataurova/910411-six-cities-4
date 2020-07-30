@@ -4,23 +4,21 @@ import {ActionCreator as AppActionCreator} from "../app/app.js";
 import {getUpdatedOffers} from "../../utils/offers.js";
 
 const initialState = {
-  isLoading: false,
-  isSending: false,
+  isFetching: false,
   offers: [],
   error: -1,
 };
 
 const ActionType = {
-  SET_LOADING_STATUS: `SET_LOADING_STATUS`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   WRITE_ERROR: `WRITE_ERROR`,
-  SET_SENDING_STATUS: `SET_SENDING_STATUS`,
+  SET_FETCHING_STATUS: `SET_FETCHING_STATUS`,
 };
 
 const ActionCreator = {
-  setLoadingStatus: (status) => {
+  setFetchingStatus: (status) => {
     return {
-      type: ActionType.SET_LOADING_STATUS,
+      type: ActionType.SET_FETCHING_STATUS,
       payload: status,
     };
   },
@@ -36,65 +34,59 @@ const ActionCreator = {
       payload: error,
     };
   },
-  setSendingStatus: (status) => {
-    return {
-      type: ActionType.SET_SENDING_STATUS,
-      payload: status,
-    };
-  },
 };
 
 const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
-    dispatch(ActionCreator.setLoadingStatus(true));
+    dispatch(ActionCreator.setFetchingStatus(true));
     return api.get(`/hotels`)
       .then((response) => {
         const offers = response.data.map((offer) => getOffer(offer));
-        dispatch(ActionCreator.setLoadingStatus(false));
+        dispatch(ActionCreator.setFetchingStatus(false));
         dispatch(ActionCreator.loadOffers(offers));
         dispatch(AppActionCreator.setCities(offers));
       })
       .catch((error) => {
         dispatch(ActionCreator.writeError(error.response.status));
-        dispatch(ActionCreator.setLoadingStatus(false));
+        dispatch(ActionCreator.setFetchingStatus(false));
       });
   },
   sendComment: (commentData, id) => (dispatch, getState, api) => {
-    dispatch(ActionCreator.setSendingStatus(true));
+    dispatch(ActionCreator.setFetchingStatus(true));
     return api.post(`/comments/${id}`, {
       comment: commentData.comment,
       rating: commentData.rating})
       .then(() => {
-        dispatch(ActionCreator.setSendingStatus(false));
+        dispatch(ActionCreator.setFetchingStatus(false));
         dispatch(ActionCreator.writeError(initialState.error));
       })
       .catch((error) => {
         dispatch(ActionCreator.writeError(error.response.status));
-        dispatch(ActionCreator.setSendingStatus(false));
+        dispatch(ActionCreator.setFetchingStatus(false));
       });
   },
   setToFavorite: (id, status) => (dispatch, getState, api) => {
-    dispatch(ActionCreator.setSendingStatus(true));
+    dispatch(ActionCreator.setFetchingStatus(true));
     const statusParameter = status ? 1 : 0;
     return api.post(`/favorite/${id}/${statusParameter}`)
       .then((response) => {
-        dispatch(ActionCreator.setSendingStatus(false));
+        dispatch(ActionCreator.setFetchingStatus(false));
         dispatch(ActionCreator.writeError(initialState.error));
         const offers = getUpdatedOffers(response.data, getState().DATA.offers.slice());
         dispatch(ActionCreator.loadOffers(offers));
       })
       .catch((error) => {
         dispatch(ActionCreator.writeError(error.response.status));
-        dispatch(ActionCreator.setSendingStatus(false));
+        dispatch(ActionCreator.setFetchingStatus(false));
       });
   },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.SET_LOADING_STATUS:
+    case ActionType.SET_FETCHING_STATUS:
       return extend(state, {
-        isLoading: action.payload,
+        isFetching: action.payload,
       });
     case ActionType.LOAD_OFFERS:
       return extend(state, {
@@ -103,10 +95,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.WRITE_ERROR:
       return extend(state, {
         error: action.payload,
-      });
-    case ActionType.SET_SENDING_STATUS:
-      return extend(state, {
-        isSending: action.payload,
       });
   }
 

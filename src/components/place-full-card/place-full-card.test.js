@@ -29,7 +29,7 @@ describe(`<PlaceFullCard />`, () => {
                 onPlaceCardHover = {() => {}}
                 authorizationStatus = {`NO_AUTH`}
                 user = {``}
-                isSending = {false}
+                isFetching = {false}
                 error = {-1}
                 onSubmitForm = {() => {}}
               />

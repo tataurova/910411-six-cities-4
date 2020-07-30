@@ -11,8 +11,7 @@ describe(`Tests for redux functions in App component`, () => {
   it(`MapStateToProps returns props from initial state`, () => {
     const initialState = {
       DATA: {
-        isLoading: false,
-        isSending: false,
+        isFetching: false,
         offers: [],
         error: -1,
       },
@@ -27,8 +26,7 @@ describe(`Tests for redux functions in App component`, () => {
     };
 
     const result = {
-      isLoading: false,
-      isSending: false,
+      isFetching: false,
       offers: [],
       cities: [],
       city: ``,
@@ -66,8 +64,7 @@ describe(`Tests for App component`, () => {
   const mockStore = configureStore([]);
   const initialState = {
     DATA: {
-      isLoading: false,
-      isSending: false,
+      isFetching: false,
       offers,
       error: -1,
     },

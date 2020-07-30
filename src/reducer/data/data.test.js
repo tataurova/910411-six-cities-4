@@ -152,8 +152,7 @@ describe(`Operation for API to /favorite works correctly`, () => {
 describe(`Reducer tests`, () => {
   it(`The reducer without additional parameters should return the initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
-      isLoading: false,
-      isSending: false,
+      isFetching: false,
       offers: [],
       error: -1,
     });
@@ -161,34 +160,25 @@ describe(`Reducer tests`, () => {
 
   it(`The reducer should change the initial values to new ones`, () => {
     expect(reducer({
-      isLoading: false,
+      isFetching: false,
       offers: [],
       error: -1,
     }, {
       type: ActionType.LOAD_OFFERS,
       payload: offers,
     })).toEqual({
-      isLoading: false,
+      isFetching: false,
       offers,
       error: -1,
     });
 
     expect(reducer({
-      isLoading: false,
+      isFetching: false,
     }, {
-      type: ActionType.SET_LOADING_STATUS,
+      type: ActionType.SET_FETCHING_STATUS,
       payload: true,
     })).toEqual({
-      isLoading: true,
-    });
-
-    expect(reducer({
-      isSending: false,
-    }, {
-      type: ActionType.SET_SENDING_STATUS,
-      payload: true,
-    })).toEqual({
-      isSending: true,
+      isFetching: true,
     });
 
     expect(reducer({
@@ -217,16 +207,9 @@ describe(`Action creator works correctly`, () => {
     });
   });
 
-  it(`Action creator of the setting loading status returns correct action`, () => {
-    expect(ActionCreator.setLoadingStatus(true)).toEqual({
-      type: ActionType.SET_LOADING_STATUS,
-      payload: true,
-    });
-  });
-
-  it(`Action creator of the setting sending status returns correct action`, () => {
-    expect(ActionCreator.setSendingStatus(true)).toEqual({
-      type: ActionType.SET_SENDING_STATUS,
+  it(`Action creator of the setting fetching status returns correct action`, () => {
+    expect(ActionCreator.setFetchingStatus(true)).toEqual({
+      type: ActionType.SET_FETCHING_STATUS,
       payload: true,
     });
   });

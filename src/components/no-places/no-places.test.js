@@ -9,7 +9,35 @@ describe(`<NoPlaces />`, () => {
       .create(
           <NoPlaces
             activeCity={activeCity}
-            isLoading = {false}
+            isFetching = {false}
+            error = {-1}
+          />
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`Should NoPlaces render correctly with error`, () => {
+    const activeCity = `Paris`;
+    const tree = renderer
+      .create(
+          <NoPlaces
+            activeCity={activeCity}
+            isFetching = {false}
+            error = {400}
+          />
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`Should NoPlaces render correctly while fetching`, () => {
+    const activeCity = `Paris`;
+    const tree = renderer
+      .create(
+          <NoPlaces
+            activeCity={activeCity}
+            isFetching = {true}
             error = {-1}
           />
       )

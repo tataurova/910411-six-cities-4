@@ -28,7 +28,7 @@ describe(`<Main />`, () => {
                 cities = {cities}
                 city = {activeCity}
                 onMenuClick = {() => {}}
-                isLoading = {false}
+                isFetching = {false}
                 error = {-1}
               />
             </BrowserRouter>

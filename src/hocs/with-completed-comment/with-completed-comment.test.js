@@ -14,7 +14,7 @@ it(`withCompletedComment is rendered correctly`, () => {
   const tree = renderer.create((
     <MockComponentWrapped
       onSubmitForm = {() => {}}
-      isSending = {false}
+      isFetching = {false}
       error = {-1}
       id = {`1`}
     />

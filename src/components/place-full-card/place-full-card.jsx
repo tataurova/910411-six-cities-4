@@ -11,7 +11,7 @@ import {withCompletedComment} from "../../hocs/with-completed-comment/with-compl
 
 const CommentFormWithCompletedComment = withCompletedComment(CommentForm);
 
-const PlaceFullCard = ({offerInfo, id, authorizationStatus, user, onSubmitForm, isSending, error}) => {
+const PlaceFullCard = ({offerInfo, id, authorizationStatus, user, onSubmitForm, isFetching, error}) => {
   const idNumber = Number(id);
   const {offer, nearOffers} = offerInfo;
   const activeCity = offer.city;
@@ -107,7 +107,7 @@ const PlaceFullCard = ({offerInfo, id, authorizationStatus, user, onSubmitForm, 
                 {authorizationStatus === AuthorizationStatus.AUTH && <CommentFormWithCompletedComment
                   onSubmitForm={onSubmitForm}
                   id={id}
-                  isSending={isSending}
+                  isFetching={isFetching}
                   error={error}
                 />}
               </section>
@@ -148,7 +148,7 @@ PlaceFullCard.propTypes = {
   id: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
-  isSending: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   error: PropTypes.number.isRequired,
   onSubmitForm: PropTypes.func.isRequired,
 };

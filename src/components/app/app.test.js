@@ -12,8 +12,7 @@ describe(`<App />`, () => {
 
     const store = mockStore({
       DATA: {
-        isLoading: false,
-        isSending: false,
+        isFetching: false,
         offers,
         error: -1,
       },
@@ -42,8 +41,7 @@ describe(`<App />`, () => {
 
     const store = mockStore({
       DATA: {
-        isLoading: false,
-        isSending: false,
+        isFetching: false,
         offers,
         error: -1,
       },

@@ -27,7 +27,7 @@ describe(`<MainPage />`, () => {
                 cities = {cities}
                 city = {activeCity}
                 onMenuClick = {() => {}}
-                isLoading = {false}
+                isFetching = {false}
                 error = {-1}
                 authorizationStatus = {`NO_AUTH`}
                 user = {``}
@@ -49,7 +49,7 @@ describe(`<MainPage />`, () => {
               cities = {cities}
               city = {activeCity}
               onMenuClick = {() => {}}
-              isLoading = {false}
+              isFetching = {false}
               error = {-1}
               authorizationStatus = {`NO_AUTH`}
               user = {``}
