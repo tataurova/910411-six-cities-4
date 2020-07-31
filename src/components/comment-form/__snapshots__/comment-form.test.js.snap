@@ -299,7 +299,7 @@ exports[`<CommentForm /> Render CommentForm with active submit form handler 1`] 
       </svg>
     </label>
     <input
-      checked={false}
+      checked={true}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="1-star"
@@ -482,7 +482,7 @@ exports[`<CommentForm /> Render CommentForm with disabled submit button 1`] = `
       </svg>
     </label>
     <input
-      checked={false}
+      checked={true}
       className="form__rating-input visually-hidden"
       disabled={false}
       id="1-star"

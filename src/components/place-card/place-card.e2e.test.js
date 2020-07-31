@@ -73,7 +73,7 @@ describe(`<PlaceCard />`, () => {
 
   });
 
-  it(`When changes prop offer, the method componentDidUpdate is called with true`, () => {
+  it(`When changes prop offer, the method shouldComponentUpdate is called with true`, () => {
     const component = main.find(`PlaceCard`);
     const instance = component.instance();
     jest.spyOn(instance, `shouldComponentUpdate`);
@@ -96,7 +96,7 @@ describe(`<PlaceCard />`, () => {
 
   });
 
-  it(`When doesnt change prop offer, the method componentDidUpdate is called with false`, () => {
+  it(`When doesnt change prop offer, the method shouldComponentUpdate is called with false`, () => {
     const tree = mount(
         <BrowserRouter>
           <PlaceList

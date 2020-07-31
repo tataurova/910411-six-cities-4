@@ -17,7 +17,6 @@ export const withCompletedComment = (Component) => {
     }
 
     handleChange(evt) {
-      evt.preventDefault();
       const {name} = evt.target;
       if (name === `rating`) {
         this.setState(extend(this.state, {rating: Number(evt.target.value)}));

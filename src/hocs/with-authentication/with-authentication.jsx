@@ -2,10 +2,24 @@ import React, {createRef} from "react";
 import PropTypes from "prop-types";
 import {LoginInput} from "../../const.js";
 import {extend} from "../../utils/common.js";
+import {LOGIN_MIN_LENGTH, PASSWORD_MIN_LENGTH} from "../../const.js";
+/* eslint-disable */
 
-const isValid = (input) => {
-  return input.current.validity.valid;
+const isLoginValid = (input, evt) => {
+  return input.current.validity.valid && evt.target.value.length >= LOGIN_MIN_LENGTH;
 };
+
+const isPasswordValid = (input, evt) => {
+  return input.current.validity.valid && evt.target.value.length >= PASSWORD_MIN_LENGTH;
+};
+
+export const isFormValid = (state) => {
+  return state.loginValid === true && state.passwordValid === true;
+};
+
+const isLoginEmpty = (state) => state.loginValid === null;
+
+const isPasswordEmpty = (state) => state.passwordValid === null;
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.PureComponent {
@@ -29,20 +43,28 @@ const withAuthentication = (Component) => {
       evt.preventDefault();
       const {name} = evt.target;
       if (name === LoginInput.EMAIL) {
-        this.setState(extend(this.state, {loginValid: isValid(this.loginRef)}));
+        this.setState(extend(this.state, {loginValid: isLoginValid(this.loginRef, evt)}));
       }
       if (name === LoginInput.PASSWORD) {
-        this.setState(extend(this.state, {passwordValid: isValid(this.passwordRef)}));
+        this.setState(extend(this.state, {passwordValid: isPasswordValid(this.passwordRef, evt)}));
       }
     }
 
     handleSubmit(evt) {
       evt.preventDefault();
-      const {onSubmitForm} = this.props;
-      onSubmitForm({
-        login: this.loginRef.current.value,
-        password: this.passwordRef.current.value,
-      });
+      if (isLoginEmpty(this.state)) {
+        this.setState(extend(this.state, {loginValid: false}));
+      }
+      if (isPasswordEmpty(this.state)) {
+        this.setState(extend(this.state, {passwordValid: false}));
+      }
+      if (isFormValid(this.state)) {
+        const {onSubmitForm} = this.props;
+        onSubmitForm({
+          login: this.loginRef.current.value,
+          password: this.passwordRef.current.value,
+        });
+      }
     }
 
     render() {

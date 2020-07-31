@@ -75,7 +75,7 @@ exports[`<App /> Render App 1`] = `
           action="#"
           className="login__form form"
           method="post"
-          onSubmit={null}
+          onSubmit={[Function]}
         >
           <div
             className="login__input-wrapper form__input-wrapper"
@@ -112,17 +112,12 @@ exports[`<App /> Render App 1`] = `
               type="password"
             />
           </div>
-          <a
-            href="/"
-            onClick={[Function]}
+          <button
+            className="login__submit form__submit button"
+            type="submit"
           >
-            <button
-              className="login__submit form__submit button"
-              type="submit"
-            >
-              Sign in
-            </button>
-          </a>
+            Sign in
+          </button>
         </form>
       </section>
       <section
@@ -221,7 +216,7 @@ exports[`<App /> Render App with authorization 1`] = `
           action="#"
           className="login__form form"
           method="post"
-          onSubmit={null}
+          onSubmit={[Function]}
         >
           <div
             className="login__input-wrapper form__input-wrapper"
@@ -258,17 +253,12 @@ exports[`<App /> Render App with authorization 1`] = `
               type="password"
             />
           </div>
-          <a
-            href="/"
-            onClick={[Function]}
+          <button
+            className="login__submit form__submit button"
+            type="submit"
           >
-            <button
-              className="login__submit form__submit button"
-              type="submit"
-            >
-              Sign in
-            </button>
-          </a>
+            Sign in
+          </button>
         </form>
       </section>
       <section

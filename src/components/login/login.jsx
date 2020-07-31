@@ -2,8 +2,13 @@ import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {LOGIN_MIN_LENGTH, PASSWORD_MIN_LENGTH} from "../../const.js";
+import {isFormValid} from "../../hocs/with-authentication/with-authentication.jsx";
 
 const Login = ({state, onSubmit, onChange, loginRef, passwordRef}) => {
+  const submitButton = isFormValid(state)
+    ? <Link to='/'><button className="login__submit form__submit button" type="submit">Sign in</button></Link>
+    : <button className="login__submit form__submit button" type="submit">Sign in</button>;
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -33,7 +38,7 @@ const Login = ({state, onSubmit, onChange, loginRef, passwordRef}) => {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={state.loginValid && state.passwordValid ? onSubmit : null}>
+            <form className="login__form form" action="#" method="post" onSubmit={onSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -59,7 +64,7 @@ const Login = ({state, onSubmit, onChange, loginRef, passwordRef}) => {
                   onChange={onChange}
                 />
               </div>
-              <Link to='/'><button className="login__submit form__submit button" type="submit">Sign in</button></Link>
+              {submitButton}
             </form>
           </section>
           <section className="locations locations--login locations--current">
@@ -86,11 +91,4 @@ Login.propTypes = {
   passwordRef: PropTypes.shape({current: PropTypes.instanceOf(HTMLInputElement)}).isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-};
-
-Login.defaultProps = {
-  state: PropTypes.shape({
-    loginValid: null,
-    passwordValid: null,
-  }),
 };

@@ -9,8 +9,12 @@ const CommentLength = {
 };
 
 const CommentForm = ({state, isFetching, error, onChange, onSubmit}) => {
+  const isValidForm = state.rating > DEFAULT_RATING && state.comment.length >= CommentLength.MIN;
+  const isFormEmpty = state.rating === DEFAULT_RATING && state.comment.length < CommentLength.START_TYPING;
+  const isAnyValueNotValid = state.rating === DEFAULT_RATING || state.comment.length < CommentLength.MIN;
+
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={state.rating > DEFAULT_RATING && state.comment.length >= CommentLength.MIN ? onSubmit : null}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={isValidForm ? onSubmit : null}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars"
@@ -56,13 +60,13 @@ const CommentForm = ({state, isFetching, error, onChange, onSubmit}) => {
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved" value={state.comment} onChange={onChange} disabled={isFetching}></textarea>
-      {error > MIN_ERROR_CODE && state.rating === DEFAULT_RATING && state.comment.length < CommentLength.START_TYPING && <p className="form-error">Something went wrong, please, try again later</p>}
+      {error > MIN_ERROR_CODE && isFormEmpty && <p className="form-error">Something went wrong, please, try again later</p>}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe
             your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={state.rating === DEFAULT_RATING || state.comment.length < CommentLength.MIN}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isAnyValueNotValid}>Submit</button>
       </div>
     </form>
   );

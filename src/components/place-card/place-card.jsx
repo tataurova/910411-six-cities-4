@@ -22,10 +22,7 @@ class PlaceCard extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (this.props.offer !== nextProps.offer) {
-      return true;
-    }
-    return false;
+    return this.props.offer !== nextProps.offer;
   }
 
   render() {

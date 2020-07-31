@@ -4,13 +4,14 @@ import withAuthentication from "./with-authentication.jsx";
 import PropTypes from "prop-types";
 
 const MockComponent = (props) => {
-  const {state, loginRef, passwordRef, onChange, onSubmit} = props;
+  const {loginRef, passwordRef, onChange, onSubmit} = props;
+
   return (
     <div>
-      <form action="#" method="post" onSubmit={state.loginValid && state.passwordValid ? onSubmit : null}>
+      <form action="#" method="post" onSubmit={onSubmit}>
         <input type="email" name="email" ref={loginRef} onChange={onChange}></input>
         <input type="password" name="password" ref={passwordRef} onChange={onChange}></input>
-        <button type="submit">Sign in</button>
+        <button className="login__submit form__submit button" type="submit">Sign in</button>
       </form>
     </div>
   );
@@ -30,10 +31,10 @@ MockComponent.propTypes = {
 const MockComponentWrapped = withAuthentication(MockComponent);
 
 describe(`withAuthentication`, () => {
-  const login = jest.fn();
+  const mockLogin = jest.fn();
   const main = mount(
       <MockComponentWrapped
-        onSubmitForm = {login}
+        onSubmitForm = {mockLogin}
       />
   );
   const instance = main.instance();
@@ -46,10 +47,27 @@ describe(`withAuthentication`, () => {
 
   it(`When a function is called in a component the state changes in HOC`, () => {
 
-    submitButton.simulate(`submit`);
     expect(main.state()).toEqual({
       loginValid: null,
       passwordValid: null,
+    });
+
+    main.setState({loginValid: true,
+      passwordValid: null});
+
+    submitButton.simulate(`submit`);
+    expect(main.state()).toEqual({
+      loginValid: true,
+      passwordValid: false,
+    });
+
+    main.setState({loginValid: null,
+      passwordValid: true});
+
+    submitButton.simulate(`submit`);
+    expect(main.state()).toEqual({
+      loginValid: false,
+      passwordValid: true,
     });
 
     emailInput.simulate(`change`, {target: {name: `email`, value: `test@test.ru`}});
@@ -68,10 +86,11 @@ describe(`withAuthentication`, () => {
 
     emailInput.simulate(`change`, {target: {name: `email`, value: `test@test.ru`}});
     passwordInput.simulate(`change`, {target: {name: `password`, value: `123`}});
-
+    main.setState({loginValid: true, // validity does not change in jest
+      passwordValid: true});
     submitButton.simulate(`submit`);
     expect(instance.handleChange).toHaveBeenCalledTimes(2);
-    expect(login).toHaveBeenCalledTimes(1);
+    expect(mockLogin).toHaveBeenCalledTimes(1);
     expect(instance.handleSubmit).toHaveBeenCalledTimes(1);
 
     jest.clearAllMocks();
@@ -85,7 +104,7 @@ describe(`withAuthentication`, () => {
     main.setState({loginValid: false, // validity does not change in jest
       passwordValid: true});
     submitButton.simulate(`submit`);
-    expect(login).toHaveBeenCalledTimes(0);
+    expect(mockLogin).toHaveBeenCalledTimes(0);
 
   });
 });
