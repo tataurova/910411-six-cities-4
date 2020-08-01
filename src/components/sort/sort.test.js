@@ -18,4 +18,32 @@ describe(`<Sort />`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`Should Sort render correctly`, () => {
+    const tree = renderer
+      .create(
+          <Sort
+            activeSortType = {SortType.DEFAULT}
+            state = {true}
+            onSortTypeClick = {() => {}}
+            onChangeItem = {() => {}}
+          />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`Should Sort render correctly`, () => {
+    const tree = renderer
+      .create(
+          <Sort
+            activeSortType = {SortType.PRICE_UP}
+            state = {true}
+            onSortTypeClick = {() => {}}
+            onChangeItem = {() => {}}
+          />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

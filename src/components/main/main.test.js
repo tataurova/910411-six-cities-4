@@ -4,6 +4,15 @@ import Main from "./main.jsx";
 import offers from "../../mocks/offers.js";
 import {cities} from "../../mocks/cities.js";
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import configureStore from "redux-mock-store";
+
+const onBookmarkButtonCLick = jest.fn();
+const mockStore = configureStore([]);
+const initialState = {
+  onBookmarkButtonCLick,
+};
+const store = mockStore(initialState);
 
 describe(`<Main />`, () => {
   const activeCity = `Cologne`;
@@ -12,16 +21,18 @@ describe(`<Main />`, () => {
 
     const tree = renderer
       .create(
-          <BrowserRouter>
-            <Main
-              offers = {offers}
-              cities = {cities}
-              city = {activeCity}
-              onMenuClick = {() => {}}
-              isLoading = {false}
-              error = {-1}
-            />
-          </BrowserRouter>)
+          <Provider store = {store}>
+            <BrowserRouter>
+              <Main
+                offers = {offers}
+                cities = {cities}
+                city = {activeCity}
+                onMenuClick = {() => {}}
+                isFetching = {false}
+                error = {-1}
+              />
+            </BrowserRouter>
+          </Provider>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

@@ -1,10 +1,12 @@
 import React from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {placeCardType} from "../../../types.js";
 import {Link} from "react-router-dom";
 import {INITIAL_STATE_HOVERED_CARD, AppRoute, CardType} from "../../const.js";
+import {Operation as DataOperation} from "../../reducer/data/data.js";
 
-class PlaceCard extends React.PureComponent {
+class PlaceCard extends React.Component {
   constructor(props) {
     super(props);
     this.handlePlaceCardHover = this.handlePlaceCardHover.bind(this);
@@ -19,9 +21,13 @@ class PlaceCard extends React.PureComponent {
     this.props.onPlaceCardHover(INITIAL_STATE_HOVERED_CARD);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props.offer !== nextProps.offer;
+  }
+
   render() {
-    const {offer, cardType} = this.props;
-    const {id, title, type, price, rating, premium, photo} = offer;
+    const {offer, cardType, onBookmarkButtonCLick} = this.props;
+    const {id, title, type, price, rating, premium, photo, favorite} = offer;
     const isCardTypeCity = cardType === CardType.CITY;
     return (
       <>
@@ -36,13 +42,15 @@ class PlaceCard extends React.PureComponent {
               alt="Place image"/>
           </a>
         </div>
-        <div className="place-card__info">
+        <div className={`place-card__info ${cardType.FAVORITES ? `favorites__card-info` : `` }`}>
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
-            <button className="place-card__bookmark-button button" type="button">
+            <button className={`place-card__bookmark-button button ${favorite ? `place-card__bookmark-button--active` : ``}`} type="button" onClick={() => {
+              onBookmarkButtonCLick(id, !favorite);
+            }}>
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -66,14 +74,22 @@ class PlaceCard extends React.PureComponent {
   }
 }
 
-export default PlaceCard;
-
 PlaceCard.propTypes = {
   offer: PropTypes.shape(placeCardType).isRequired,
   cardType: PropTypes.string.isRequired,
   onPlaceCardHover: PropTypes.func,
+  onBookmarkButtonCLick: PropTypes.func.isRequired,
 };
 
 PlaceCard.defaultProps = {
   onPlaceCardHover: () => {},
 };
+
+export const mapDispatchToProps = (dispatch) => ({
+  onBookmarkButtonCLick(id, status) {
+    dispatch(DataOperation.setToFavorite(id, status));
+  },
+});
+
+export {PlaceCard};
+export default connect(null, mapDispatchToProps)(PlaceCard);

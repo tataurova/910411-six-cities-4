@@ -27,3 +27,52 @@ exports[`<NoPlaces /> Should NoPlaces render correctly 1`] = `
   />
 </div>
 `;
+
+exports[`<NoPlaces /> Should NoPlaces render correctly while fetching 1`] = `
+<div
+  className="cities__places-container cities__places-container--empty container"
+>
+  <section
+    className="cities__no-places"
+  >
+    <div
+      className="cities__status-wrapper tabs__content"
+    >
+      <b
+        className="cities__status"
+      />
+      <p
+        className="cities__status-description"
+      >
+        Loading...
+      </p>
+    </div>
+  </section>
+  <div
+    className="cities__right-section"
+  />
+</div>
+`;
+
+exports[`<NoPlaces /> Should NoPlaces render correctly with error 1`] = `
+<div
+  className="cities__places-container cities__places-container--empty container"
+>
+  <section
+    className="cities__no-places"
+  >
+    <div
+      className="cities__status-wrapper tabs__content"
+    >
+      <p
+        className="cities__status-description"
+      >
+        Something went wrong, please, try again later
+      </p>
+    </div>
+  </section>
+  <div
+    className="cities__right-section"
+  />
+</div>
+`;

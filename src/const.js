@@ -7,6 +7,7 @@ export const MapSettings = {
 export const CardType = {
   CITY: `cities`,
   NEAR_PLACE: `near-places`,
+  FAVORITE: `favorites`,
 };
 
 export const SortType = {
@@ -25,6 +26,7 @@ export const AppRoute = {
   MAIN: `/`,
   LOGIN: `/login`,
   PLACE_FULL_CARD: `/offer`,
+  FAVORITES: `/favorites`,
 };
 
 export const LoginInput = {
@@ -33,11 +35,11 @@ export const LoginInput = {
 };
 
 export const RatingValue = {
-  ONE: `1`,
-  TWO: `2`,
-  THREE: `3`,
-  FOUR: `4`,
-  FIVE: `5`,
+  ONE: 1,
+  TWO: 2,
+  THREE: 3,
+  FOUR: 4,
+  FIVE: 5,
 };
 
 export const SORT_TYPES = [
@@ -64,4 +66,6 @@ export const MAX_TIMEOUT = 5000;
 export const LOGIN_MIN_LENGTH = 6;
 
 export const PASSWORD_MIN_LENGTH = 1;
+
+export const DEFAULT_RATING = 0;
 

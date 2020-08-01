@@ -3,6 +3,7 @@ import renderer from "react-test-renderer";
 import PlaceCard from "./place-card.jsx";
 import {BrowserRouter} from "react-router-dom";
 import {CardType} from "../../const.js";
+import configureStore from "redux-mock-store";
 
 const offerWithPremium = {
   id: 1,
@@ -15,10 +16,16 @@ const offerWithPremium = {
 };
 
 const offerWithoutPremium = Object.assign(offerWithPremium, {premium: false});
+const mockStore = configureStore([]);
+const initialState = {
+  onBookmarkButtonCLick: () => {},
+};
+const store = mockStore(initialState);
 
 const createComponent = (props) => renderer.create(
     <BrowserRouter>
       <PlaceCard
+        store = {store}
         {...props}
       />
     </BrowserRouter>
@@ -30,6 +37,7 @@ describe(`<PlaceCard />`, () => {
       offer: offerWithPremium,
       cardType: CardType.CITY,
       onPlaceCardHover: () => {},
+      onBookmarkButtonCLick: () => {}
     }).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -40,6 +48,7 @@ describe(`<PlaceCard />`, () => {
       offer: offerWithoutPremium,
       cardType: CardType.CITY,
       onPlaceCardHover: () => {},
+      onBookmarkButtonCLick: () => {},
     }).toJSON();
 
     expect(tree).toMatchSnapshot();

@@ -41,7 +41,7 @@ exports[`<MainPage /> Should MainPage render correctly 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="/login"
+                href="/favorites"
                 onClick={[Function]}
               >
                 <div
@@ -284,7 +284,7 @@ exports[`<MainPage /> Should MainPage render correctly 1`] = `
                 </a>
               </div>
               <div
-                className="place-card__info"
+                className="place-card__info "
               >
                 <div
                   className="place-card__price-wrapper"
@@ -305,7 +305,8 @@ exports[`<MainPage /> Should MainPage render correctly 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button button"
+                    className="place-card__bookmark-button button "
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -382,7 +383,7 @@ exports[`<MainPage /> Should MainPage render correctly 1`] = `
                 </a>
               </div>
               <div
-                className="place-card__info"
+                className="place-card__info "
               >
                 <div
                   className="place-card__price-wrapper"
@@ -403,7 +404,8 @@ exports[`<MainPage /> Should MainPage render correctly 1`] = `
                     </span>
                   </div>
                   <button
-                    className="place-card__bookmark-button button"
+                    className="place-card__bookmark-button button "
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -524,7 +526,7 @@ exports[`<MainPage /> Should MainPage render correctly without offers 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="/login"
+                href="/favorites"
                 onClick={[Function]}
               >
                 <div

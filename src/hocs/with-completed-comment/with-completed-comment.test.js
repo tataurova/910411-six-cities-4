@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import withCompletedComment from "./with-completed-comment.js";
+import withCompletedComment from "./with-completed-comment.jsx";
 
 const MockComponent = () => {
   return (
@@ -14,7 +14,7 @@ it(`withCompletedComment is rendered correctly`, () => {
   const tree = renderer.create((
     <MockComponentWrapped
       onSubmitForm = {() => {}}
-      isSending = {false}
+      isFetching = {false}
       error = {-1}
       id = {`1`}
     />

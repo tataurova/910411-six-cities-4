@@ -1,15 +1,15 @@
 import {mount} from "enzyme";
 import React from "react";
-import withCompletedComment from "./with-completed-comment.js";
+import withCompletedComment from "./with-completed-comment.jsx";
 import PropTypes from "prop-types";
 
 const MockComponent = (props) => {
-  const {state, isSending, onChange, onSubmit} = props;
+  const {state, isFetching, onChange, onSubmit} = props;
   return (
     <div>
       <form action="#" method="post" onSubmit={state.rating > 0 && state.comment.length > 49 ? onSubmit : null}>
         <input type="text" name="rating" onChange={onChange}></input>
-        <textarea name="review" value={state.comment} onChange={onChange} disabled={isSending}></textarea>
+        <textarea name="review" value={state.comment} onChange={onChange} disabled={isFetching}></textarea>
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -21,7 +21,7 @@ MockComponent.propTypes = {
     rating: PropTypes.number.isRequired,
     comment: PropTypes.string.isRequired,
   }),
-  isSending: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
@@ -34,7 +34,7 @@ describe(`withCompletedComment`, () => {
       <MockComponentWrapped
         onSubmitForm = {onSubmitForm}
         id = {`1`}
-        isSending = {false}
+        isFetching = {false}
         error = {-1}
       />
   );

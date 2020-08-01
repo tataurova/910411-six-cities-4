@@ -11,9 +11,9 @@ describe(`Tests for redux functions in App component`, () => {
   it(`MapStateToProps returns props from initial state`, () => {
     const initialState = {
       DATA: {
-        isLoading: false,
-        isSending: false,
+        isFetching: false,
         offers: [],
+        favoriteOffers: [],
         error: -1,
       },
       APP: {
@@ -27,9 +27,9 @@ describe(`Tests for redux functions in App component`, () => {
     };
 
     const result = {
-      isLoading: false,
-      isSending: false,
+      isFetching: false,
       offers: [],
+      favoriteOffers: [],
       cities: [],
       city: ``,
       cityOffers: [],
@@ -66,9 +66,9 @@ describe(`Tests for App component`, () => {
   const mockStore = configureStore([]);
   const initialState = {
     DATA: {
-      isLoading: false,
-      isSending: false,
+      isFetching: false,
       offers,
+      favoriteOffers: offers,
       error: -1,
     },
     APP: {
@@ -76,21 +76,20 @@ describe(`Tests for App component`, () => {
       city: `Cologne`,
     },
     AUTH: {
-      authorizationStatus: `NO_AUTH`,
-      user: ``,
+      authorizationStatus: `AUTH`,
+      user: `test@test.ru`,
     },
     onMenuClick: () => {},
   };
+
   const store = mockStore(initialState);
 
-  const tree = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-  );
-
   it(`Initial state from store should be right`, () => {
-
+    const tree = mount(
+        <Provider store={store}>
+          <App />
+        </Provider>
+    );
     expect(tree.props().store.getState()).toBe(initialState);
 
   });

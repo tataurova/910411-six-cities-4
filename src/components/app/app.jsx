@@ -2,18 +2,23 @@ import React from 'react';
 import MainPage from '../main-page/main-page.jsx';
 import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app.js";
 import {placeCardType} from "../../../types.js";
 import {getOfferInfo} from "../../utils/offers.js";
 import {getMemoizedCityOffers} from "../../reducer/app/selectors.js";
+import {getMemoizedOffers} from "../../reducer/data/selectors.js";
 import NameSpace from "../../reducer/name-space.js";
 import Login from "../login/login.jsx";
 import withAuthentication from "../../hocs/with-authentication/with-authentication.jsx";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {Operation as DataOperation} from "../../reducer/data/data.js";
-import {AppRoute} from "../../const.js";
+import {AppRoute, AuthorizationStatus} from "../../const.js";
+import history from "../../history.js";
+import Favorites from "../favorites/favorites.jsx";
+import PrivateRoute from "../private-route/private-route.jsx";
+import {CardType} from "../../const.js";
 
 const LoginWithAuthentication = withAuthentication(Login);
 
@@ -22,19 +27,27 @@ class App extends React.PureComponent {
     super(props);
   }
 
-  _renderApp() {
-    return <MainPage
-      {...this.props}
-    />;
-  }
-
   render() {
-    const {offers, cityOffers, login, authorizationStatus, user, sendComment, isSending, error} = this.props;
+    const {
+      offers,
+      cityOffers,
+      login,
+      authorizationStatus,
+      user,
+      sendComment,
+      isFetching,
+      error,
+      favoriteOffers,
+      loadFavoriteOffers,
+    } = this.props;
     return (
-      <BrowserRouter>
+      <Router history = {history}>
         <Switch>
-          <Route exact path={AppRoute.MAIN}>
-            {this._renderApp()}
+          <Route exact path={AppRoute.MAIN} render={() => {
+            return <MainPage
+              {...this.props}
+            />;
+          }}>
           </Route>
           <Route exact path={`${AppRoute.PLACE_FULL_CARD}/:id`} render={(props) =>
             cityOffers.length > 0 && <PlaceFullCard
@@ -43,32 +56,52 @@ class App extends React.PureComponent {
               authorizationStatus = {authorizationStatus}
               user = {user}
               onSubmitForm = {sendComment}
-              isSending = {isSending}
+              isFetching = {isFetching}
               error = {error}
             />
           }
           />
-          <Route exact path={AppRoute.LOGIN}>
-            <LoginWithAuthentication
-              onSubmitForm = {login}
-            />
+          <Route exact path={AppRoute.LOGIN} render={() => {
+            if (authorizationStatus === AuthorizationStatus.AUTH) {
+              return <Redirect to={AppRoute.MAIN} />;
+            } else {
+              return <LoginWithAuthentication
+                onSubmitForm = {login}
+              />;
+            }
+          }}>
           </Route>
+          <PrivateRoute
+            exact
+            path={AppRoute.FAVORITES}
+            render={() => {
+              return (
+                <Favorites
+                  cardType = {CardType.FAVORITE}
+                  favoriteOffers = {favoriteOffers}
+                  loadFavoriteOffers = {loadFavoriteOffers}
+                  authorizationStatus = {authorizationStatus}
+                  user = {user}
+                />
+              );
+            }}
+          />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
 
 export const mapStateToProps = (state) => ({
-  isLoading: state[NameSpace.DATA].isLoading,
-  offers: state[NameSpace.DATA].offers,
+  isFetching: state[NameSpace.DATA].isFetching,
+  offers: getMemoizedOffers(state),
   cities: state[NameSpace.APP].cities,
   city: state[NameSpace.APP].city,
   cityOffers: getMemoizedCityOffers(state),
   error: state[NameSpace.DATA].error,
   authorizationStatus: state[NameSpace.AUTH].authorizationStatus,
   user: state[NameSpace.AUTH].user,
-  isSending: state[NameSpace.DATA].isSending,
+  favoriteOffers: state[NameSpace.DATA].favoriteOffers,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -80,6 +113,9 @@ export const mapDispatchToProps = (dispatch) => ({
   },
   sendComment(comment, id) {
     dispatch(DataOperation.sendComment(comment, id));
+  },
+  loadFavoriteOffers() {
+    dispatch(DataOperation.loadFavoriteOffers());
   }
 });
 
@@ -96,6 +132,8 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
-  isSending: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   sendComment: PropTypes.func.isRequired,
+  loadFavoriteOffers: PropTypes.func.isRequired,
+  favoriteOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
 };

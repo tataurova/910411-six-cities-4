@@ -1,10 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceList from "./place-list.jsx";
-import offers from "../../mocks/offers.js";
-import {CardType, SortType} from "../../const.js";
+import Favorites from "./favorites.jsx";
 import {BrowserRouter} from "react-router-dom";
+import offers from "../../mocks/offers.js";
 import configureStore from "redux-mock-store";
+import {CardType} from "../../const.js";
 
 const onBookmarkButtonCLick = jest.fn();
 const mockStore = configureStore([]);
@@ -13,18 +13,19 @@ const initialState = {
 };
 const store = mockStore(initialState);
 
-describe(`<PlaceList />`, () => {
-  it(`Should PlaceList render correctly`, () => {
-    const activeSortType = SortType.DEFAULT;
+describe(`<Favorites />`, () => {
+  it(`Render Favorites`, () => {
+
     const tree = renderer
       .create(
           <BrowserRouter>
-            <PlaceList
+            <Favorites
               store = {store}
-              offers={offers}
-              activeSortType={activeSortType}
-              cardType={CardType.NEAR_PLACE}
-              onPlaceCardHover={() => {}}
+              cardType = {CardType.FAVORITE}
+              authorizationStatus = {`AUTH`}
+              user = {`test@test.ru`}
+              favoriteOffers={offers}
+              loadFavoriteOffers={() => {}}
             />
           </BrowserRouter>)
       .toJSON();
