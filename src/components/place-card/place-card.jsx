@@ -42,7 +42,7 @@ class PlaceCard extends React.Component {
               alt="Place image"/>
           </a>
         </div>
-        <div className="place-card__info">
+        <div className={`place-card__info ${cardType.FAVORITES ? `favorites__card-info` : `` }`}>
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{price}</b>

@@ -284,7 +284,7 @@ exports[`<MainPage /> Should MainPage render correctly 1`] = `
                 </a>
               </div>
               <div
-                className="place-card__info"
+                className="place-card__info "
               >
                 <div
                   className="place-card__price-wrapper"
@@ -383,7 +383,7 @@ exports[`<MainPage /> Should MainPage render correctly 1`] = `
                 </a>
               </div>
               <div
-                className="place-card__info"
+                className="place-card__info "
               >
                 <div
                   className="place-card__price-wrapper"

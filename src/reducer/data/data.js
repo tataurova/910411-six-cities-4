@@ -6,6 +6,7 @@ import {getUpdatedOffers} from "../../utils/offers.js";
 const initialState = {
   isFetching: false,
   offers: [],
+  favoriteOffers: [],
   error: -1,
 };
 
@@ -13,6 +14,7 @@ const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   WRITE_ERROR: `WRITE_ERROR`,
   SET_FETCHING_STATUS: `SET_FETCHING_STATUS`,
+  LOAD_FAVORITE_OFFERS: `LOAD_FAVORITE_OFFERS`,
 };
 
 const ActionCreator = {
@@ -25,6 +27,12 @@ const ActionCreator = {
   loadOffers: (offers) => {
     return {
       type: ActionType.LOAD_OFFERS,
+      payload: offers,
+    };
+  },
+  loadFavoriteOffers: (offers) => {
+    return {
+      type: ActionType.LOAD_FAVORITE_OFFERS,
       payload: offers,
     };
   },
@@ -45,6 +53,19 @@ const Operation = {
         dispatch(ActionCreator.setFetchingStatus(false));
         dispatch(ActionCreator.loadOffers(offers));
         dispatch(AppActionCreator.setCities(offers));
+      })
+      .catch((error) => {
+        dispatch(ActionCreator.writeError(error.response.status));
+        dispatch(ActionCreator.setFetchingStatus(false));
+      });
+  },
+  loadFavoriteOffers: () => (dispatch, getState, api) => {
+    dispatch(ActionCreator.setFetchingStatus(true));
+    return api.get(`/favorite`)
+      .then((response) => {
+        const favoriteOffers = response.data.map((offer) => getOffer(offer));
+        dispatch(ActionCreator.setFetchingStatus(false));
+        dispatch(ActionCreator.loadFavoriteOffers(favoriteOffers));
       })
       .catch((error) => {
         dispatch(ActionCreator.writeError(error.response.status));
@@ -95,6 +116,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.WRITE_ERROR:
       return extend(state, {
         error: action.payload,
+      });
+    case ActionType.LOAD_FAVORITE_OFFERS:
+      return extend(state, {
+        favoriteOffers: action.payload,
       });
   }
 

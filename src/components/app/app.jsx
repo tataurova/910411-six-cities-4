@@ -2,7 +2,7 @@ import React from 'react';
 import MainPage from '../main-page/main-page.jsx';
 import PlaceFullCard from "../place-full-card/place-full-card.jsx";
 import PropTypes from 'prop-types';
-import {Switch, Route, Router} from "react-router-dom";
+import {Switch, Route, Router, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app.js";
 import {placeCardType} from "../../../types.js";
@@ -18,6 +18,7 @@ import {AppRoute, AuthorizationStatus} from "../../const.js";
 import history from "../../history.js";
 import Favorites from "../favorites/favorites.jsx";
 import PrivateRoute from "../private-route/private-route.jsx";
+import {CardType} from "../../const.js";
 
 const LoginWithAuthentication = withAuthentication(Login);
 
@@ -26,23 +27,27 @@ class App extends React.PureComponent {
     super(props);
   }
 
-  _renderApp() {
-    if (this.props.authorizationStatus === AuthorizationStatus.AUTH) {
-      return <MainPage
-        {...this.props}
-      />;
-    } else {
-      return history.push(AppRoute.LOGIN);
-    }
-  }
-
   render() {
-    const {offers, cityOffers, login, authorizationStatus, user, sendComment, isFetching, error} = this.props;
+    const {
+      offers,
+      cityOffers,
+      login,
+      authorizationStatus,
+      user,
+      sendComment,
+      isFetching,
+      error,
+      favoriteOffers,
+      loadFavoriteOffers,
+    } = this.props;
     return (
       <Router history = {history}>
         <Switch>
-          <Route exact path={AppRoute.MAIN}>
-            {this._renderApp()}
+          <Route exact path={AppRoute.MAIN} render={() => {
+            return <MainPage
+              {...this.props}
+            />;
+          }}>
           </Route>
           <Route exact path={`${AppRoute.PLACE_FULL_CARD}/:id`} render={(props) =>
             cityOffers.length > 0 && <PlaceFullCard
@@ -56,10 +61,15 @@ class App extends React.PureComponent {
             />
           }
           />
-          <Route exact path={AppRoute.LOGIN}>
-            <LoginWithAuthentication
-              onSubmitForm = {login}
-            />
+          <Route exact path={AppRoute.LOGIN} render={() => {
+            if (authorizationStatus === AuthorizationStatus.AUTH) {
+              return <Redirect to={AppRoute.MAIN} />;
+            } else {
+              return <LoginWithAuthentication
+                onSubmitForm = {login}
+              />;
+            }
+          }}>
           </Route>
           <PrivateRoute
             exact
@@ -67,6 +77,9 @@ class App extends React.PureComponent {
             render={() => {
               return (
                 <Favorites
+                  cardType = {CardType.FAVORITE}
+                  favoriteOffers = {favoriteOffers}
+                  loadFavoriteOffers = {loadFavoriteOffers}
                   authorizationStatus = {authorizationStatus}
                   user = {user}
                 />
@@ -88,6 +101,7 @@ export const mapStateToProps = (state) => ({
   error: state[NameSpace.DATA].error,
   authorizationStatus: state[NameSpace.AUTH].authorizationStatus,
   user: state[NameSpace.AUTH].user,
+  favoriteOffers: state[NameSpace.DATA].favoriteOffers,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -99,6 +113,9 @@ export const mapDispatchToProps = (dispatch) => ({
   },
   sendComment(comment, id) {
     dispatch(DataOperation.sendComment(comment, id));
+  },
+  loadFavoriteOffers() {
+    dispatch(DataOperation.loadFavoriteOffers());
   }
 });
 
@@ -117,4 +134,6 @@ App.propTypes = {
   login: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   sendComment: PropTypes.func.isRequired,
+  loadFavoriteOffers: PropTypes.func.isRequired,
+  favoriteOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
 };

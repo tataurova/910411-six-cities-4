@@ -1,14 +1,8 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {LOGIN_MIN_LENGTH, PASSWORD_MIN_LENGTH} from "../../const.js";
-import {isFormValid} from "../../hocs/with-authentication/with-authentication.jsx";
 
 const Login = ({state, onSubmit, onChange, loginRef, passwordRef}) => {
-  const submitButton = isFormValid(state)
-    ? <Link to='/'><button className="login__submit form__submit button" type="submit">Sign in</button></Link>
-    : <button className="login__submit form__submit button" type="submit">Sign in</button>;
-
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -64,7 +58,7 @@ const Login = ({state, onSubmit, onChange, loginRef, passwordRef}) => {
                   onChange={onChange}
                 />
               </div>
-              {submitButton}
+              <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">

@@ -155,6 +155,7 @@ describe(`Reducer tests`, () => {
       isFetching: false,
       offers: [],
       error: -1,
+      favoriteOffers: [],
     });
   });
 

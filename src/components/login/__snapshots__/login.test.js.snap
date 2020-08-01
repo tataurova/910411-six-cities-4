@@ -253,17 +253,12 @@ exports[`<Login /> Should Login render correctly with valid form 1`] = `
               type="password"
             />
           </div>
-          <a
-            href="/"
-            onClick={[Function]}
+          <button
+            className="login__submit form__submit button"
+            type="submit"
           >
-            <button
-              className="login__submit form__submit button"
-              type="submit"
-            >
-              Sign in
-            </button>
-          </a>
+            Sign in
+          </button>
         </form>
       </section>
       <section

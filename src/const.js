@@ -7,6 +7,7 @@ export const MapSettings = {
 export const CardType = {
   CITY: `cities`,
   NEAR_PLACE: `near-places`,
+  FAVORITE: `favorites`,
 };
 
 export const SortType = {

@@ -14,6 +14,7 @@ describe(`<App />`, () => {
       DATA: {
         isFetching: false,
         offers,
+        favoriteOffers: offers,
         error: -1,
       },
       APP: {
@@ -43,6 +44,7 @@ describe(`<App />`, () => {
       DATA: {
         isFetching: false,
         offers,
+        favoriteOffers: offers,
         error: -1,
       },
       APP: {

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {LoginInput} from "../../const.js";
 import {extend} from "../../utils/common.js";
 import {LOGIN_MIN_LENGTH, PASSWORD_MIN_LENGTH} from "../../const.js";
-/* eslint-disable */
 
 const isLoginValid = (input, evt) => {
   return input.current.validity.valid && evt.target.value.length >= LOGIN_MIN_LENGTH;

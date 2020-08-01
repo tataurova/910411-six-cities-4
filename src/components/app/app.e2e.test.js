@@ -13,6 +13,7 @@ describe(`Tests for redux functions in App component`, () => {
       DATA: {
         isFetching: false,
         offers: [],
+        favoriteOffers: [],
         error: -1,
       },
       APP: {
@@ -28,6 +29,7 @@ describe(`Tests for redux functions in App component`, () => {
     const result = {
       isFetching: false,
       offers: [],
+      favoriteOffers: [],
       cities: [],
       city: ``,
       cityOffers: [],
@@ -66,6 +68,7 @@ describe(`Tests for App component`, () => {
     DATA: {
       isFetching: false,
       offers,
+      favoriteOffers: offers,
       error: -1,
     },
     APP: {
