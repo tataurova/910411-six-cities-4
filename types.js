@@ -10,12 +10,13 @@ export const placeCardType = {
     photo: PropTypes.string.isRequired,
 };
 
-export const reviewsItemType = {
+export const reviewType = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   photo: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
 };
 
 export const placeFullCardType = {
@@ -35,11 +36,5 @@ export const placeFullCardType = {
       name: PropTypes.string.isRequired,
       isSuper: PropTypes.bool.isRequired,
     }).isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape(reviewsItemType).isRequired).isRequired,
     photos: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
-
-export const cardTypeType = {
-  CITY: PropTypes.string.isRequired,
-  NEAR_PLACE: PropTypes.string.isRequired,
 };

@@ -8,6 +8,8 @@ describe(`Reducer tests`, () => {
         offers: [],
         error: -1,
         favoriteOffers: [],
+        nearbyOffers: [],
+        reviews: [],
       },
       APP: {
         cities: [],

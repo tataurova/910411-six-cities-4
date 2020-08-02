@@ -32,6 +32,7 @@ const newOffer = {
 const mockStore = configureStore([]);
 const initialState = {
   onBookmarkButtonCLick: jest.fn(),
+  loadFavoriteOffers: jest.fn(),
 };
 const store = mockStore(initialState);
 
@@ -66,9 +67,16 @@ describe(`<PlaceCard />`, () => {
 
   });
 
-  it(`When you click on the bookmark button the handler is called`, () => {
+  it(`When the function is called the dispatch is called`, () => {
     const dispatch = jest.fn();
     mapDispatchToProps(dispatch).onBookmarkButtonCLick(1, true);
+    expect(dispatch).toHaveBeenCalledTimes(1);
+
+  });
+
+  it(`When the function is called the dispatch is called`, () => {
+    const dispatch = jest.fn();
+    mapDispatchToProps(dispatch).loadFavoriteOffers();
     expect(dispatch).toHaveBeenCalledTimes(1);
 
   });

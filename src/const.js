@@ -27,11 +27,26 @@ export const AppRoute = {
   LOGIN: `/login`,
   PLACE_FULL_CARD: `/offer`,
   FAVORITES: `/favorites`,
+  FAVORITE: `/favorite`,
+  HOTELS: `/hotels`,
+  COMMENTS: `/comments`,
+  NEARBY: `/nearby`,
+  SERVER_URL: `https://4.react.pages.academy/six-cities`,
 };
 
 export const LoginInput = {
   EMAIL: `email`,
   PASSWORD: `password`,
+};
+
+export const Error = {
+  UNAUTHORIZED: 401,
+  SERVICE_UNAVAILABLE: 503,
+};
+
+export const FavoriteStatus = {
+  ADD: 1,
+  REMOVE: 0,
 };
 
 export const RatingValue = {
@@ -68,4 +83,8 @@ export const LOGIN_MIN_LENGTH = 6;
 export const PASSWORD_MIN_LENGTH = 1;
 
 export const DEFAULT_RATING = 0;
+
+export const SHOW_REVIEW_MAX_NUMBER = 10;
+
+export const DEFAULT_ERROR_STATUS = -1;
 

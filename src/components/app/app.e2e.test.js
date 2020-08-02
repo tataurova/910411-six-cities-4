@@ -6,6 +6,7 @@ import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {mount} from "enzyme";
 import {cities} from "../../mocks/cities.js";
+import {DEFAULT_ERROR_STATUS, AuthorizationStatus} from "../../const.js";
 
 describe(`Tests for redux functions in App component`, () => {
   it(`MapStateToProps returns props from initial state`, () => {
@@ -14,14 +15,16 @@ describe(`Tests for redux functions in App component`, () => {
         isFetching: false,
         offers: [],
         favoriteOffers: [],
-        error: -1,
+        nearbyOffers: [],
+        reviews: [],
+        error: DEFAULT_ERROR_STATUS,
       },
       APP: {
         cities: [],
         city: ``,
       },
       AUTH: {
-        authorizationStatus: `NO_AUTH`,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         user: ``,
       },
     };
@@ -30,11 +33,13 @@ describe(`Tests for redux functions in App component`, () => {
       isFetching: false,
       offers: [],
       favoriteOffers: [],
+      nearbyOffers: [],
+      reviews: [],
       cities: [],
       city: ``,
       cityOffers: [],
-      error: -1,
-      authorizationStatus: `NO_AUTH`,
+      error: DEFAULT_ERROR_STATUS,
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
       user: ``,
     };
 
@@ -64,20 +69,25 @@ describe(`Tests for redux functions in App component`, () => {
 
 describe(`Tests for App component`, () => {
   const mockStore = configureStore([]);
+  const activeCity = `Cologne`;
+  const testUser = `test@test.ru`;
+
   const initialState = {
     DATA: {
       isFetching: false,
       offers,
       favoriteOffers: offers,
-      error: -1,
+      nearbyOffers: [],
+      reviews: [],
+      error: DEFAULT_ERROR_STATUS,
     },
     APP: {
       cities,
-      city: `Cologne`,
+      city: activeCity,
     },
     AUTH: {
-      authorizationStatus: `AUTH`,
-      user: `test@test.ru`,
+      authorizationStatus: AuthorizationStatus.AUTH,
+      user: testUser,
     },
     onMenuClick: () => {},
   };

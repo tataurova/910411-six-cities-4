@@ -19,6 +19,7 @@ const offerWithoutPremium = Object.assign(offerWithPremium, {premium: false});
 const mockStore = configureStore([]);
 const initialState = {
   onBookmarkButtonCLick: () => {},
+  loadFavoriteOffers: () => {},
 };
 const store = mockStore(initialState);
 
@@ -37,7 +38,8 @@ describe(`<PlaceCard />`, () => {
       offer: offerWithPremium,
       cardType: CardType.CITY,
       onPlaceCardHover: () => {},
-      onBookmarkButtonCLick: () => {}
+      onBookmarkButtonCLick: () => {},
+      loadFavoriteOffers: () => {},
     }).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -49,6 +51,7 @@ describe(`<PlaceCard />`, () => {
       cardType: CardType.CITY,
       onPlaceCardHover: () => {},
       onBookmarkButtonCLick: () => {},
+      loadFavoriteOffers: () => {},
     }).toJSON();
 
     expect(tree).toMatchSnapshot();

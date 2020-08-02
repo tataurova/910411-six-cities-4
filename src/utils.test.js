@@ -1,7 +1,7 @@
 import {SortType} from "./const.js";
 import {extend} from "./utils/common.js";
 import {sortOffers, getSortTypeName} from "./utils/sort.js";
-import {getOfferInfo, getUpdatedOffers} from "./utils/offers.js";
+import {findOffer, getUpdatedOffers} from "./utils/offers.js";
 import offers from "./mocks/offers.js";
 import {serverOffers} from "./mocks/offers";
 
@@ -71,11 +71,7 @@ describe(`Utils tests`, () => {
     };
     const mockOffers = [firstOffer, secondOffer, thirdOffer, fourthOffer];
     const offerId = `4`;
-    const result = {
-      offer: fourthOffer,
-      nearOffers: [firstOffer, secondOffer, thirdOffer],
-    };
-    expect(getOfferInfo(mockOffers, offerId)).toEqual(result);
+    expect(findOffer(mockOffers, offerId)).toEqual(fourthOffer);
   });
 
   it(`getSortTypeName function should return a name of sortType`, () => {

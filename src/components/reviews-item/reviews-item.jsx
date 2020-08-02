@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {reviewsItemType} from "../../../types.js";
+import {reviewType} from "../../../types.js";
 
 const ReviewsItem = ({review}) => {
   const {name, photo, rating, text, date} = review;
+  const formatDate = `${date.toLocaleString(`en-EN`, {month: `long`})} ${date.getFullYear()}`;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -25,7 +26,7 @@ const ReviewsItem = ({review}) => {
         <p className="reviews__text">
           {text}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time">{formatDate}</time>
       </div>
     </li>
   );
@@ -34,5 +35,5 @@ const ReviewsItem = ({review}) => {
 export default ReviewsItem;
 
 ReviewsItem.propTypes = {
-  review: PropTypes.shape(reviewsItemType).isRequired,
+  review: PropTypes.shape(reviewType).isRequired,
 };

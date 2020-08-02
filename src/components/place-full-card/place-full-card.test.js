@@ -5,6 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 import offers from "../../mocks/offers.js";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {DEFAULT_ERROR_STATUS, AuthorizationStatus} from "../../const.js";
 
 const onBookmarkButtonCLick = jest.fn();
 const mockStore = configureStore([]);
@@ -15,23 +16,25 @@ const store = mockStore(initialState);
 
 describe(`<PlaceFullCard />`, () => {
   it(`Should PlaceFullCard render correctly`, () => {
-    const offerInfo = {
-      offer: offers[0],
-      nearOffers: offers,
-    };
+    const id = `1`;
     const tree = renderer
       .create(
           <Provider store = {store}>
             <BrowserRouter>
               <PlaceFullCard
-                offerInfo = {offerInfo}
-                id = {`1`}
+                offer = {offers[0]}
+                id = {id}
                 onPlaceCardHover = {() => {}}
-                authorizationStatus = {`NO_AUTH`}
+                authorizationStatus = {AuthorizationStatus.NO_AUTH}
                 user = {``}
                 isFetching = {false}
-                error = {-1}
+                error = {DEFAULT_ERROR_STATUS}
                 onSubmitForm = {() => {}}
+                reviews={[]}
+                onBookmarkButtonCLick = {() => {}}
+                loadReviews = {() => {}}
+                loadNearbyOffers = {() => {}}
+                nearbyOffers = {[]}
               />
             </BrowserRouter>
           </Provider>)

@@ -2,6 +2,7 @@ import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
 import {reducer, ActionType, ActionCreator, Operation} from "./data.js";
 import offers, {serverOffers} from "../../mocks/offers";
+import {reviews} from "../../mocks/reviews.js";
 
 const api = createAPI(() => {});
 const mockData = serverOffers;
@@ -52,6 +53,44 @@ describe(`Operation for API to /hotels works correctly`, () => {
   });
 });
 
+describe(`Operation for API to /favorite works correctly`, () => {
+  const dispatch = jest.fn();
+  const favoriteOffersLoader = Operation.loadFavoriteOffers();
+
+  it(`Should make a correct API call to /favorite`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, mockData);
+
+    return favoriteOffersLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+      });
+  });
+
+  it(`Should make a call of action type for error from server`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`/favorite`)
+      .reply(404, mockData);
+
+    return favoriteOffersLoader(dispatch, () => {}, api)
+      .catch(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it(`Should make a error 401 from server`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`/favorite`)
+      .reply(401, [{fake: true}]);
+
+    expect(api.get(`/favorite`)).rejects.toThrowError();
+  });
+});
+
 describe(`Operation for API to /comments works correctly`, () => {
   const id = 1;
   const dispatch = jest.fn();
@@ -65,7 +104,7 @@ describe(`Operation for API to /comments works correctly`, () => {
 
     return commentSender(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(6);
       });
   });
 
@@ -92,7 +131,7 @@ describe(`Operation for API to /comments works correctly`, () => {
   });
 });
 
-describe(`Operation for API to /favorite works correctly`, () => {
+describe(`Operation for API to /favorite/id works correctly`, () => {
   const dispatch = jest.fn();
   const mockOffer = serverOffers[0];
   const getState = jest.fn(() => {
@@ -156,6 +195,8 @@ describe(`Reducer tests`, () => {
       offers: [],
       error: -1,
       favoriteOffers: [],
+      nearbyOffers: [],
+      reviews: [],
     });
   });
 
@@ -164,6 +205,9 @@ describe(`Reducer tests`, () => {
       isFetching: false,
       offers: [],
       error: -1,
+      favoriteOffers: [],
+      nearbyOffers: [],
+      reviews: [],
     }, {
       type: ActionType.LOAD_OFFERS,
       payload: offers,
@@ -171,6 +215,28 @@ describe(`Reducer tests`, () => {
       isFetching: false,
       offers,
       error: -1,
+      favoriteOffers: [],
+      nearbyOffers: [],
+      reviews: [],
+    });
+
+    expect(reducer({
+      isFetching: false,
+      offers: [],
+      favoriteOffers: [],
+      error: -1,
+      nearbyOffers: [],
+      reviews: [],
+    }, {
+      type: ActionType.LOAD_FAVORITE_OFFERS,
+      payload: offers,
+    })).toEqual({
+      isFetching: false,
+      offers: [],
+      favoriteOffers: offers,
+      error: -1,
+      nearbyOffers: [],
+      reviews: [],
     });
 
     expect(reducer({
@@ -198,6 +264,27 @@ describe(`Action creator works correctly`, () => {
     expect(ActionCreator.loadOffers(offers)).toEqual({
       type: ActionType.LOAD_OFFERS,
       payload: offers,
+    });
+  });
+
+  it(`Action creator of the load favorite offers returns correct action`, () => {
+    expect(ActionCreator.loadFavoriteOffers(offers)).toEqual({
+      type: ActionType.LOAD_FAVORITE_OFFERS,
+      payload: offers,
+    });
+  });
+
+  it(`Action creator of the nearby offers returns correct action`, () => {
+    expect(ActionCreator.loadNearbyOffers(offers)).toEqual({
+      type: ActionType.LOAD_NEARBY_OFFERS,
+      payload: offers,
+    });
+  });
+
+  it(`Action creator of the reviews returns correct action`, () => {
+    expect(ActionCreator.loadReviews(reviews)).toEqual({
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
     });
   });
 

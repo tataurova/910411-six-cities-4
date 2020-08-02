@@ -1,11 +1,8 @@
 import {getOffer} from "../adapters/offers.js";
 
-export const getOfferInfo = (offers, offerId) => {
+export const findOffer = (offers, offerId) => {
   const idNumber = Number(offerId);
-  return {
-    offer: offers.filter((item) => item.id === idNumber)[0],
-    nearOffers: offers.filter((item) => item.id !== idNumber),
-  };
+  return offers.filter((item) => item.id === idNumber)[0];
 };
 
 export const getUpdatedOffers = (serverOffer, offers) => {

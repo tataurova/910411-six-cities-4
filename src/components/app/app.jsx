@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import {Switch, Route, Router, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app.js";
-import {placeCardType} from "../../../types.js";
-import {getOfferInfo} from "../../utils/offers.js";
+import {placeCardType, reviewType} from "../../../types.js";
+import {findOffer} from "../../utils/offers.js";
 import {getMemoizedCityOffers} from "../../reducer/app/selectors.js";
 import {getMemoizedOffers} from "../../reducer/data/selectors.js";
 import NameSpace from "../../reducer/name-space.js";
@@ -39,6 +39,11 @@ class App extends React.PureComponent {
       error,
       favoriteOffers,
       loadFavoriteOffers,
+      loadReviews,
+      reviews,
+      loadNearbyOffers,
+      nearbyOffers,
+      onBookmarkButtonCLick,
     } = this.props;
     return (
       <Router history = {history}>
@@ -51,13 +56,18 @@ class App extends React.PureComponent {
           </Route>
           <Route exact path={`${AppRoute.PLACE_FULL_CARD}/:id`} render={(props) =>
             cityOffers.length > 0 && <PlaceFullCard
-              offerInfo = {getOfferInfo(offers, props.match.params.id)}
+              offer = {findOffer(offers, props.match.params.id)}
               {...props.match.params}
               authorizationStatus = {authorizationStatus}
               user = {user}
               onSubmitForm = {sendComment}
               isFetching = {isFetching}
               error = {error}
+              loadReviews = {loadReviews}
+              reviews = {reviews}
+              loadNearbyOffers = {loadNearbyOffers}
+              nearbyOffers = {nearbyOffers}
+              onBookmarkButtonCLick = {onBookmarkButtonCLick}
             />
           }
           />
@@ -102,6 +112,8 @@ export const mapStateToProps = (state) => ({
   authorizationStatus: state[NameSpace.AUTH].authorizationStatus,
   user: state[NameSpace.AUTH].user,
   favoriteOffers: state[NameSpace.DATA].favoriteOffers,
+  reviews: state[NameSpace.DATA].reviews,
+  nearbyOffers: state[NameSpace.DATA].nearbyOffers,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -116,7 +128,16 @@ export const mapDispatchToProps = (dispatch) => ({
   },
   loadFavoriteOffers() {
     dispatch(DataOperation.loadFavoriteOffers());
-  }
+  },
+  loadReviews(id) {
+    dispatch(DataOperation.loadReviews(id));
+  },
+  loadNearbyOffers(id) {
+    dispatch(DataOperation.loadNearbyOffers(id));
+  },
+  onBookmarkButtonCLick(id, status) {
+    dispatch(DataOperation.setToFavorite(id, status));
+  },
 });
 
 export {App};
@@ -136,4 +157,9 @@ App.propTypes = {
   sendComment: PropTypes.func.isRequired,
   loadFavoriteOffers: PropTypes.func.isRequired,
   favoriteOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  loadReviews: PropTypes.func.isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape(reviewType)).isRequired,
+  nearbyOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  loadNearbyOffers: PropTypes.func.isRequired,
+  onBookmarkButtonCLick: PropTypes.func.isRequired,
 };
