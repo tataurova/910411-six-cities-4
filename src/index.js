@@ -39,8 +39,9 @@ const init = () => {
 
 store.dispatch(UserOperation.checkAuth())
   .finally(() => {
-    store.dispatch(DataOperation.loadOffers());
-    init();
+    store.dispatch(DataOperation.loadOffers())
+      .finally(() => {
+        init();
+      });
   });
-
 

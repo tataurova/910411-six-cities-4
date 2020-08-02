@@ -6,6 +6,7 @@ import {cities} from "../../mocks/cities.js";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {DEFAULT_ERROR_STATUS} from "../../const.js";
 
 const onBookmarkButtonCLick = jest.fn();
 const mockStore = configureStore([]);
@@ -29,7 +30,7 @@ describe(`<Main />`, () => {
                 city = {activeCity}
                 onMenuClick = {() => {}}
                 isFetching = {false}
-                error = {-1}
+                error = {DEFAULT_ERROR_STATUS}
               />
             </BrowserRouter>
           </Provider>)

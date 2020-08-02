@@ -1,21 +1,24 @@
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
 import {reducer, ActionType, ActionCreator, Operation} from "./data.js";
-import offers, {serverOffers} from "../../mocks/offers";
-import {reviews} from "../../mocks/reviews.js";
+import offers, {serverOffers} from "../../mocks/offers.js";
+import {reviews, serverReviews} from "../../mocks/reviews.js";
+import {AppRoute} from "../../const.js";
+import {DEFAULT_ERROR_STATUS, SUCCESS_RESPONSE_CODE} from "../../const.js";
+import {FavoriteStatus} from "../../const";
 
 const api = createAPI(() => {});
 const mockData = serverOffers;
 
 describe(`Operation for API to /hotels works correctly`, () => {
-  const dispatch = jest.fn();
   const offersLoader = Operation.loadOffers();
+  const dispatch = jest.fn();
 
   it(`Should make a correct API call to /hotels`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onGet(`/hotels`)
-      .reply(200, mockData);
+      .onGet(AppRoute.HOTELS)
+      .reply(SUCCESS_RESPONSE_CODE, mockData);
 
     return offersLoader(dispatch, () => {}, api)
       .then(() => {
@@ -26,8 +29,8 @@ describe(`Operation for API to /hotels works correctly`, () => {
   it(`Should make a call of action type for error from server`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onGet(`/hotels`)
-      .reply(404, mockData);
+      .onGet(AppRoute.HOTELS)
+      .reply(Error.NOT_FOUND, mockData);
 
     return offersLoader(dispatch, () => {}, api)
       .catch(() => {
@@ -38,30 +41,69 @@ describe(`Operation for API to /hotels works correctly`, () => {
   it(`Should make a error 401 from server`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onGet(`/hotels`)
-      .reply(401, [{fake: true}]);
+      .onGet(AppRoute.HOTELS)
+      .reply(Error.UNAUTHORIZED, [{fake: true}]);
 
-    expect(api.get(`/hotels`)).rejects.toThrowError();
+    expect(api.get(AppRoute.HOTELS)).rejects.toThrowError();
   });
 
   it(`Should make a error 404 from server`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onGet(`/hotels`)
-      .reply(404, [{fake: true}]);
-    expect(api.get(`/hotels`)).rejects.toThrowError();
+      .onGet(AppRoute.HOTELS)
+      .reply(Error.NOT_FOUND, [{fake: true}]);
+    expect(api.get(AppRoute.HOTELS)).rejects.toThrowError();
+  });
+});
+
+describe(`Operation for API to /hotels/id/nearby works correctly`, () => {
+  const id = 1;
+  const nearbyOffersLoader = Operation.loadNearbyOffers(id);
+  const dispatch = jest.fn();
+
+  it(`Should make a correct API call to /hotels/id/nearby`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`${AppRoute.HOTELS}/${id}${AppRoute.NEARBY}`)
+      .reply(SUCCESS_RESPONSE_CODE, mockData);
+
+    return nearbyOffersLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+      });
+  });
+
+  it(`Should make a call of action type for error from server`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`${AppRoute.HOTELS}/${id}${AppRoute.NEARBY}`)
+      .reply(Error.NOT_FOUND, mockData);
+
+    return nearbyOffersLoader(dispatch, () => {}, api)
+      .catch(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  it(`Should make a error 401 from server`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`${AppRoute.HOTELS}/${id}${AppRoute.NEARBY}`)
+      .reply(Error.UNAUTHORIZED, [{fake: true}]);
+
+    expect(api.get(`${AppRoute.HOTELS}/${id}${AppRoute.NEARBY}`)).rejects.toThrowError();
   });
 });
 
 describe(`Operation for API to /favorite works correctly`, () => {
-  const dispatch = jest.fn();
   const favoriteOffersLoader = Operation.loadFavoriteOffers();
+  const dispatch = jest.fn();
 
   it(`Should make a correct API call to /favorite`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onGet(`/favorite`)
-      .reply(200, mockData);
+      .onGet(AppRoute.FAVORITE)
+      .reply(SUCCESS_RESPONSE_CODE, mockData);
 
     return favoriteOffersLoader(dispatch, () => {}, api)
       .then(() => {
@@ -72,8 +114,8 @@ describe(`Operation for API to /favorite works correctly`, () => {
   it(`Should make a call of action type for error from server`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onGet(`/favorite`)
-      .reply(404, mockData);
+      .onGet(AppRoute.FAVORITE)
+      .reply(Error.NOT_FOUND, mockData);
 
     return favoriteOffersLoader(dispatch, () => {}, api)
       .catch(() => {
@@ -84,23 +126,25 @@ describe(`Operation for API to /favorite works correctly`, () => {
   it(`Should make a error 401 from server`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onGet(`/favorite`)
-      .reply(401, [{fake: true}]);
+      .onGet(AppRoute.FAVORITE)
+      .reply(Error.UNAUTHORIZED, [{fake: true}]);
 
-    expect(api.get(`/favorite`)).rejects.toThrowError();
+    expect(api.get(AppRoute.FAVORITE)).rejects.toThrowError();
   });
 });
 
-describe(`Operation for API to /comments works correctly`, () => {
+describe(`Operation for API to /comments/1 works correctly, post request`, () => {
   const id = 1;
-  const dispatch = jest.fn();
   const commentSender = Operation.sendComment({comment: `test`, rating: 0}, id);
+  const dispatch = jest.fn();
 
   it(`Should make a correct API call to /comments`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onPost(`/comments/1`)
-      .reply(200, [{comment: `test`, rating: 0}]);
+      .onPost(`${AppRoute.COMMENTS}/${id}`)
+      .reply(SUCCESS_RESPONSE_CODE, [{comment: `test`, rating: 0}])
+      .onGet(`${AppRoute.COMMENTS}/${id}`)
+      .reply(SUCCESS_RESPONSE_CODE, serverReviews);
 
     return commentSender(dispatch, () => {}, api)
       .then(() => {
@@ -112,8 +156,8 @@ describe(`Operation for API to /comments works correctly`, () => {
 
     const apiMock = new MockAdapter(api);
     apiMock
-      .onPost(`/comments/1`)
-      .reply(400, [{fake: true}]);
+      .onPost(`${AppRoute.COMMENTS}/${id}`)
+      .reply(Error.BAD_REQUEST, [{fake: true}]);
 
     return commentSender(dispatch, () => {}, api)
       .catch(() => {
@@ -124,10 +168,50 @@ describe(`Operation for API to /comments works correctly`, () => {
   it(`Should make a error 400 from server`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onPost(`/comments/1`)
-      .reply(400, [{fake: true}]);
+      .onPost(`${AppRoute.COMMENTS}/${id}`)
+      .reply(Error.BAD_REQUEST, [{fake: true}]);
 
-    expect(api.post(`/comments/1`)).rejects.toThrowError();
+    expect(api.post(`${AppRoute.COMMENTS}/${id}`)).rejects.toThrowError();
+  });
+});
+
+describe(`Operation for API to /comments/1 works correctly, get request`, () => {
+  const dispatch = jest.fn();
+  const id = 1;
+  const reviewsLoader = Operation.loadReviews(id);
+
+  it(`Should make a correct API call to /comments`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`${AppRoute.COMMENTS}/${id}`)
+      .reply(SUCCESS_RESPONSE_CODE, serverReviews);
+
+    return reviewsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(3);
+      });
+  });
+
+  it(`Should make a call of action type for error from server`, function () {
+
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`${AppRoute.COMMENTS}/${id}`)
+      .reply(Error.BAD_REQUEST, [{fake: true}]);
+
+    return reviewsLoader(dispatch, () => {}, api)
+      .catch(() => {
+        expect(dispatch).toHaveBeenCalledTimes(2);
+      });
+  });
+
+  it(`Should make a error 400 from server`, function () {
+    const apiMock = new MockAdapter(api);
+    apiMock
+      .onGet(`${AppRoute.COMMENTS}/${id}`)
+      .reply(Error.BAD_REQUEST, [{fake: true}]);
+
+    expect(api.get(`${AppRoute.COMMENTS}/${id}`)).rejects.toThrowError();
   });
 });
 
@@ -137,12 +221,15 @@ describe(`Operation for API to /favorite/id works correctly`, () => {
   const getState = jest.fn(() => {
     return {DATA: {offers}};
   });
+  const statusParameter = FavoriteStatus.ADD;
+  const id = `1`;
+
   it(`Should make a correct API call to /favorite/1/1`, function () {
     const favoriteFlagSender = Operation.setToFavorite(1, 1);
     const apiMock = new MockAdapter(api);
     apiMock
-      .onPost(`/favorite/1/1`)
-      .reply(200, mockOffer);
+      .onPost(`${AppRoute.FAVORITE}/${id}/${statusParameter}`)
+      .reply(SUCCESS_RESPONSE_CODE, mockOffer);
 
     return favoriteFlagSender(dispatch, getState, api)
       .then(() => {
@@ -152,11 +239,11 @@ describe(`Operation for API to /favorite/id works correctly`, () => {
 
   it(`Should make a correct API call to /favorite/1/0`, function () {
     jest.clearAllMocks();
-    const favoriteFlagSender = Operation.setToFavorite(1, 0);
+    const favoriteFlagSender = Operation.setToFavorite(1, 1);
     const apiMock = new MockAdapter(api);
     apiMock
-      .onPost(`/favorite/1/0`)
-      .reply(200, mockOffer);
+      .onPost(`${AppRoute.FAVORITE}/${id}/${statusParameter}`)
+      .reply(SUCCESS_RESPONSE_CODE, mockOffer);
 
     return favoriteFlagSender(dispatch, getState, api)
       .then(() => {
@@ -169,8 +256,8 @@ describe(`Operation for API to /favorite/id works correctly`, () => {
     const favoriteFlagSender = Operation.setToFavorite(1, 1);
     const apiMock = new MockAdapter(api);
     apiMock
-      .onPost(`/favorite/1/1`)
-      .reply(400, [{fake: true}]);
+      .onPost(`${AppRoute.FAVORITE}/${id}/${statusParameter}`)
+      .reply(Error.BAD_REQUEST, [{fake: true}]);
 
     return favoriteFlagSender(dispatch, () => {}, api)
       .catch(() => {
@@ -181,10 +268,10 @@ describe(`Operation for API to /favorite/id works correctly`, () => {
   it(`Should make a error 400 from server`, function () {
     const apiMock = new MockAdapter(api);
     apiMock
-      .onPost(`/favorite/1/1`)
-      .reply(400, [{fake: true}]);
+      .onPost(`${AppRoute.FAVORITE}/${id}/${statusParameter}`)
+      .reply(Error.BAD_REQUEST, [{fake: true}]);
 
-    expect(api.post(`/favorite/1/1`)).rejects.toThrowError();
+    expect(api.post(`${AppRoute.FAVORITE}/${id}/${statusParameter}`)).rejects.toThrowError();
   });
 });
 
@@ -193,7 +280,7 @@ describe(`Reducer tests`, () => {
     expect(reducer(void 0, {})).toEqual({
       isFetching: false,
       offers: [],
-      error: -1,
+      error: DEFAULT_ERROR_STATUS,
       favoriteOffers: [],
       nearbyOffers: [],
       reviews: [],
@@ -204,7 +291,7 @@ describe(`Reducer tests`, () => {
     expect(reducer({
       isFetching: false,
       offers: [],
-      error: -1,
+      error: DEFAULT_ERROR_STATUS,
       favoriteOffers: [],
       nearbyOffers: [],
       reviews: [],
@@ -214,7 +301,7 @@ describe(`Reducer tests`, () => {
     })).toEqual({
       isFetching: false,
       offers,
-      error: -1,
+      error: DEFAULT_ERROR_STATUS,
       favoriteOffers: [],
       nearbyOffers: [],
       reviews: [],
@@ -224,7 +311,7 @@ describe(`Reducer tests`, () => {
       isFetching: false,
       offers: [],
       favoriteOffers: [],
-      error: -1,
+      error: DEFAULT_ERROR_STATUS,
       nearbyOffers: [],
       reviews: [],
     }, {
@@ -234,10 +321,49 @@ describe(`Reducer tests`, () => {
       isFetching: false,
       offers: [],
       favoriteOffers: offers,
-      error: -1,
+      error: DEFAULT_ERROR_STATUS,
       nearbyOffers: [],
       reviews: [],
     });
+
+    expect(reducer({
+      isFetching: false,
+      offers: [],
+      favoriteOffers: [],
+      error: DEFAULT_ERROR_STATUS,
+      nearbyOffers: [],
+      reviews: [],
+    }, {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    })).toEqual({
+      isFetching: false,
+      offers: [],
+      favoriteOffers: [],
+      error: DEFAULT_ERROR_STATUS,
+      nearbyOffers: [],
+      reviews,
+    });
+
+    expect(reducer({
+      isFetching: false,
+      offers: [],
+      favoriteOffers: [],
+      error: DEFAULT_ERROR_STATUS,
+      nearbyOffers: [],
+      reviews: [],
+    }, {
+      type: ActionType.LOAD_NEARBY_OFFERS,
+      payload: offers,
+    })).toEqual({
+      isFetching: false,
+      offers: [],
+      favoriteOffers: [],
+      error: DEFAULT_ERROR_STATUS,
+      nearbyOffers: offers,
+      reviews: [],
+    });
+
 
     expect(reducer({
       isFetching: false,
@@ -249,12 +375,12 @@ describe(`Reducer tests`, () => {
     });
 
     expect(reducer({
-      error: -1,
+      error: DEFAULT_ERROR_STATUS,
     }, {
       type: ActionType.WRITE_ERROR,
-      payload: 404,
+      payload: Error.UNAUTHORIZED,
     })).toEqual({
-      error: 404,
+      error: Error.UNAUTHORIZED,
     });
   });
 });
@@ -289,9 +415,9 @@ describe(`Action creator works correctly`, () => {
   });
 
   it(`Action creator of the writing error returns correct action`, () => {
-    expect(ActionCreator.writeError(404)).toEqual({
+    expect(ActionCreator.writeError(Error.UNAUTHORIZED)).toEqual({
       type: ActionType.WRITE_ERROR,
-      payload: 404,
+      payload: Error.UNAUTHORIZED,
     });
   });
 

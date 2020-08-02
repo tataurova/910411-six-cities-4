@@ -131,8 +131,9 @@ const Operation = {
         return api.get(`${AppRoute.COMMENTS}/${id}`)
           .then((response) => {
             const reviews = response.data.map((review) => getComment(review));
+            const sortedReviews = reviews.sort((a, b) => b.date - a.date);
             dispatch(ActionCreator.setFetchingStatus(false));
-            dispatch(ActionCreator.loadReviews(reviews));
+            dispatch(ActionCreator.loadReviews(sortedReviews.slice(0, SHOW_REVIEW_MAX_NUMBER)));
           });
       })
       .catch((error) => {

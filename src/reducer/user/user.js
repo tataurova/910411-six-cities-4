@@ -1,5 +1,6 @@
 import {AuthorizationStatus} from "../../const.js";
 import {extend} from "../../utils/common.js";
+import {AppRoute} from "../../const.js";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
@@ -43,7 +44,7 @@ const reducer = (state = initialState, action) => {
 
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
-    return api.get(`/login`)
+    return api.get(AppRoute.LOGIN)
       .then((answer) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         return answer;
@@ -54,7 +55,7 @@ const Operation = {
   },
 
   login: (authData) => (dispatch, getState, api) => {
-    return api.post(`/login`, {
+    return api.post(AppRoute.LOGIN, {
       email: authData.login,
       password: authData.password,
     })

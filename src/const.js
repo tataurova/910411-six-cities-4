@@ -41,6 +41,8 @@ export const LoginInput = {
 
 export const Error = {
   UNAUTHORIZED: 401,
+  BAD_REQUEST: 400,
+  NOT_FOUND: 404,
   SERVICE_UNAVAILABLE: 503,
 };
 
@@ -87,4 +89,6 @@ export const DEFAULT_RATING = 0;
 export const SHOW_REVIEW_MAX_NUMBER = 10;
 
 export const DEFAULT_ERROR_STATUS = -1;
+
+export const SUCCESS_RESPONSE_CODE = 200;
 

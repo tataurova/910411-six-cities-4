@@ -1,4 +1,5 @@
 import reducer from "./reducer.js";
+import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../const.js";
 
 describe(`Reducer tests`, () => {
   it(`The combine reducer without additional parameters should return the initial state`, () => {
@@ -6,7 +7,7 @@ describe(`Reducer tests`, () => {
       DATA: {
         isFetching: false,
         offers: [],
-        error: -1,
+        error: DEFAULT_ERROR_STATUS,
         favoriteOffers: [],
         nearbyOffers: [],
         reviews: [],
@@ -16,7 +17,7 @@ describe(`Reducer tests`, () => {
         city: ``,
       },
       AUTH: {
-        authorizationStatus: `NO_AUTH`,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         user: ``,
       },
     });

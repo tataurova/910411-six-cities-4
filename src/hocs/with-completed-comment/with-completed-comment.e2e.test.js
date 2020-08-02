@@ -2,6 +2,7 @@ import {mount} from "enzyme";
 import React from "react";
 import withCompletedComment from "./with-completed-comment.jsx";
 import PropTypes from "prop-types";
+import {DEFAULT_ERROR_STATUS} from "../../const.js";
 
 const MockComponent = (props) => {
   const {state, isFetching, onChange, onSubmit} = props;
@@ -30,12 +31,13 @@ const MockComponentWrapped = withCompletedComment(MockComponent);
 
 describe(`withCompletedComment`, () => {
   const onSubmitForm = jest.fn();
+  const id = `1`;
   const main = mount(
       <MockComponentWrapped
         onSubmitForm = {onSubmitForm}
-        id = {`1`}
+        id = {id}
         isFetching = {false}
-        error = {-1}
+        error = {DEFAULT_ERROR_STATUS}
       />
   );
   const instance = main.instance();

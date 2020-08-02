@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import CommentForm from "./comment-form.jsx";
+import {DEFAULT_ERROR_STATUS, Error} from "../../const.js";
 
 describe(`<CommentForm />`, () => {
   it(`Render CommentForm`, () => {
@@ -12,7 +13,7 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {-1}
+        error = {DEFAULT_ERROR_STATUS}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)
@@ -30,7 +31,7 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {400}
+        error = {Error.BAD_REQUEST}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)
@@ -48,7 +49,7 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {-1}
+        error = {DEFAULT_ERROR_STATUS}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)
@@ -68,7 +69,7 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {-1}
+        error = {DEFAULT_ERROR_STATUS}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)

@@ -19,6 +19,7 @@ import history from "../../history.js";
 import Favorites from "../favorites/favorites.jsx";
 import PrivateRoute from "../private-route/private-route.jsx";
 import {CardType} from "../../const.js";
+import NotFound from "../not-found/not-found.jsx";
 
 const LoginWithAuthentication = withAuthentication(Login);
 
@@ -30,7 +31,6 @@ class App extends React.PureComponent {
   render() {
     const {
       offers,
-      cityOffers,
       login,
       authorizationStatus,
       user,
@@ -54,33 +54,46 @@ class App extends React.PureComponent {
             />;
           }}>
           </Route>
-          <Route exact path={`${AppRoute.PLACE_FULL_CARD}/:id`} render={(props) =>
-            cityOffers.length > 0 && <PlaceFullCard
-              offer = {findOffer(offers, props.match.params.id)}
-              {...props.match.params}
-              authorizationStatus = {authorizationStatus}
-              user = {user}
-              onSubmitForm = {sendComment}
-              isFetching = {isFetching}
-              error = {error}
-              loadReviews = {loadReviews}
-              reviews = {reviews}
-              loadNearbyOffers = {loadNearbyOffers}
-              nearbyOffers = {nearbyOffers}
-              onBookmarkButtonCLick = {onBookmarkButtonCLick}
-            />
+          <Route exact path={`${AppRoute.PLACE_FULL_CARD}/:id`} render={(props) => {
+            const offer = findOffer(offers, props.match.params.id);
+            if (offer) {
+              return <PlaceFullCard
+                offer = {findOffer(offers, props.match.params.id)}
+                {...props.match.params}
+                authorizationStatus = {authorizationStatus}
+                user = {user}
+                onSubmitForm = {sendComment}
+                isFetching = {isFetching}
+                error = {error}
+                loadReviews = {loadReviews}
+                reviews = {reviews}
+                loadNearbyOffers = {loadNearbyOffers}
+                nearbyOffers = {nearbyOffers}
+                onBookmarkButtonCLick = {onBookmarkButtonCLick}
+              />;
+            } else {
+              return <NotFound
+                authorizationStatus = {authorizationStatus}
+                user = {user}
+              />;
+            }
+          }
           }
           />
           <Route exact path={AppRoute.LOGIN} render={() => {
-            if (authorizationStatus === AuthorizationStatus.AUTH) {
-              return <Redirect to={AppRoute.MAIN} />;
-            } else {
-              return <LoginWithAuthentication
-                onSubmitForm = {login}
-              />;
+            switch (authorizationStatus) {
+              case AuthorizationStatus.AUTH:
+                return <Redirect to={AppRoute.MAIN} />;
+              case AuthorizationStatus.NO_AUTH:
+                return <LoginWithAuthentication
+                  onSubmitForm = {login}
+                />;
+              default:
+                throw error(`Unknown AuthorizationStatus ${authorizationStatus}`);
             }
-          }}>
-          </Route>
+          }
+          }
+          />
           <PrivateRoute
             exact
             path={AppRoute.FAVORITES}
@@ -96,6 +109,13 @@ class App extends React.PureComponent {
               );
             }}
           />
+          <Route
+            render={() => {
+              return <NotFound
+                authorizationStatus = {authorizationStatus}
+                user = {user}
+              />;
+            }} />
         </Switch>
       </Router>
     );
