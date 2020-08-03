@@ -17,8 +17,9 @@ exports[`<Login /> Should Login render correctly 1`] = `
           className="header__left"
         >
           <a
-            className="header__logo-link"
+            className="header__logo-link header__logo-link--active"
             href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -40,15 +41,16 @@ exports[`<Login /> Should Login render correctly 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/favorites"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__login"
+                  className="header__user-name user__name"
                 >
-                  Sign in
+                  test@test.ru
                 </span>
               </a>
             </li>
@@ -158,8 +160,9 @@ exports[`<Login /> Should Login render correctly with valid form 1`] = `
           className="header__left"
         >
           <a
-            className="header__logo-link"
+            className="header__logo-link header__logo-link--active"
             href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
@@ -181,15 +184,16 @@ exports[`<Login /> Should Login render correctly with valid form 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/favorites"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__login"
+                  className="header__user-name user__name"
                 >
-                  Sign in
+                  test@test.ru
                 </span>
               </a>
             </li>

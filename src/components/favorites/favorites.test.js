@@ -6,6 +6,7 @@ import offers from "../../mocks/offers.js";
 import configureStore from "redux-mock-store";
 import {CardType} from "../../const.js";
 import {AuthorizationStatus} from "../../const.js";
+import {DEFAULT_ERROR_STATUS} from "../../const";
 
 const onBookmarkButtonCLick = jest.fn();
 const mockStore = configureStore([]);
@@ -27,6 +28,7 @@ describe(`<Favorites />`, () => {
               user = {testUser}
               favoriteOffers={offers}
               loadFavoriteOffers={() => {}}
+              error = {DEFAULT_ERROR_STATUS}
             />
           </BrowserRouter>)
       .toJSON();

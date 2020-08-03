@@ -87,6 +87,9 @@ class App extends React.PureComponent {
               case AuthorizationStatus.NO_AUTH:
                 return <LoginWithAuthentication
                   onSubmitForm = {login}
+                  authorizationStatus = {authorizationStatus}
+                  user = {user}
+                  error = {error}
                 />;
               default:
                 throw error(`Unknown AuthorizationStatus ${authorizationStatus}`);
@@ -105,6 +108,7 @@ class App extends React.PureComponent {
                   loadFavoriteOffers = {loadFavoriteOffers}
                   authorizationStatus = {authorizationStatus}
                   user = {user}
+                  error = {error}
                 />
               );
             }}
@@ -114,6 +118,7 @@ class App extends React.PureComponent {
               return <NotFound
                 authorizationStatus = {authorizationStatus}
                 user = {user}
+                error = {error}
               />;
             }} />
         </Switch>
@@ -144,7 +149,8 @@ export const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(city));
   },
   sendComment(comment, id) {
-    dispatch(DataOperation.sendComment(comment, id));
+    dispatch(DataOperation.sendComment(comment, id))
+      .then(() => dispatch(DataOperation.loadReviews(id)));
   },
   loadFavoriteOffers() {
     dispatch(DataOperation.loadFavoriteOffers());
@@ -169,7 +175,7 @@ App.propTypes = {
   city: PropTypes.string.isRequired,
   cityOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
   onMenuClick: PropTypes.func.isRequired,
-  error: PropTypes.number.isRequired,
+  error: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,

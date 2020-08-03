@@ -1,16 +1,9 @@
 import React from "react";
-import {MIN_ERROR_CODE} from "../../const.js";
 import PropTypes from "prop-types";
-import {RatingValue, DEFAULT_RATING} from "../../const.js";
+import {RatingValue, CommentLength, DEFAULT_RATING} from "../../const.js";
 
-const CommentLength = {
-  START_TYPING: 1,
-  MIN: 50,
-};
-
-const CommentForm = ({state, isFetching, error, onChange, onSubmit}) => {
+const CommentForm = ({state, isFetching, onChange, onSubmit}) => {
   const isValidForm = state.rating > DEFAULT_RATING && state.comment.length >= CommentLength.MIN;
-  const isFormEmpty = state.rating === DEFAULT_RATING && state.comment.length < CommentLength.START_TYPING;
   const isAnyValueNotValid = state.rating === DEFAULT_RATING || state.comment.length < CommentLength.MIN;
 
   return (
@@ -60,7 +53,6 @@ const CommentForm = ({state, isFetching, error, onChange, onSubmit}) => {
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved" value={state.comment} onChange={onChange} disabled={isFetching}></textarea>
-      {error > MIN_ERROR_CODE && isFormEmpty && <p className="form-error">Something went wrong, please, try again later</p>}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe
@@ -80,7 +72,6 @@ CommentForm.propTypes = {
     comment: PropTypes.text,
   }).isRequired,
   isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

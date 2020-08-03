@@ -3,7 +3,7 @@ import {getOffer} from "../../adapters/offers.js";
 import {getComment} from "../../adapters/comments.js";
 import {ActionCreator as AppActionCreator} from "../app/app.js";
 import {getUpdatedOffers} from "../../utils/offers.js";
-import {SHOW_REVIEW_MAX_NUMBER, DEFAULT_ERROR_STATUS, FavoriteStatus, AppRoute} from "../../const.js";
+import {SHOW_REVIEW_MAX_NUMBER, SHOW_ERROR_TIMEOUT, FavoriteStatus, AppRoute} from "../../const.js";
 
 const initialState = {
   isFetching: false,
@@ -11,7 +11,7 @@ const initialState = {
   favoriteOffers: [],
   nearbyOffers: [],
   reviews: [],
-  error: DEFAULT_ERROR_STATUS,
+  error: false,
 };
 
 const ActionType = {
@@ -69,13 +69,16 @@ const Operation = {
       .then((response) => {
         const offers = response.data.map((offer) => getOffer(offer));
         dispatch(ActionCreator.setFetchingStatus(false));
+        dispatch(ActionCreator.writeError(initialState.error));
         dispatch(ActionCreator.loadOffers(offers));
         dispatch(AppActionCreator.setCities(offers));
       })
-      .catch((error) => {
-        dispatch(ActionCreator.writeError(error.response.status));
+      .catch(() => {
+        dispatch(ActionCreator.writeError(true));
         dispatch(ActionCreator.setFetchingStatus(false));
+        setTimeout(() => dispatch(ActionCreator.writeError(false)), SHOW_ERROR_TIMEOUT);
       });
+
   },
   loadFavoriteOffers: () => (dispatch, getState, api) => {
     dispatch(ActionCreator.setFetchingStatus(true));
@@ -83,11 +86,13 @@ const Operation = {
       .then((response) => {
         const favoriteOffers = response.data.map((offer) => getOffer(offer));
         dispatch(ActionCreator.setFetchingStatus(false));
+        dispatch(ActionCreator.writeError(initialState.error));
         dispatch(ActionCreator.loadFavoriteOffers(favoriteOffers));
       })
-      .catch((error) => {
-        dispatch(ActionCreator.writeError(error.response.status));
+      .catch(() => {
+        dispatch(ActionCreator.writeError(true));
         dispatch(ActionCreator.setFetchingStatus(false));
+        setTimeout(() => dispatch(ActionCreator.writeError(false)), SHOW_ERROR_TIMEOUT);
       });
   },
   loadReviews: (id) => (dispatch, getState, api) => {
@@ -97,11 +102,13 @@ const Operation = {
         const reviews = response.data.map((review) => getComment(review));
         const sortedReviews = reviews.sort((a, b) => b.date - a.date);
         dispatch(ActionCreator.setFetchingStatus(false));
+        dispatch(ActionCreator.writeError(initialState.error));
         dispatch(ActionCreator.loadReviews(sortedReviews.slice(0, SHOW_REVIEW_MAX_NUMBER)));
       })
-      .catch((error) => {
-        dispatch(ActionCreator.writeError(error.response.status));
+      .catch(() => {
+        dispatch(ActionCreator.writeError(true));
         dispatch(ActionCreator.setFetchingStatus(false));
+        setTimeout(() => dispatch(ActionCreator.writeError(false)), SHOW_ERROR_TIMEOUT);
       });
   },
   loadNearbyOffers: (id) => (dispatch, getState, api) => {
@@ -110,11 +117,13 @@ const Operation = {
       .then((response) => {
         const nearbyOffers = response.data.map((offer) => getOffer(offer));
         dispatch(ActionCreator.setFetchingStatus(false));
+        dispatch(ActionCreator.writeError(initialState.error));
         dispatch(ActionCreator.loadNearbyOffers(nearbyOffers));
       })
-      .catch((error) => {
-        dispatch(ActionCreator.writeError(error.response.status));
+      .catch(() => {
+        dispatch(ActionCreator.writeError(true));
         dispatch(ActionCreator.setFetchingStatus(false));
+        setTimeout(() => dispatch(ActionCreator.writeError(false)), SHOW_ERROR_TIMEOUT);
       });
   },
   sendComment: (commentData, id) => (dispatch, getState, api) => {
@@ -126,19 +135,10 @@ const Operation = {
         dispatch(ActionCreator.setFetchingStatus(false));
         dispatch(ActionCreator.writeError(initialState.error));
       })
-      .then(() => {
-        dispatch(ActionCreator.setFetchingStatus(true));
-        return api.get(`${AppRoute.COMMENTS}/${id}`)
-          .then((response) => {
-            const reviews = response.data.map((review) => getComment(review));
-            const sortedReviews = reviews.sort((a, b) => b.date - a.date);
-            dispatch(ActionCreator.setFetchingStatus(false));
-            dispatch(ActionCreator.loadReviews(sortedReviews.slice(0, SHOW_REVIEW_MAX_NUMBER)));
-          });
-      })
-      .catch((error) => {
-        dispatch(ActionCreator.writeError(error.response.status));
+      .catch(() => {
+        dispatch(ActionCreator.writeError(true));
         dispatch(ActionCreator.setFetchingStatus(false));
+        setTimeout(() => dispatch(ActionCreator.writeError(false)), SHOW_ERROR_TIMEOUT);
       });
   },
   setToFavorite: (id, status) => (dispatch, getState, api) => {
@@ -151,9 +151,10 @@ const Operation = {
         const offers = getUpdatedOffers(response.data, getState().DATA.offers.slice());
         dispatch(ActionCreator.loadOffers(offers));
       })
-      .catch((error) => {
-        dispatch(ActionCreator.writeError(error.response.status));
+      .catch(() => {
         dispatch(ActionCreator.setFetchingStatus(false));
+        dispatch(ActionCreator.writeError(true));
+        setTimeout(() => dispatch(ActionCreator.writeError(false)), SHOW_ERROR_TIMEOUT);
       });
   },
 };

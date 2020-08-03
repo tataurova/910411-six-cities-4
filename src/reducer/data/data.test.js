@@ -22,7 +22,7 @@ describe(`Operation for API to /hotels works correctly`, () => {
 
     return offersLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenCalledTimes(5);
       });
   });
 
@@ -69,7 +69,7 @@ describe(`Operation for API to /hotels/id/nearby works correctly`, () => {
 
     return nearbyOffersLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(4);
       });
   });
 
@@ -107,7 +107,7 @@ describe(`Operation for API to /favorite works correctly`, () => {
 
     return favoriteOffersLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(4);
       });
   });
 
@@ -148,7 +148,7 @@ describe(`Operation for API to /comments/1 works correctly, post request`, () =>
 
     return commentSender(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(6);
+        expect(dispatch).toHaveBeenCalledTimes(3);
       });
   });
 
@@ -188,7 +188,7 @@ describe(`Operation for API to /comments/1 works correctly, get request`, () => 
 
     return reviewsLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(4);
       });
   });
 
@@ -221,10 +221,10 @@ describe(`Operation for API to /favorite/id works correctly`, () => {
   const getState = jest.fn(() => {
     return {DATA: {offers}};
   });
-  const statusParameter = FavoriteStatus.ADD;
   const id = `1`;
 
   it(`Should make a correct API call to /favorite/1/1`, function () {
+    const statusParameter = FavoriteStatus.ADD;
     const favoriteFlagSender = Operation.setToFavorite(1, 1);
     const apiMock = new MockAdapter(api);
     apiMock
@@ -239,7 +239,8 @@ describe(`Operation for API to /favorite/id works correctly`, () => {
 
   it(`Should make a correct API call to /favorite/1/0`, function () {
     jest.clearAllMocks();
-    const favoriteFlagSender = Operation.setToFavorite(1, 1);
+    const statusParameter = FavoriteStatus.REMOVE;
+    const favoriteFlagSender = Operation.setToFavorite(1, 0);
     const apiMock = new MockAdapter(api);
     apiMock
       .onPost(`${AppRoute.FAVORITE}/${id}/${statusParameter}`)
@@ -253,6 +254,7 @@ describe(`Operation for API to /favorite/id works correctly`, () => {
 
   it(`Should make a call of action type for error from server`, function () {
     jest.clearAllMocks();
+    const statusParameter = FavoriteStatus.ADD;
     const favoriteFlagSender = Operation.setToFavorite(1, 1);
     const apiMock = new MockAdapter(api);
     apiMock
@@ -266,6 +268,7 @@ describe(`Operation for API to /favorite/id works correctly`, () => {
   });
 
   it(`Should make a error 400 from server`, function () {
+    const statusParameter = FavoriteStatus.ADD;
     const apiMock = new MockAdapter(api);
     apiMock
       .onPost(`${AppRoute.FAVORITE}/${id}/${statusParameter}`)

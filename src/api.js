@@ -1,5 +1,5 @@
 import axios from "axios";
-import {MIN_ERROR_CODE, MAX_TIMEOUT, AppRoute, Error} from "./const.js";
+import {MAX_TIMEOUT, AppRoute, Error} from "./const.js";
 
 export const createAPI = (onUnauthorized, onNoResponse) => {
   const api = axios.create({
@@ -19,14 +19,11 @@ export const createAPI = (onUnauthorized, onNoResponse) => {
         onUnauthorized();
         throw err;
       }
-      if (response.status > MIN_ERROR_CODE) {
-        throw err;
-      }
+      throw err;
     } else {
       onNoResponse();
       throw err;
     }
-    throw err;
   };
 
   api.interceptors.response.use(onSuccess, onFail);

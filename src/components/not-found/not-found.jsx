@@ -2,12 +2,13 @@ import React from "react";
 import Header from "../header/header.jsx";
 import PropTypes from "prop-types";
 
-const NotFound = ({authorizationStatus, user}) => {
+const NotFound = ({authorizationStatus, user, error}) => {
   return (
     <div className="page page--gray page--main">
       <Header
         authorizationStatus = {authorizationStatus}
         user = {user}
+        error = {error}
       />
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
@@ -32,4 +33,5 @@ export default NotFound;
 NotFound.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
+  error: PropTypes.bool.isRequired,
 };

@@ -19,8 +19,9 @@ class Favorites extends React.Component {
     return (
         <>
           <Header
-            authorizationStatus={this.props.authorizationStatus}
-            user={this.props.user}
+            authorizationStatus = {this.props.authorizationStatus}
+            user = {this.props.user}
+            error = {this.props.error}
           />
           {favoriteOffers.length > 0 ? <main className="page__main page__main--favorites">
             <div className="page__favorites-container container">
@@ -71,4 +72,5 @@ Favorites.propTypes = {
   user: PropTypes.string.isRequired,
   loadFavoriteOffers: PropTypes.func.isRequired,
   favoriteOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
+  error: PropTypes.bool.isRequired,
 };

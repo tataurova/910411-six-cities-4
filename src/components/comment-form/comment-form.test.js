@@ -1,7 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import CommentForm from "./comment-form.jsx";
-import {DEFAULT_ERROR_STATUS, Error} from "../../const.js";
 
 describe(`<CommentForm />`, () => {
   it(`Render CommentForm`, () => {
@@ -13,25 +12,6 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {DEFAULT_ERROR_STATUS}
-        onChange = {() => {}}
-        onSubmit = {() => {}}
-      />)
-      .toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`Render CommentForm with error message`, () => {
-    const state = {
-      rating: 0,
-      comment: ``,
-    };
-    const tree = renderer
-      .create(<CommentForm
-        state = {state}
-        isFetching = {false}
-        error = {Error.BAD_REQUEST}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)
@@ -49,7 +29,6 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {DEFAULT_ERROR_STATUS}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)
@@ -69,7 +48,6 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {DEFAULT_ERROR_STATUS}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)

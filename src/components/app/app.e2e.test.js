@@ -54,7 +54,9 @@ describe(`Tests for redux functions in App component`, () => {
   });
 
   it(`MapDispatchToProps should be called for sendComment with right type and payload`, () => {
-    const dispatch = jest.fn();
+    const dispatch = jest.fn(() => {
+      return Promise.resolve();
+    });
     mapDispatchToProps(dispatch).sendComment({comment: `test`, rating: 1});
     expect(dispatch).toHaveBeenCalledTimes(1);
   });

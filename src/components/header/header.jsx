@@ -3,9 +3,10 @@ import {Link} from "react-router-dom";
 import {AuthorizationStatus, AppRoute} from "../../const.js";
 import PropTypes from "prop-types";
 
-const Header = ({authorizationStatus, user}) => {
+const Header = ({authorizationStatus, user, error}) => {
   return (
     <header className="header">
+      {error && <div style={{position: `fixed`, height: `20px`, width: `100%`, padding: `5px`, boxSizing: `content-box`, zIndex: `100`, backgroundColor: `#f5f5f5`}}><p style={{color: `red`, left: `calc(50% - 50px)`, position: `fixed`, margin: `0 auto`, zIndex: `100`}}>Network error</p></div>}
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
@@ -35,4 +36,5 @@ export default Header;
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
+  error: PropTypes.bool.isRequired,
 };

@@ -32,6 +32,7 @@ class PlaceFullCard extends React.Component {
         <Header
           authorizationStatus = {authorizationStatus}
           user = {user}
+          error = {error}
         />
         <main className="page__main page__main--property">
           <section className="property">
@@ -120,7 +121,6 @@ class PlaceFullCard extends React.Component {
                     onSubmitForm={onSubmitForm}
                     id={id}
                     isFetching={isFetching}
-                    error={error}
                     reviews={reviews}
                   />}
                 </section>
@@ -161,7 +161,7 @@ PlaceFullCard.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.number.isRequired,
+  error: PropTypes.bool.isRequired,
   onSubmitForm: PropTypes.func.isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(reviewType)).isRequired,
   onBookmarkButtonCLick: PropTypes.func.isRequired,
