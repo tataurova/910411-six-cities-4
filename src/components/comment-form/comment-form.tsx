@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {RatingValue, CommentLength, DEFAULT_RATING} from "../../const.js";
+import {RatingValue, CommentLength, DEFAULT_RATING} from "../../const";
 
 const CommentForm = ({state, isFetching, onChange, onSubmit}) => {
   const isValidForm = state.rating > DEFAULT_RATING && state.comment.length >= CommentLength.MIN;

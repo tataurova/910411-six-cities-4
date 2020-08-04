@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReviewsList from "../reviews-list/reviews-list.js";
-import Map from "../map/map.tsx";
-import CommentForm from "../comment-form/comment-form.tsx";
-import {placeFullCardType, reviewType} from "../../../types.js";
-import PlaceList from "../place-list/place-list.js";
-import Header from "../header/header.tsx";
-import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT, SortType, AuthorizationStatus} from "../../const.js";
-import {withCompletedComment} from "../../hocs/with-completed-comment/with-completed-comment.jsx";
+import ReviewsList from "../reviews-list/reviews-list";
+import Map from "../map/map";
+import CommentForm from "../comment-form/comment-form";
+import {placeFullCardType, reviewType} from "../../../types";
+import PlaceList from "../place-list/place-list";
+import Header from "../header/header";
+import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT, SortType, AuthorizationStatus} from "../../const";
+import {withCompletedComment} from "../../hocs/with-completed-comment/with-completed-comment";
 
 const CommentFormWithCompletedComment = withCompletedComment(CommentForm);
 

@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Map from "./map.tsx";
-import offers from "../../mocks/offers.js";
+import Map from "./map";
+import offers from "../../mocks/offers";
 
 describe(`<Map />`, () => {
   it(`Should Map render correctly`, () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReviewsItem from "../reviews-item/reviews-item.tsx";
-import {reviewType} from "../../../types.js";
+import ReviewsItem from "../reviews-item/reviews-item";
+import {reviewType} from "../../../types";
 
 const ReviewsList = ({reviews}) => {
   return (

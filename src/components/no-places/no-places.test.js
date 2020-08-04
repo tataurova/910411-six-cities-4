@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import NoPlaces from "./no-places.tsx";
+import NoPlaces from "./no-places";
 
 describe(`<NoPlaces />`, () => {
   it(`Should NoPlaces render correctly`, () => {

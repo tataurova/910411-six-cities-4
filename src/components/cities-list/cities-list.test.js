@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import CitiesList from "./cities-list.tsx";
-import {cities} from "../../mocks/cities.js";
+import CitiesList from "./cities-list";
+import {cities} from "../../mocks/cities";
 
 describe(`<CitiesList />`, () => {
   it(`Render CitiesList`, () => {

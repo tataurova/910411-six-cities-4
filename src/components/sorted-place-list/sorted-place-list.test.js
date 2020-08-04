@@ -1,9 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import SortedPlaceList from "./sorted-place-list.tsx";
-import offers from "../../mocks/offers.js";
+import SortedPlaceList from "./sorted-place-list";
+import offers from "../../mocks/offers";
 import {BrowserRouter} from "react-router-dom";
-import {SortType} from "../../const.js";
+import {SortType} from "../../const";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 

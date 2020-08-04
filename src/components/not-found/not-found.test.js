@@ -1,8 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {BrowserRouter} from "react-router-dom";
-import NotFound from "./not-found.tsx";
-import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const.js";
+import NotFound from "./not-found";
+import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const";
 
 describe(`<NotFound />`, () => {
   it(`Should NotFound render correctly`, () => {

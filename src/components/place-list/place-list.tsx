@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PlaceCard from "../place-card/place-card.tsx";
-import {placeCardType} from "../../../types.js";
-import {sortOffers} from "../../utils/sort.js";
+import PlaceCard from "../place-card/place-card";
+import {placeCardType} from "../../../types";
+import {sortOffers} from "../../utils/sort";
 import {SortType} from "../../const";
 
 const PlaceList = (props) => {

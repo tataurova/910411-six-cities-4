@@ -1,10 +1,10 @@
 import React from "react";
-import Sort from "../sort/sort.tsx";
-import PlaceList from "../place-list/place-list.tsx";
-import {CardType, DEFAULT_SORT_STATE} from "../../const.js";
+import Sort from "../sort/sort";
+import PlaceList from "../place-list/place-list";
+import {CardType, DEFAULT_SORT_STATE} from "../../const";
 import PropTypes from "prop-types";
-import {placeCardType} from "../../../types.js";
-import withSelectedItem from "../../hocs/with-selected-item/with-selected-item.jsx";
+import {placeCardType} from "../../../types";
+import withSelectedItem from "../../hocs/with-selected-item/with-selected-item";
 
 const SortWithSelectedItem = withSelectedItem(Sort, DEFAULT_SORT_STATE);
 

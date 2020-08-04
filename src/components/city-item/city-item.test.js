@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import CityItem from "./city-item.tsx";
+import CityItem from "./city-item";
 
 describe(`<CityItem />`, () => {
   it(`Render CityItem`, () => {

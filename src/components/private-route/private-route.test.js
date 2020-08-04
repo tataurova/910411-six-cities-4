@@ -1,11 +1,10 @@
 import React from "react";
-import PrivateRoute from "./private-route.tsx";
+import PrivateRoute from "./private-route";
 import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import renderer from "react-test-renderer";
 import Favorites from "../favorites/favorites";
-import {AuthorizationStatus} from "../../const.js";
-import {AppRoute} from "../../const";
+import {AuthorizationStatus, AppRoute} from "../../const";
 
 const mockStore = configureStore([]);
 const exact = true;

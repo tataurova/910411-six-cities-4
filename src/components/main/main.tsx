@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {placeCardType} from "../../../types.js";
-import CitiesList from "../cities-list/cities-list.tsx";
+import {placeCardType} from "../../../types";
+import CitiesList from "../cities-list/cities-list";
 import NoPlaces from "../no-places/no-places.js";
-import PlaceListContainer from "../place-list-container/place-list-container.js";
-import withSelectedItem from "../../hocs/with-selected-item/with-selected-item.jsx";
-import {DEFAULT_HOVERED_CARD} from "../../const.js";
+import PlaceListContainer from "../place-list-container/place-list-container";
+import withSelectedItem from "../../hocs/with-selected-item/with-selected-item";
+import {DEFAULT_HOVERED_CARD} from "../../const";
 
 const PlaceListContainerWithSelectedItem = withSelectedItem(PlaceListContainer, DEFAULT_HOVERED_CARD);
 

@@ -1,13 +1,13 @@
 import React from "react";
 import {mount} from "enzyme";
-import PlaceCard from "./place-card.tsx";
-import {CardType} from "../../const.js";
+import PlaceCard from "./place-card";
+import {CardType} from "../../const";
 import configureStore from "redux-mock-store";
 import {BrowserRouter} from "react-router-dom";
-import {mapDispatchToProps} from "./place-card.tsx";
-import PlaceList from "../place-list/place-list.tsx";
-import offers from "../../mocks/offers.js";
-import {SortType} from "../../const.js";
+import {mapDispatchToProps} from "./place-card";
+import PlaceList from "../place-list/place-list";
+import offers from "../../mocks/offers";
+import {SortType} from "../../const";
 
 const offer = {
   id: 1,

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Header from "../header/header.js";
-import PlaceCard from "../place-card/place-card.js";
-import {placeCardType} from "../../../types.js";
+import Header from "../header/header";
+import PlaceCard from "../place-card/place-card";
+import {placeCardType} from "../../../types";
 
 class Favorites extends React.Component {
   constructor(props) {

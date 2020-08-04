@@ -1,8 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {BrowserRouter} from "react-router-dom";
-import Header from "./header.tsx";
-import {AuthorizationStatus} from "../../const.js";
+import Header from "./header";
+import {AuthorizationStatus} from "../../const";
 import {DEFAULT_ERROR_STATUS} from "../../const";
 
 describe(`<Header />`, () => {

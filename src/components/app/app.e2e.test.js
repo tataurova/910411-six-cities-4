@@ -1,12 +1,12 @@
-import {mapStateToProps, mapDispatchToProps} from "./app.tsx";
-import offers from "../../mocks/offers.js";
+import {mapStateToProps, mapDispatchToProps} from "./app";
+import offers from "../../mocks/offers";
 import React from "react";
-import App from "./app.tsx";
+import App from "./app";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {mount} from "enzyme";
-import {cities} from "../../mocks/cities.js";
-import {DEFAULT_ERROR_STATUS, AuthorizationStatus} from "../../const.js";
+import {cities} from "../../mocks/cities";
+import {DEFAULT_ERROR_STATUS, AuthorizationStatus} from "../../const";
 
 describe(`Tests for redux functions in App component`, () => {
   it(`MapStateToProps returns props from initial state`, () => {

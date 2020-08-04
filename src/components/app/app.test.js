@@ -1,11 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.tsx";
-import offers from "../../mocks/offers.js";
-import {cities} from "../../mocks/cities.js";
+import App from "./app";
+import offers from "../../mocks/offers";
+import {cities} from "../../mocks/cities";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
-import {DEFAULT_ERROR_STATUS, AuthorizationStatus} from "../../const.js";
+import {DEFAULT_ERROR_STATUS, AuthorizationStatus} from "../../const";
 
 describe(`<App />`, () => {
   const activeCity = `Cologne`;

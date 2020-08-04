@@ -1,9 +1,9 @@
 import {mount} from "enzyme";
 import {BrowserRouter} from "react-router-dom";
-import PlaceFullCard from "./place-full-card.tsx";
-import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const.js";
+import PlaceFullCard from "./place-full-card";
+import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const";
 import React from "react";
-import offers from "../../mocks/offers.js";
+import offers from "../../mocks/offers";
 
 describe(`<PlaceFullCard />`, () => {
   const id = `1`;

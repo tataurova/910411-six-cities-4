@@ -1,11 +1,11 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Favorites from "./favorites.tsx";
+import Favorites from "./favorites";
 import {BrowserRouter} from "react-router-dom";
-import offers from "../../mocks/offers.js";
+import offers from "../../mocks/offers";
 import configureStore from "redux-mock-store";
-import {CardType} from "../../const.js";
-import {AuthorizationStatus} from "../../const.js";
+import {CardType} from "../../const";
+import {AuthorizationStatus} from "../../const";
 import {DEFAULT_ERROR_STATUS} from "../../const";
 
 const onBookmarkButtonCLick = jest.fn();

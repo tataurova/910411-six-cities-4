@@ -1,8 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceCard from "./place-card.tsx";
+import PlaceCard from "./place-card";
 import {BrowserRouter} from "react-router-dom";
-import {CardType} from "../../const.js";
+import {CardType} from "../../const";
 import configureStore from "redux-mock-store";
 
 const offerWithPremium = {

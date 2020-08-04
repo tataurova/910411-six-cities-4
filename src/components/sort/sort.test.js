@@ -1,8 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Sort from "./sort.tsx";
-import {SortType} from "../../const.js";
-import {DEFAULT_SORT_STATE} from "../../const.js";
+import Sort from "./sort";
+import {SortType, DEFAULT_SORT_STATE} from "../../const";
 
 describe(`<Sort />`, () => {
   it(`Should Sort render correctly`, () => {

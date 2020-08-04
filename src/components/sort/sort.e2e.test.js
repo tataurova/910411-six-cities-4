@@ -1,8 +1,7 @@
 import React from "react";
 import {shallow} from "enzyme";
-import Sort from "./sort.tsx";
-import {SortType} from "../../const.js";
-import {DEFAULT_SORT_STATE} from "../../const";
+import Sort from "./sort";
+import {SortType, DEFAULT_SORT_STATE} from "../../const";
 
 describe(`<Sort />`, () => {
   const onChangeItem = jest.fn(() => {

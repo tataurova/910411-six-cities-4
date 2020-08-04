@@ -1,7 +1,7 @@
 import React from "react";
 import {mount} from "enzyme";
-import Map from "./map.tsx";
-import offers from "../../mocks/offers.js";
+import Map from "./map";
+import offers from "../../mocks/offers";
 
 describe(`Map`, () => {
   const activeCity = `Cologne`;

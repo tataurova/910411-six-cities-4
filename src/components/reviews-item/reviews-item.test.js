@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import ReviewsItem from "./reviews-item.tsx";
-import {reviews} from "../../mocks/reviews.js";
+import ReviewsItem from "./reviews-item";
+import {reviews} from "../../mocks/reviews";
 
 describe(`<ReviewsItem />`, () => {
   it(`Should PlaceList render correctly`, () => {

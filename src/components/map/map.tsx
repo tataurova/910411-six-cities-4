@@ -1,9 +1,9 @@
 import React from "react";
 import leaflet from "leaflet";
 import PropTypes from "prop-types";
-import {placeFullCardType} from "../../../types.js";
-import {MapSettings} from "../../const.js";
-import {addMarkersToMap} from "../../utils/map.js";
+import {placeFullCardType} from "../../../types";
+import {MapSettings} from "../../const";
+import {addMarkersToMap} from "../../utils/map";
 
 class Map extends React.Component {
   constructor(props) {
