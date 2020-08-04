@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Map from "./map.jsx";
+import Map from "./map.tsx";
 import offers from "../../mocks/offers.js";
 
 describe(`<Map />`, () => {

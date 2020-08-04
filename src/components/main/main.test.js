@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import Main from "./main.tsx";
 import offers from "../../mocks/offers.js";
 import {cities} from "../../mocks/cities.js";
 import {BrowserRouter} from "react-router-dom";

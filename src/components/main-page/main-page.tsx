@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {placeCardType} from "../../../types.js";
-import Header from "../header/header.jsx";
-import Main from "../main/main.jsx";
+import Header from "../header/header.tsx";
+import Main from "../main/main.tsx";
 
 const MainPage = ({cityOffers, cities, city, onMenuClick, isFetching, error, authorizationStatus, user}) => {
   return (

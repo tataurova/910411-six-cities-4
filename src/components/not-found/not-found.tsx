@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../header/header.jsx";
+import Header from "../header/header.tsx";
 import PropTypes from "prop-types";
 
 const NotFound = ({authorizationStatus, user, error}) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import CommentForm from "./comment-form.jsx";
+import CommentForm from "./comment-form.tsx";
 
 describe(`<CommentForm />`, () => {
   it(`Render CommentForm`, () => {

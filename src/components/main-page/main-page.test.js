@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MainPage from "./main-page.jsx";
+import MainPage from "./main-page.tsx";
 import offers from "../../mocks/offers.js";
 import {cities} from "../../mocks/cities.js";
 import {BrowserRouter} from "react-router-dom";

@@ -1,11 +1,11 @@
 import React from "react";
 import {mount} from "enzyme";
-import PlaceCard from "./place-card.jsx";
+import PlaceCard from "./place-card.tsx";
 import {CardType} from "../../const.js";
 import configureStore from "redux-mock-store";
 import {BrowserRouter} from "react-router-dom";
-import {mapDispatchToProps} from "./place-card.jsx";
-import PlaceList from "../place-list/place-list.jsx";
+import {mapDispatchToProps} from "./place-card.tsx";
+import PlaceList from "../place-list/place-list.tsx";
 import offers from "../../mocks/offers.js";
 import {SortType} from "../../const.js";
 

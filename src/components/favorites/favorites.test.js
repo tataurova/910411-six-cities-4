@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Favorites from "./favorites.jsx";
+import Favorites from "./favorites.tsx";
 import {BrowserRouter} from "react-router-dom";
 import offers from "../../mocks/offers.js";
 import configureStore from "redux-mock-store";

@@ -1,6 +1,6 @@
 import {mount} from "enzyme";
 import {BrowserRouter} from "react-router-dom";
-import PlaceFullCard from "../place-full-card/place-full-card.jsx";
+import PlaceFullCard from "./place-full-card.tsx";
 import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const.js";
 import React from "react";
 import offers from "../../mocks/offers.js";

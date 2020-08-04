@@ -1,6 +1,6 @@
 import React, {createRef} from "react";
 import renderer from "react-test-renderer";
-import Login from "./login.jsx";
+import Login from "./login.tsx";
 import {BrowserRouter} from "react-router-dom";
 import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceFullCard from "./place-full-card.jsx";
+import PlaceFullCard from "./place-full-card.tsx";
 import {BrowserRouter} from "react-router-dom";
 import offers from "../../mocks/offers.js";
 import configureStore from "redux-mock-store";

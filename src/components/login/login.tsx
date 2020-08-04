@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {LOGIN_MIN_LENGTH, PASSWORD_MIN_LENGTH} from "../../const.js";
-import Header from "../header/header.jsx";
+import Header from "../header/header.tsx";
 
 const Login = ({authorizationStatus, user, state, onSubmit, onChange, loginRef, passwordRef, error}) => {
   return (

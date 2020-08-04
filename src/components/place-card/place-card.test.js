@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceCard from "./place-card.jsx";
+import PlaceCard from "./place-card.tsx";
 import {BrowserRouter} from "react-router-dom";
 import {CardType} from "../../const.js";
 import configureStore from "redux-mock-store";

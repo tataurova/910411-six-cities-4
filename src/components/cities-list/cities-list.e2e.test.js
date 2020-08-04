@@ -1,5 +1,5 @@
 import React from "react";
-import CitiesList from "./cities-list.jsx";
+import CitiesList from "./cities-list.tsx";
 import {mount} from "enzyme";
 import {cities} from "../../mocks/cities.js";
 

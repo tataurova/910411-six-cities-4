@@ -1,7 +1,7 @@
-import {mapStateToProps, mapDispatchToProps} from "./app.jsx";
+import {mapStateToProps, mapDispatchToProps} from "./app.tsx";
 import offers from "../../mocks/offers.js";
 import React from "react";
-import App from "./app.jsx";
+import App from "./app.tsx";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {mount} from "enzyme";

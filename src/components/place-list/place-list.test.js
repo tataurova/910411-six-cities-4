@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceList from "./place-list.jsx";
+import PlaceList from "./place-list.tsx";
 import offers from "../../mocks/offers.js";
 import {CardType, SortType} from "../../const.js";
 import {BrowserRouter} from "react-router-dom";

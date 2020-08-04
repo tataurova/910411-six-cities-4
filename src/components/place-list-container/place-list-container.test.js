@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import PlaceListContainer from "./place-list-container.jsx";
+import PlaceListContainer from "./place-list-container.tsx";
 import offers from "../../mocks/offers.js";
 import {BrowserRouter} from "react-router-dom";
 import {DEFAULT_HOVERED_CARD} from "../../const.js";

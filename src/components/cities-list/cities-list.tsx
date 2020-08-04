@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CityItem from "../city-item/city-item.jsx";
+import CityItem from "../city-item/city-item.js";
 
 const isActiveCity = (city, activeCity) => {
   return city === activeCity;

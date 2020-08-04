@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import ReviewsList from "./reviews-list.jsx";
+import ReviewsList from "./reviews-list.tsx";
 import {reviews} from "../../mocks/reviews.js";
 
 describe(`<ReviewsItem />`, () => {

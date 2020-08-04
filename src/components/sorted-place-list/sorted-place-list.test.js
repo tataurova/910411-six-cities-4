@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import SortedPlaceList from "./sorted-place-list.jsx";
+import SortedPlaceList from "./sorted-place-list.tsx";
 import offers from "../../mocks/offers.js";
 import {BrowserRouter} from "react-router-dom";
 import {SortType} from "../../const.js";

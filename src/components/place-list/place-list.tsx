@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PlaceCard from "../place-card/place-card.jsx";
+import PlaceCard from "../place-card/place-card.tsx";
 import {placeCardType} from "../../../types.js";
 import {sortOffers} from "../../utils/sort.js";
 import {SortType} from "../../const";

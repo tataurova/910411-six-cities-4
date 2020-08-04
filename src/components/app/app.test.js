@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import App from "./app.tsx";
 import offers from "../../mocks/offers.js";
 import {cities} from "../../mocks/cities.js";
 import configureStore from "redux-mock-store";
