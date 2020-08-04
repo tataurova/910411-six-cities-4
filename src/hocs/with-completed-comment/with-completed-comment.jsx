@@ -40,7 +40,6 @@ export const withCompletedComment = (Component) => {
       return <Component
         state = {this.state}
         isFetching={this.props.isFetching}
-        error={this.props.error}
         onChange = {this.handleChange}
         onSubmit = {this.handleSubmit}
         {...this.props}
@@ -51,7 +50,6 @@ export const withCompletedComment = (Component) => {
     onSubmitForm: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    error: PropTypes.number.isRequired,
   };
   return WithCompletedComment;
 };

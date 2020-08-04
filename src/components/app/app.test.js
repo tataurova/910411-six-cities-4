@@ -5,8 +5,11 @@ import offers from "../../mocks/offers.js";
 import {cities} from "../../mocks/cities.js";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {DEFAULT_ERROR_STATUS, AuthorizationStatus} from "../../const.js";
 
 describe(`<App />`, () => {
+  const activeCity = `Cologne`;
+  const testUser = `test@test.ru`;
   it(`Render App`, () => {
     const mockStore = configureStore([]);
 
@@ -15,14 +18,16 @@ describe(`<App />`, () => {
         isFetching: false,
         offers,
         favoriteOffers: offers,
-        error: -1,
+        nearbyOffers: [],
+        reviews: [],
+        error: DEFAULT_ERROR_STATUS,
       },
       APP: {
         cities,
-        city: `Cologne`,
+        city: activeCity,
       },
       AUTH: {
-        authorizationStatus: `NO_AUTH`,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
         user: ``,
       },
       onMenuClick: () => {},
@@ -45,15 +50,17 @@ describe(`<App />`, () => {
         isFetching: false,
         offers,
         favoriteOffers: offers,
-        error: -1,
+        nearbyOffers: [],
+        reviews: [],
+        error: DEFAULT_ERROR_STATUS,
       },
       APP: {
         cities,
-        city: `Cologne`,
+        city: activeCity,
       },
       AUTH: {
-        authorizationStatus: `AUTH`,
-        user: `test@test.ru`,
+        authorizationStatus: AuthorizationStatus.AUTH,
+        user: testUser,
       },
       onMenuClick: () => {},
     });

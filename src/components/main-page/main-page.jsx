@@ -11,6 +11,7 @@ const MainPage = ({cityOffers, cities, city, onMenuClick, isFetching, error, aut
         <Header
           authorizationStatus = {authorizationStatus}
           user = {user}
+          error = {error}
         />
         <Main
           offers = {cityOffers}
@@ -33,7 +34,7 @@ MainPage.propTypes = {
   city: PropTypes.string.isRequired,
   onMenuClick: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.number.isRequired,
+  error: PropTypes.bool.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
 };

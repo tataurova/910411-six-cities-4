@@ -26,7 +26,7 @@ class PlaceCard extends React.Component {
   }
 
   render() {
-    const {offer, cardType, onBookmarkButtonCLick} = this.props;
+    const {offer, cardType, onBookmarkButtonCLick, loadFavoriteOffers} = this.props;
     const {id, title, type, price, rating, premium, photo, favorite} = offer;
     const isCardTypeCity = cardType === CardType.CITY;
     return (
@@ -50,6 +50,9 @@ class PlaceCard extends React.Component {
             </div>
             <button className={`place-card__bookmark-button button ${favorite ? `place-card__bookmark-button--active` : ``}`} type="button" onClick={() => {
               onBookmarkButtonCLick(id, !favorite);
+              if (cardType === CardType.FAVORITE) {
+                loadFavoriteOffers();
+              }
             }}>
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
@@ -79,6 +82,7 @@ PlaceCard.propTypes = {
   cardType: PropTypes.string.isRequired,
   onPlaceCardHover: PropTypes.func,
   onBookmarkButtonCLick: PropTypes.func.isRequired,
+  loadFavoriteOffers: PropTypes.func,
 };
 
 PlaceCard.defaultProps = {
@@ -89,6 +93,9 @@ export const mapDispatchToProps = (dispatch) => ({
   onBookmarkButtonCLick(id, status) {
     dispatch(DataOperation.setToFavorite(id, status));
   },
+  loadFavoriteOffers() {
+    dispatch(DataOperation.loadFavoriteOffers());
+  }
 });
 
 export {PlaceCard};

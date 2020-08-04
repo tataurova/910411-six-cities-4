@@ -1,14 +1,9 @@
 import axios from "axios";
-import {MIN_ERROR_CODE, MAX_TIMEOUT} from "./const.js";
+import {MAX_TIMEOUT, AppRoute, Error} from "./const.js";
 
-const MAIN_URL = `https://4.react.pages.academy/six-cities`;
-const Error = {
-  UNAUTHORIZED: 401
-};
-
-export const createAPI = (onUnauthorized) => {
+export const createAPI = (onUnauthorized, onNoResponse) => {
   const api = axios.create({
-    baseURL: MAIN_URL,
+    baseURL: AppRoute.SERVER_URL,
     timeout: MAX_TIMEOUT,
     withCredentials: true,
   });
@@ -18,11 +13,15 @@ export const createAPI = (onUnauthorized) => {
 
   const onFail = (err) => {
     const {response} = err;
-    if (response.status === Error.UNAUTHORIZED) {
-      onUnauthorized();
+
+    if (response) {
+      if (response.status === Error.UNAUTHORIZED) {
+        onUnauthorized();
+        throw err;
+      }
       throw err;
-    }
-    if (response.status > MIN_ERROR_CODE) {
+    } else {
+      onNoResponse();
       throw err;
     }
   };

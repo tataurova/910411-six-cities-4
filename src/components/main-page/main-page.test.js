@@ -6,6 +6,7 @@ import {cities} from "../../mocks/cities.js";
 import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const";
 
 const onBookmarkButtonCLick = jest.fn();
 const mockStore = configureStore([]);
@@ -28,8 +29,8 @@ describe(`<MainPage />`, () => {
                 city = {activeCity}
                 onMenuClick = {() => {}}
                 isFetching = {false}
-                error = {-1}
-                authorizationStatus = {`NO_AUTH`}
+                error = {DEFAULT_ERROR_STATUS}
+                authorizationStatus = {AuthorizationStatus.NO_AUTH}
                 user = {``}
               />
             </BrowserRouter>
@@ -50,8 +51,8 @@ describe(`<MainPage />`, () => {
               city = {activeCity}
               onMenuClick = {() => {}}
               isFetching = {false}
-              error = {-1}
-              authorizationStatus = {`NO_AUTH`}
+              error = {DEFAULT_ERROR_STATUS}
+              authorizationStatus = {AuthorizationStatus.NO_AUTH}
               user = {``}
             />
           </BrowserRouter>)

@@ -2,8 +2,11 @@ import React, {createRef} from "react";
 import renderer from "react-test-renderer";
 import Login from "./login.jsx";
 import {BrowserRouter} from "react-router-dom";
+import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const";
 
 describe(`<Login />`, () => {
+  const testUser = `test@test.ru`;
+
   it(`Should Login render correctly`, () => {
     const state = {
       loginValid: null,
@@ -20,6 +23,9 @@ describe(`<Login />`, () => {
               onChange = {() => {}}
               loginRef = {loginRef}
               passwordRef = {passwordRef}
+              authorizationStatus = {AuthorizationStatus.AUTH}
+              user = {testUser}
+              error = {DEFAULT_ERROR_STATUS}
             />
           </BrowserRouter>)
       .toJSON();
@@ -43,6 +49,9 @@ describe(`<Login />`, () => {
               onChange = {() => {}}
               loginRef = {loginRef}
               passwordRef = {passwordRef}
+              authorizationStatus = {AuthorizationStatus.AUTH}
+              user = {testUser}
+              error = {DEFAULT_ERROR_STATUS}
             />
           </BrowserRouter>)
       .toJSON();

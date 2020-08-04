@@ -12,25 +12,6 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {-1}
-        onChange = {() => {}}
-        onSubmit = {() => {}}
-      />)
-      .toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`Render CommentForm with error message`, () => {
-    const state = {
-      rating: 0,
-      comment: ``,
-    };
-    const tree = renderer
-      .create(<CommentForm
-        state = {state}
-        isFetching = {false}
-        error = {400}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)
@@ -48,7 +29,6 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {-1}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)
@@ -68,7 +48,6 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        error = {-1}
         onChange = {() => {}}
         onSubmit = {() => {}}
       />)

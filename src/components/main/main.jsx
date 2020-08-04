@@ -9,7 +9,7 @@ import {DEFAULT_HOVERED_CARD} from "../../const.js";
 
 const PlaceListContainerWithSelectedItem = withSelectedItem(PlaceListContainer, DEFAULT_HOVERED_CARD);
 
-const Main = ({offers, cities, city, onMenuClick, isFetching, error}) => {
+const Main = ({offers, cities, city, onMenuClick, isFetching}) => {
   return (
     <main className={`page__main page__main--index ${offers.length === 0 ? `page__main--index-empty` : ``}`}>
       <h1 className="visually-hidden">Cities</h1>
@@ -20,7 +20,7 @@ const Main = ({offers, cities, city, onMenuClick, isFetching, error}) => {
       </div>
       <div className="cities">
         {offers.length > 0 ? (<PlaceListContainerWithSelectedItem offers = {offers} city = {city} />) : ``}
-        {offers.length > 0 || <NoPlaces activeCity = {city} isFetching = {isFetching} error = {error}/>}
+        {offers.length > 0 || <NoPlaces activeCity = {city} isFetching = {isFetching}/>}
       </div>
     </main>
   );
@@ -34,5 +34,4 @@ Main.propTypes = {
   city: PropTypes.string.isRequired,
   onMenuClick: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.number.isRequired,
 };

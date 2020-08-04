@@ -3,9 +3,10 @@ import {Link} from "react-router-dom";
 import {AuthorizationStatus, AppRoute} from "../../const.js";
 import PropTypes from "prop-types";
 
-const Header = ({authorizationStatus, user}) => {
+const Header = ({authorizationStatus, user, error}) => {
   return (
     <header className="header">
+      {error && <div className="block-error"><p className="error">Network error</p></div>}
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
@@ -35,4 +36,5 @@ export default Header;
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
+  error: PropTypes.bool.isRequired,
 };

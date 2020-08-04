@@ -16,13 +16,14 @@ const store = mockStore(initialState);
 
 describe(`<SortedPlaceList />`, () => {
   it(`Should PlaceList render correctly`, () => {
+    const activeCity = `Cologne`;
     const tree = renderer
       .create(
           <Provider store = {store}>
             <BrowserRouter>
               <SortedPlaceList
                 offers = {offers}
-                city = {`Cologne`}
+                city = {activeCity}
                 state = {SortType.DEFAULT}
                 onChangeItem = {() => {}}
                 onPlaceCardHover = {() => {}}

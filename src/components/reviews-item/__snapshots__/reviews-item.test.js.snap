@@ -55,9 +55,8 @@ exports[`<ReviewsItem /> Should PlaceList render correctly 1`] = `
     </p>
     <time
       className="reviews__time"
-      dateTime="2019-04-24"
     >
-      April 2019
+      August 2020
     </time>
   </div>
 </li>

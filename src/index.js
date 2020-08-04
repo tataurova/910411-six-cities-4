@@ -6,14 +6,20 @@ import {Provider} from "react-redux";
 import reducer from "./reducer/reducer.js";
 import thunk from "redux-thunk";
 import {createAPI} from "./api.js";
-import {Operation as DataOperation} from "./reducer/data/data.js";
+import {Operation as DataOperation, ActionCreator as DataActionCreator} from "./reducer/data/data.js";
 import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
+import {SHOW_ERROR_TIMEOUT} from "./const";
 
 const onUnauthorized = () => {
   store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
 };
 
-const api = createAPI(onUnauthorized);
+const onNoResponse = () => {
+  store.dispatch(DataActionCreator.writeError(true));
+  setTimeout(() => store.dispatch(DataActionCreator.writeError(false)), SHOW_ERROR_TIMEOUT);
+};
+
+const api = createAPI(onUnauthorized, onNoResponse);
 
 export const store = createStore(
     reducer,
@@ -34,8 +40,9 @@ const init = () => {
 
 store.dispatch(UserOperation.checkAuth())
   .finally(() => {
-    store.dispatch(DataOperation.loadOffers());
-    init();
+    store.dispatch(DataOperation.loadOffers())
+      .finally(() => {
+        init();
+      });
   });
-
 

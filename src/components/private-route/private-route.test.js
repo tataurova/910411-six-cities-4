@@ -4,15 +4,19 @@ import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
 import renderer from "react-test-renderer";
 import Favorites from "../favorites/favorites";
+import {AuthorizationStatus} from "../../const.js";
+import {AppRoute} from "../../const";
 
 const mockStore = configureStore([]);
 const exact = true;
 
 describe(`<PrivateRoute />`, () => {
+  const testUser = `test@test.ru`;
+
   it(`Should PrivateRoute render correctly`, () => {
     const initialState = {
       AUTH: {
-        authorizationStatus: `AUTH`
+        authorizationStatus: AuthorizationStatus.AUTH,
       },
     };
     const store = mockStore(initialState);
@@ -20,13 +24,13 @@ describe(`<PrivateRoute />`, () => {
         <BrowserRouter>
           <PrivateRoute
             store={store}
-            path={`/favorites`}
+            path={AppRoute.FAVORITES}
             exact={true}
             render={() => {
               return (
                 <Favorites
-                  authorizationStatus = {`AUTH`}
-                  user = {`test@test.ru`}
+                  authorizationStatus = {AuthorizationStatus.AUTH}
+                  user = {testUser}
                 />
               );
             }}
@@ -39,7 +43,7 @@ describe(`<PrivateRoute />`, () => {
   it(`Should PrivateRoute render correctly`, () => {
     const initialState = {
       AUTH: {
-        authorizationStatus: `NO_AUTH`
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
       },
     };
     const store = mockStore(initialState);
@@ -48,12 +52,12 @@ describe(`<PrivateRoute />`, () => {
           <PrivateRoute
             store={store}
             exact={exact}
-            path={`/favorites`}
+            path={AppRoute.FAVORITES}
             render={() => {
               return (
                 <Favorites
-                  authorizationStatus = {`AUTH`}
-                  user = {`test@test.ru`}
+                  authorizationStatus = {AuthorizationStatus.AUTH}
+                  user = {testUser}
                 />
               );
             }}
