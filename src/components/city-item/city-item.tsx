@@ -6,8 +6,7 @@ interface Props {
   onMenuClick: (city: string) => void;
 }
 
-const CityItem: React.FunctionComponent<Props> = ({city, isActive, onMenuClick}: Props) => {
-
+const CityItem: React.FunctionComponent<Props> = React.memo(function CityItem({city, isActive, onMenuClick}: Props) {
   return (
     <li key={city} className="locations__item">
       <a className={`locations__item-link tabs__item ${isActive ? `tabs__item--active` : ``}`} href="#">
@@ -15,6 +14,6 @@ const CityItem: React.FunctionComponent<Props> = ({city, isActive, onMenuClick}:
       </a>
     </li>
   );
-};
+});
 
 export default CityItem;
