@@ -1,8 +1,7 @@
-import React, {createRef} from "react";
-import PropTypes from "prop-types";
-import {LoginInput} from "../../const.js";
-import {extend} from "../../utils/common.js";
-import {LOGIN_MIN_LENGTH, PASSWORD_MIN_LENGTH} from "../../const.js";
+import * as React from 'react';
+import {LoginInput} from "../../const";
+import {extend} from "../../utils/common";
+import {LOGIN_MIN_LENGTH, PASSWORD_MIN_LENGTH} from "../../const";
 
 const isLoginValid = (input, evt) => {
   return input.current.validity.valid && evt.target.value.length >= LOGIN_MIN_LENGTH;
@@ -20,8 +19,23 @@ const isLoginEmpty = (state) => state.loginValid === null;
 
 const isPasswordEmpty = (state) => state.passwordValid === null;
 
+interface Props {
+  onSubmitForm: ({login, password}: {login: string; password: string}) => void;
+  authorizationStatus: string;
+  user: string;
+  error: boolean;
+}
+
+interface State {
+  loginValid: null | string;
+  passwordValid: null | string;
+}
+
 const withAuthentication = (Component) => {
-  class WithAuthentication extends React.PureComponent {
+  class WithAuthentication extends React.PureComponent<Props, State> {
+    private loginRef: React.RefObject<HTMLInputElement>;
+    private passwordRef: React.RefObject<HTMLInputElement>;
+
     constructor(props) {
       super(props);
 
@@ -33,8 +47,8 @@ const withAuthentication = (Component) => {
         passwordValid: null,
       };
 
-      this.loginRef = createRef();
-      this.passwordRef = createRef();
+      this.loginRef = React.createRef();
+      this.passwordRef = React.createRef();
 
     }
 
@@ -77,14 +91,7 @@ const withAuthentication = (Component) => {
       />;
     }
   }
-  WithAuthentication.propTypes = {
-    onSubmitForm: PropTypes.func.isRequired,
-  };
   return WithAuthentication;
 };
 
 export default withAuthentication;
-
-withAuthentication.propTypes = {
-  onSubmitForm: PropTypes.func.isRequired,
-};

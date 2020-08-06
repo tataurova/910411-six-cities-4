@@ -1,11 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import MainPage from '../main-page/main-page';
 import PlaceFullCard from "../place-full-card/place-full-card";
-import PropTypes from 'prop-types';
 import {Switch, Route, Router, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app";
-import {placeCardType, reviewType} from "../../../types";
+import {placeCardType, Review} from "../../types";
 import {findOffer} from "../../utils/offers";
 import {getMemoizedCityOffers} from "../../reducer/app/selectors";
 import {getMemoizedOffers} from "../../reducer/data/selectors";
@@ -23,7 +22,28 @@ import NotFound from "../not-found/not-found";
 
 const LoginWithAuthentication = withAuthentication(Login);
 
-class App extends React.PureComponent {
+interface Props {
+  offers: placeCardType[];
+  cities: string[];
+  city: string;
+  cityOffers: placeCardType[];
+  onMenuClick: () => void;
+  error: boolean;
+  authorizationStatus: string;
+  user: string;
+  login: () => void;
+  isFetching: boolean;
+  sendComment: () => void;
+  loadFavoriteOffers: () => void;
+  favoriteOffers: placeCardType[];
+  loadReviews: () => void;
+  reviews: Review[];
+  nearbyOffers: placeCardType[];
+  loadNearbyOffers: placeCardType[];
+  onBookmarkButtonCLick: () => void;
+}
+
+class App extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
   }
@@ -31,6 +51,9 @@ class App extends React.PureComponent {
   render() {
     const {
       offers,
+      cities,
+      city,
+      cityOffers,
       login,
       authorizationStatus,
       user,
@@ -44,13 +67,21 @@ class App extends React.PureComponent {
       loadNearbyOffers,
       nearbyOffers,
       onBookmarkButtonCLick,
+      onMenuClick,
     } = this.props;
     return (
       <Router history = {history}>
         <Switch>
           <Route exact path={AppRoute.MAIN} render={() => {
             return <MainPage
-              {...this.props}
+              cityOffers = {cityOffers}
+              cities = {cities}
+              city = {city}
+              onMenuClick = {onMenuClick}
+              isFetching = {isFetching}
+              error = {error}
+              authorizationStatus = {authorizationStatus}
+              user = {user}
             />;
           }}>
           </Route>
@@ -75,6 +106,7 @@ class App extends React.PureComponent {
               return <NotFound
                 authorizationStatus = {authorizationStatus}
                 user = {user}
+                error = {error}
               />;
             }
           }
@@ -92,7 +124,7 @@ class App extends React.PureComponent {
                   error = {error}
                 />;
               default:
-                throw error(`Unknown AuthorizationStatus ${authorizationStatus}`);
+                throw new Error(`Unknown AuthorizationStatus ${authorizationStatus}`);
             }
           }
           }
@@ -168,24 +200,3 @@ export const mapDispatchToProps = (dispatch) => ({
 
 export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-App.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  city: PropTypes.string.isRequired,
-  cityOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  onMenuClick: PropTypes.func.isRequired,
-  error: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  sendComment: PropTypes.func.isRequired,
-  loadFavoriteOffers: PropTypes.func.isRequired,
-  favoriteOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  loadReviews: PropTypes.func.isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(reviewType)).isRequired,
-  nearbyOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  loadNearbyOffers: PropTypes.func.isRequired,
-  onBookmarkButtonCLick: PropTypes.func.isRequired,
-};

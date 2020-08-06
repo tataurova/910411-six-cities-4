@@ -1,13 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/app/app.tsx';
-import {createStore, compose, applyMiddleware} from "redux";
+import * as React from 'react';
+import * as ReactDOM from "react-dom";
+import App from './components/app/app';
+import {createStore, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
-import reducer from "./reducer/reducer.js";
+import reducer from "./reducer/reducer";
 import thunk from "redux-thunk";
-import {createAPI} from "./api.js";
-import {Operation as DataOperation, ActionCreator as DataActionCreator} from "./reducer/data/data.js";
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
+import {composeWithDevTools} from "redux-devtools-extension";
+import {createAPI} from "./api";
+import {Operation as DataOperation, ActionCreator as DataActionCreator} from "./reducer/data/data";
+import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user";
 import {SHOW_ERROR_TIMEOUT} from "./const";
 
 const onUnauthorized = () => {
@@ -23,9 +24,8 @@ const api = createAPI(onUnauthorized, onNoResponse);
 
 export const store = createStore(
     reducer,
-    compose(
-        applyMiddleware(thunk.withExtraArgument(api)),
-        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api))
     )
 );
 

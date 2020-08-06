@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import withAuthentication from "./with-authentication.jsx";
+import withAuthentication from "./with-authentication.tsx";
 
 const MockComponent = () => {
   return (

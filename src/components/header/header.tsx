@@ -1,9 +1,14 @@
-import React from "react";
+import * as React from 'react';
 import {Link} from "react-router-dom";
 import {AuthorizationStatus, AppRoute} from "../../const";
-import PropTypes from "prop-types";
 
-const Header = ({authorizationStatus, user, error}) => {
+interface Props {
+  authorizationStatus: string;
+  user: string;
+  error: boolean;
+}
+
+const Header: React.FunctionComponent<Props> = ({authorizationStatus, user, error}: Props) => {
   return (
     <header className="header">
       {error && <div className="block-error"><p className="error">Network error</p></div>}
@@ -32,9 +37,3 @@ const Header = ({authorizationStatus, user, error}) => {
 };
 
 export default Header;
-
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
-  error: PropTypes.bool.isRequired,
-};

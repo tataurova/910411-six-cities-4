@@ -1,9 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from 'react';
 import ReviewsItem from "../reviews-item/reviews-item";
-import {reviewType} from "../../../types";
+import {Review} from "../../types";
 
-const ReviewsList = ({reviews}) => {
+interface Props {
+  reviews: Review[];
+}
+
+const ReviewsList: React.FunctionComponent<Props> = ({reviews}: Props) => {
   return (
     <ul className="reviews__list">
       {reviews.map((review) => (
@@ -14,7 +17,3 @@ const ReviewsList = ({reviews}) => {
 };
 
 export default ReviewsList;
-
-ReviewsList.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.shape(reviewType)).isRequired,
-};

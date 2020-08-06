@@ -1,9 +1,21 @@
-import React from "react";
+import * as React from 'react';
 import {extend} from "../../utils/common.js";
-import PropTypes from "prop-types";
+import {Review} from "../../types";
+
+interface Props {
+  onSubmitForm: ({rating, comment}: {rating: number; comment: string}, id: string) => void;
+  id: string;
+  isFetching: boolean;
+  reviews: Review[];
+}
+
+interface State {
+  rating: number;
+  comment: string;
+}
 
 export const withCompletedComment = (Component) => {
-  class WithCompletedComment extends React.PureComponent {
+  class WithCompletedComment extends React.PureComponent<Props, State> {
     constructor(props) {
       super(props);
 
@@ -46,11 +58,6 @@ export const withCompletedComment = (Component) => {
       />;
     }
   }
-  WithCompletedComment.propTypes = {
-    onSubmitForm: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-  };
   return WithCompletedComment;
 };
 

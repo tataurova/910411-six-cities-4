@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import withCompletedComment from "./with-completed-comment.jsx";
+import withCompletedComment from "./with-completed-comment.tsx";
 import {DEFAULT_ERROR_STATUS} from "../../const.js";
 
 const MockComponent = () => {

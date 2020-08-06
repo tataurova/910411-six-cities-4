@@ -1,17 +1,28 @@
-import React from "react";
-import leaflet from "leaflet";
-import PropTypes from "prop-types";
-import {placeFullCardType} from "../../../types";
+import * as React from 'react';
+import * as leaflet from "leaflet";
+import {placeCardType} from "../../types";
 import {MapSettings} from "../../const";
 import {addMarkersToMap} from "../../utils/map";
 
-class Map extends React.Component {
+interface Props {
+  offers: placeCardType[];
+  activeCity: string;
+  hoveredCardId: number;
+}
+
+class Map extends React.Component<Props> {
+  private map: leaflet.map;
+  private leafletIcon: leaflet.icon;
+  private leafletActiveIcon: leaflet.icon;
+  private markersGroup: leaflet.markersGroup;
+
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
     const {offers, hoveredCardId} = this.props;
+    const activeCityCoordinates = offers[0].cityCoordinates;
     this.leafletIcon = leaflet.icon({
       iconSize: MapSettings.ICON_SIZE,
       iconUrl: MapSettings.ICON_URL,
@@ -20,7 +31,7 @@ class Map extends React.Component {
       iconSize: MapSettings.ICON_SIZE,
       iconUrl: MapSettings.ACTIVE_ICON_URL,
     });
-    const activeCityCoordinates = offers[0].cityCoordinates;
+
     this.map = leaflet.map(`map`, {
       center: activeCityCoordinates,
       zoom: offers[0].cityZoom,
@@ -62,9 +73,3 @@ class Map extends React.Component {
 }
 
 export default Map;
-
-Map.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType)).isRequired,
-  activeCity: PropTypes.string.isRequired,
-  hoveredCardId: PropTypes.number.isRequired,
-};

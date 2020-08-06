@@ -1,9 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from 'react';
 import ReviewsList from "../reviews-list/reviews-list";
 import Map from "../map/map";
 import CommentForm from "../comment-form/comment-form";
-import {placeFullCardType, reviewType} from "../../../types";
+import {placeCardType, Review} from "../../types";
 import PlaceList from "../place-list/place-list";
 import Header from "../header/header";
 import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT, SortType, AuthorizationStatus} from "../../const";
@@ -11,7 +10,22 @@ import {withCompletedComment} from "../../hocs/with-completed-comment/with-compl
 
 const CommentFormWithCompletedComment = withCompletedComment(CommentForm);
 
-class PlaceFullCard extends React.Component {
+interface Props {
+  offer: placeCardType;
+  nearbyOffers: placeCardType[];
+  id: string;
+  authorizationStatus: string;
+  user: string;
+  isFetching: boolean;
+  error: boolean;
+  onSubmitForm: () => void;
+  reviews: Review[];
+  onBookmarkButtonCLick: (id: string, status: boolean) => void;
+  loadReviews: (id: string) => void;
+  loadNearbyOffers: (id: string) => void;
+}
+
+class PlaceFullCard extends React.Component<Props> {
   constructor(props) {
     super(props);
   }
@@ -153,18 +167,3 @@ class PlaceFullCard extends React.Component {
 }
 
 export default PlaceFullCard;
-
-PlaceFullCard.propTypes = {
-  offer: PropTypes.shape(placeFullCardType).isRequired,
-  nearbyOffers: PropTypes.arrayOf(PropTypes.shape(placeFullCardType).isRequired).isRequired,
-  id: PropTypes.string.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
-  onSubmitForm: PropTypes.func.isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(reviewType)).isRequired,
-  onBookmarkButtonCLick: PropTypes.func.isRequired,
-  loadReviews: PropTypes.func.isRequired,
-  loadNearbyOffers: PropTypes.func.isRequired,
-};

@@ -1,15 +1,21 @@
-import React from "react";
+import * as React from 'react';
 import Sort from "../sort/sort";
 import PlaceList from "../place-list/place-list";
 import {CardType, DEFAULT_SORT_STATE} from "../../const";
-import PropTypes from "prop-types";
-import {placeCardType} from "../../../types";
+import {placeCardType} from "../../types";
 import withSelectedItem from "../../hocs/with-selected-item/with-selected-item";
 
 const SortWithSelectedItem = withSelectedItem(Sort, DEFAULT_SORT_STATE);
 
-const SortedPlaceList = (props) => {
-  const {offers, city, onPlaceCardHover, state, onChangeItem} = props;
+interface Props {
+  offers: placeCardType[];
+  city: string;
+  state: string;
+  onPlaceCardHover: () => void;
+  onChangeItem: () => void;
+}
+
+const SortedPlaceList: React.FunctionComponent<Props> = ({offers, city, onPlaceCardHover, state, onChangeItem}: Props) => {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
@@ -29,11 +35,3 @@ const SortedPlaceList = (props) => {
 };
 
 export default SortedPlaceList;
-
-SortedPlaceList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  city: PropTypes.string.isRequired,
-  state: PropTypes.string.isRequired,
-  onPlaceCardHover: PropTypes.func.isRequired,
-  onChangeItem: PropTypes.func.isRequired,
-};

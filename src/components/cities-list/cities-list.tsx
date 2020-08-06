@@ -1,12 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from 'react';
 import CityItem from "../city-item/city-item";
 
 const isActiveCity = (city, activeCity) => {
   return city === activeCity;
 };
 
-const CitiesList = ({cities, activeCity, onMenuClick}) => {
+interface Props {
+  cities: string[];
+  activeCity: string;
+  onMenuClick: (city: string) => void;
+}
+
+const CitiesList: React.FunctionComponent<Props> = ({cities, activeCity, onMenuClick}: Props) => {
   return (
     <ul className="locations__list tabs__list">
       {cities.map((city) => (<CityItem
@@ -20,9 +25,3 @@ const CitiesList = ({cities, activeCity, onMenuClick}) => {
 };
 
 export default CitiesList;
-
-CitiesList.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
-  activeCity: PropTypes.string.isRequired,
-  onMenuClick: PropTypes.func.isRequired,
-};

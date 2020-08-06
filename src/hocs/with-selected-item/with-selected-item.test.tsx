@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import withSelectedItem from "./with-selected-item.jsx";
+import withSelectedItem from "./with-selected-item.tsx";
 
 const MockComponent = () => {
   return (

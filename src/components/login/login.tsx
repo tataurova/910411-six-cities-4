@@ -1,9 +1,22 @@
-import React from "react";
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import {LOGIN_MIN_LENGTH, PASSWORD_MIN_LENGTH} from "../../const";
 import Header from "../header/header";
 
-const Login = ({authorizationStatus, user, state, onSubmit, onChange, loginRef, passwordRef, error}) => {
+interface Props {
+  state: {
+    loginValid: boolean;
+    passwordValid: boolean;
+  };
+  loginRef: React.RefObject<HTMLInputElement>;
+  passwordRef: React.RefObject<HTMLInputElement>;
+  onChange: () => void;
+  onSubmit: () => void;
+  authorizationStatus: string;
+  user: string;
+  error: boolean;
+}
+
+const Login: React.FunctionComponent<Props> = ({authorizationStatus, user, state, onSubmit, onChange, loginRef, passwordRef, error}: Props) => {
   return (
     <div className="page page--gray page--login">
       <Header
@@ -59,17 +72,3 @@ const Login = ({authorizationStatus, user, state, onSubmit, onChange, loginRef, 
 };
 
 export default Login;
-
-Login.propTypes = {
-  state: PropTypes.shape({
-    loginValid: PropTypes.bool,
-    passwordValid: PropTypes.bool,
-  }),
-  loginRef: PropTypes.shape({current: PropTypes.instanceOf(HTMLInputElement)}).isRequired,
-  passwordRef: PropTypes.shape({current: PropTypes.instanceOf(HTMLInputElement)}).isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
-  error: PropTypes.bool.isRequired,
-};

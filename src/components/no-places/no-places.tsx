@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from 'react';
 
-const NoPlaces = ({activeCity, isFetching}) => {
+interface Props {
+  activeCity: string;
+  isFetching: boolean;
+}
+
+const NoPlaces: React.FunctionComponent<Props> = ({activeCity, isFetching}: Props) => {
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
@@ -17,8 +21,3 @@ const NoPlaces = ({activeCity, isFetching}) => {
 };
 
 export default NoPlaces;
-
-NoPlaces.propTypes = {
-  activeCity: PropTypes.string.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-};

@@ -1,10 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {placeCardType} from "../../../types";
+import * as React from 'react';
 import Header from "../header/header";
 import Main from "../main/main";
+import {placeCardType} from "../../types";
 
-const MainPage = ({cityOffers, cities, city, onMenuClick, isFetching, error, authorizationStatus, user}) => {
+interface Props {
+  cityOffers: placeCardType[];
+  cities: string[];
+  city: string;
+  onMenuClick: () => void;
+  isFetching: boolean;
+  error: boolean;
+  authorizationStatus: string;
+  user: string;
+}
+
+const MainPage: React.FunctionComponent<Props> = ({cityOffers, cities, city, onMenuClick, isFetching, error, authorizationStatus, user}: Props) => {
   return (
     <>
       <div className="page page--gray page--main">
@@ -19,7 +29,6 @@ const MainPage = ({cityOffers, cities, city, onMenuClick, isFetching, error, aut
           city = {city}
           onMenuClick = {onMenuClick}
           isFetching = {isFetching}
-          error = {error}
         />
       </div>
     </>
@@ -27,14 +36,3 @@ const MainPage = ({cityOffers, cities, city, onMenuClick, isFetching, error, aut
 };
 
 export default MainPage;
-
-MainPage.propTypes = {
-  cityOffers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
-  city: PropTypes.string.isRequired,
-  onMenuClick: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
-};

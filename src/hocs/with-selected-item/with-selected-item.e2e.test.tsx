@@ -1,6 +1,6 @@
 import {mount} from "enzyme";
 import React from "react";
-import withSelectedItem from "./with-selected-item.jsx";
+import withSelectedItem from "./with-selected-item.tsx";
 import PropTypes from "prop-types";
 
 const MockComponent = ({onChangeItem}) => {

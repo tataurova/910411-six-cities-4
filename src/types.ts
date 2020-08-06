@@ -1,0 +1,73 @@
+export interface placeCardType {
+  id: number,
+  title: string,
+  type: string,
+  city: string,
+  cityCoordinates: number[],
+  cityZoom: number,
+  price: number,
+  rating: number,
+  favorite: boolean,
+  premium: boolean,
+  photo: string,
+  bedrooms: number,
+  adults: number,
+  additional: string[],
+  details: string,
+  owner: {
+    photo: string,
+    name: string,
+    isSuper: boolean,
+  },
+  photos: string[],
+}
+
+export interface Review {
+  id: number,
+  name: string,
+  photo: string,
+  rating: number,
+  text: string,
+  date: Date,
+}
+
+// import PropTypes from "prop-types";
+//
+// export const placeCardType = {
+//     id: PropTypes.number.isRequired,
+//     title: PropTypes.string.isRequired,
+//     type: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     rating: PropTypes.number.isRequired,
+//     premium: PropTypes.bool.isRequired,
+//     photo: PropTypes.string.isRequired,
+// };
+//
+// export const reviewType = {
+//   id: PropTypes.number.isRequired,
+//   name: PropTypes.string.isRequired,
+//   photo: PropTypes.string.isRequired,
+//   rating: PropTypes.number.isRequired,
+//   text: PropTypes.string.isRequired,
+//   date: PropTypes.instanceOf(Date).isRequired,
+// };
+
+// export const placeFullCardType = {
+//     id: PropTypes.number.isRequired,
+//     title: PropTypes.string.isRequired,
+//     type: PropTypes.string.isRequired,
+//     price: PropTypes.number.isRequired,
+//     rating: PropTypes.number.isRequired,
+//     premium: PropTypes.bool.isRequired,
+//     photo: PropTypes.string.isRequired,
+//     bedrooms: PropTypes.number.isRequired,
+//     adults: PropTypes.number.isRequired,
+//     additional: PropTypes.arrayOf(PropTypes.string.isRequired),
+//     details: PropTypes.string.isRequired,
+//     owner: PropTypes.shape({
+//       photo: PropTypes.string.isRequired,
+//       name: PropTypes.string.isRequired,
+//       isSuper: PropTypes.bool.isRequired,
+//     }).isRequired,
+//     photos: PropTypes.arrayOf(PropTypes.string).isRequired,
+// };

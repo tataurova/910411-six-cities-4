@@ -1,8 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from 'react';
 import {RatingValue, CommentLength, DEFAULT_RATING} from "../../const";
 
-const CommentForm = ({state, isFetching, onChange, onSubmit}) => {
+interface Props {
+  state: {
+    rating: number;
+    comment?: string;
+  };
+  isFetching: boolean;
+  onChange: () => void;
+  onSubmit: () => void;
+}
+
+const CommentForm: React.FunctionComponent<Props> = ({state, isFetching, onChange, onSubmit}: Props) => {
   const isValidForm = state.rating > DEFAULT_RATING && state.comment.length >= CommentLength.MIN;
   const isAnyValueNotValid = state.rating === DEFAULT_RATING || state.comment.length < CommentLength.MIN;
 
@@ -65,19 +74,3 @@ const CommentForm = ({state, isFetching, onChange, onSubmit}) => {
 };
 
 export default CommentForm;
-
-CommentForm.propTypes = {
-  state: PropTypes.shape({
-    rating: PropTypes.number.isRequired,
-    comment: PropTypes.text,
-  }).isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-CommentForm.defaultProps = {
-  state: PropTypes.shape({
-    comment: ``,
-  })
-};

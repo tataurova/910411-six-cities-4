@@ -1,6 +1,6 @@
 import {mount} from "enzyme";
 import React from "react";
-import withAuthentication from "./with-authentication.jsx";
+import withAuthentication from "./with-authentication.tsx";
 import PropTypes from "prop-types";
 
 const MockComponent = (props) => {

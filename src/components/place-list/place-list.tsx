@@ -1,11 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from 'react';
 import PlaceCard from "../place-card/place-card";
-import {placeCardType} from "../../../types";
+import {placeCardType} from "../../types";
 import {sortOffers} from "../../utils/sort";
 import {SortType} from "../../const";
 
-const PlaceList = (props) => {
+interface Props {
+  offers: placeCardType[];
+  activeSortType: string;
+  cardType: string;
+  onPlaceCardHover?: () => void;
+}
+
+const PlaceList: React.FunctionComponent<Props> = (props: Props) => {
   const offers = (props.activeSortType === SortType.DEFAULT) ? props.offers : sortOffers(props.activeSortType, props.offers);
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -20,10 +26,3 @@ const PlaceList = (props) => {
 };
 
 export default PlaceList;
-
-PlaceList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(placeCardType)).isRequired,
-  activeSortType: PropTypes.string.isRequired,
-  cardType: PropTypes.string.isRequired,
-  onPlaceCardHover: PropTypes.func,
-};

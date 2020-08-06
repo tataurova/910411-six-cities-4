@@ -1,6 +1,6 @@
 import {mount} from "enzyme";
 import React from "react";
-import withCompletedComment from "./with-completed-comment.jsx";
+import withCompletedComment from "./with-completed-comment.tsx";
 import PropTypes from "prop-types";
 import {DEFAULT_ERROR_STATUS} from "../../const.js";
 

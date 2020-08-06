@@ -1,8 +1,13 @@
-import React from "react";
+import * as React from 'react';
 import Header from "../header/header";
-import PropTypes from "prop-types";
 
-const NotFound = ({authorizationStatus, user, error}) => {
+interface Props {
+  authorizationStatus: string;
+  user: string;
+  error: boolean;
+}
+
+const NotFound: React.FunctionComponent<Props> = ({authorizationStatus, user, error}: Props) => {
   return (
     <div className="page page--gray page--main">
       <Header
@@ -29,9 +34,3 @@ const NotFound = ({authorizationStatus, user, error}) => {
 };
 
 export default NotFound;
-
-NotFound.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  user: PropTypes.string.isRequired,
-  error: PropTypes.bool.isRequired,
-};

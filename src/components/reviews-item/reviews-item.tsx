@@ -1,8 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {reviewType} from "../../../types";
+import * as React from 'react';
+import {Review} from "../../types";
 
-const ReviewsItem = ({review}) => {
+interface Props {
+  review: Review;
+}
+
+const ReviewsItem: React.FunctionComponent<Props> = ({review}: Props) => {
   const {name, photo, rating, text, date} = review;
   const formatDate = `${date.toLocaleString(`en-EN`, {month: `long`})} ${date.getFullYear()}`;
   return (
@@ -33,7 +36,3 @@ const ReviewsItem = ({review}) => {
 };
 
 export default ReviewsItem;
-
-ReviewsItem.propTypes = {
-  review: PropTypes.shape(reviewType).isRequired,
-};
