@@ -1,10 +1,12 @@
-import React from "react";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import PrivateRoute from "./private-route";
 import {BrowserRouter} from "react-router-dom";
 import configureStore from "redux-mock-store";
-import renderer from "react-test-renderer";
 import Favorites from "../favorites/favorites";
-import {AuthorizationStatus, AppRoute} from "../../const";
+import {AuthorizationStatus, AppRoute, DEFAULT_ERROR_STATUS, CardType} from "../../const";
+import {offers} from "../../mocks/offers";
+import {mockFunction} from "../../utils/common";
 
 const mockStore = configureStore([]);
 const exact = true;
@@ -30,6 +32,10 @@ describe(`<PrivateRoute />`, () => {
                 <Favorites
                   authorizationStatus = {AuthorizationStatus.AUTH}
                   user = {testUser}
+                  loadFavoriteOffers = {mockFunction}
+                  favoriteOffers = {offers}
+                  error = {DEFAULT_ERROR_STATUS}
+                  cardType = {CardType.FAVORITE}
                 />
               );
             }}
@@ -57,6 +63,10 @@ describe(`<PrivateRoute />`, () => {
                 <Favorites
                   authorizationStatus = {AuthorizationStatus.AUTH}
                   user = {testUser}
+                  loadFavoriteOffers = {mockFunction}
+                  favoriteOffers = {offers}
+                  error = {DEFAULT_ERROR_STATUS}
+                  cardType = {CardType.FAVORITE}
                 />
               );
             }}

@@ -1,6 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import CityItem from "./city-item";
+import {mockFunction} from "../../utils/common";
 
 describe(`<CityItem />`, () => {
   it(`Render CityItem`, () => {
@@ -10,7 +11,7 @@ describe(`<CityItem />`, () => {
       .create(<CityItem
         city = {city}
         isActive = {isActive}
-        onMenuClick = {() => {}}
+        onMenuClick = {mockFunction}
       />)
       .toJSON();
 

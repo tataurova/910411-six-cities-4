@@ -1,7 +1,10 @@
-import React from "react";
-import {mount} from "enzyme";
+import * as React from "react";
+import * as Adapter from "enzyme-adapter-react-16";
+import {mount, configure} from "enzyme";
 import Map from "./map";
 import offers from "../../mocks/offers";
+
+configure({adapter: new Adapter()});
 
 describe(`Map`, () => {
   const activeCity = `Cologne`;

@@ -29,7 +29,7 @@ exports[`<SortedPlaceList /> Should PlaceList render correctly 1`] = `
     <span
       className="places__sorting-type"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Popular
       <svg
@@ -49,7 +49,7 @@ exports[`<SortedPlaceList /> Should PlaceList render correctly 1`] = `
         className="places__option "
         data-sort="default"
         onClick={[Function]}
-        tabIndex="0"
+        tabIndex={0}
       >
         Popular
       </li>
@@ -57,7 +57,7 @@ exports[`<SortedPlaceList /> Should PlaceList render correctly 1`] = `
         className="places__option "
         data-sort="price-up"
         onClick={[Function]}
-        tabIndex="0"
+        tabIndex={0}
       >
         Price: low to high
       </li>
@@ -65,7 +65,7 @@ exports[`<SortedPlaceList /> Should PlaceList render correctly 1`] = `
         className="places__option "
         data-sort="price-down"
         onClick={[Function]}
-        tabIndex="0"
+        tabIndex={0}
       >
         Price: high to low
       </li>
@@ -73,7 +73,7 @@ exports[`<SortedPlaceList /> Should PlaceList render correctly 1`] = `
         className="places__option "
         data-sort="rating-down"
         onClick={[Function]}
-        tabIndex="0"
+        tabIndex={0}
       >
         Top rated first
       </li>

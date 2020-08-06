@@ -1,11 +1,22 @@
-import {mount} from "enzyme";
-import React from "react";
-import withCompletedComment from "./with-completed-comment.tsx";
-import PropTypes from "prop-types";
-import {DEFAULT_ERROR_STATUS} from "../../const.js";
+import * as React from "react";
+import * as Adapter from "enzyme-adapter-react-16";
+import {mount, configure} from "enzyme";
+import withCompletedComment from "./with-completed-comment";
+import {reviews} from "../../mocks/reviews";
 
-const MockComponent = (props) => {
-  const {state, isFetching, onChange, onSubmit} = props;
+configure({adapter: new Adapter()});
+
+interface Props {
+  state: {
+    rating: number;
+    comment?: string;
+  };
+  isFetching: boolean;
+  onChange: () => void;
+  onSubmit: () => void;
+}
+
+const MockComponent: React.FunctionComponent<Props> = ({state, isFetching, onChange, onSubmit}: Props) => {
   return (
     <div>
       <form action="#" method="post" onSubmit={state.rating > 0 && state.comment.length > 49 ? onSubmit : null}>
@@ -15,16 +26,6 @@ const MockComponent = (props) => {
       </form>
     </div>
   );
-};
-
-MockComponent.propTypes = {
-  state: PropTypes.shape({
-    rating: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-  }),
-  isFetching: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
 };
 
 const MockComponentWrapped = withCompletedComment(MockComponent);
@@ -37,7 +38,7 @@ describe(`withCompletedComment`, () => {
         onSubmitForm = {onSubmitForm}
         id = {id}
         isFetching = {false}
-        error = {DEFAULT_ERROR_STATUS}
+        reviews = {reviews}
       />
   );
   const instance = main.instance();

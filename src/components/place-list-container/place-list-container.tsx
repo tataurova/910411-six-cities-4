@@ -1,14 +1,14 @@
 import * as React from 'react';
 import SortedPlaceList from "../sorted-place-list/sorted-place-list";
 import Map from "../map/map";
-import {placeCardType} from "../../types";
+import {Offer} from "../../types";
 import {SortType} from "../../const";
 import withSelectedItem from "../../hocs/with-selected-item/with-selected-item";
 
 const SortedPlaceListWithSelectedItem = withSelectedItem(SortedPlaceList, SortType.DEFAULT);
 
 interface Props {
-  offers: placeCardType[];
+  offers: Offer[];
   city: string;
   state: number;
   onChangeItem: () => void;

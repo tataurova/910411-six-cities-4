@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {placeCardType} from "../../types";
+import {Offer} from "../../types";
 
 interface Props {
-  offers?: placeCardType[];
+  offers?: Offer[];
   city?: string;
   activeSortType?: string;
   onSortTypeClick?: (sort: string) => void;

@@ -4,7 +4,7 @@ import PlaceFullCard from "../place-full-card/place-full-card";
 import {Switch, Route, Router, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/app/app";
-import {placeCardType, Review} from "../../types";
+import {Offer, Review} from "../../types";
 import {findOffer} from "../../utils/offers";
 import {getMemoizedCityOffers} from "../../reducer/app/selectors";
 import {getMemoizedOffers} from "../../reducer/data/selectors";
@@ -23,10 +23,10 @@ import NotFound from "../not-found/not-found";
 const LoginWithAuthentication = withAuthentication(Login);
 
 interface Props {
-  offers: placeCardType[];
+  offers: Offer[];
   cities: string[];
   city: string;
-  cityOffers: placeCardType[];
+  cityOffers: Offer[];
   onMenuClick: () => void;
   error: boolean;
   authorizationStatus: string;
@@ -35,11 +35,11 @@ interface Props {
   isFetching: boolean;
   sendComment: () => void;
   loadFavoriteOffers: () => void;
-  favoriteOffers: placeCardType[];
+  favoriteOffers: Offer[];
   loadReviews: () => void;
   reviews: Review[];
-  nearbyOffers: placeCardType[];
-  loadNearbyOffers: placeCardType[];
+  nearbyOffers: Offer[];
+  loadNearbyOffers: Offer[];
   onBookmarkButtonCLick: () => void;
 }
 

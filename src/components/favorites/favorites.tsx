@@ -1,19 +1,19 @@
 import * as React from 'react';
 import Header from "../header/header";
 import PlaceCard from "../place-card/place-card";
-import {placeCardType} from "../../types";
+import {Offer} from "../../types";
 
 interface Props {
   authorizationStatus: string;
   user: string;
   loadFavoriteOffers: () => void;
-  favoriteOffers: placeCardType[];
+  favoriteOffers: Offer[];
   error: boolean;
   cardType: string;
 }
 
 class Favorites extends React.Component<Props> {
-  constructor(props: Props) {
+  constructor(props) {
     super(props);
   }
 

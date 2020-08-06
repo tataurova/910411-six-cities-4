@@ -1,11 +1,12 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import Main from "./main";
 import offers from "../../mocks/offers";
 import {cities} from "../../mocks/cities";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
+import {mockFunction} from "../../utils/common";
 
 const onBookmarkButtonCLick = jest.fn();
 const mockStore = configureStore([]);
@@ -27,7 +28,7 @@ describe(`<Main />`, () => {
                 offers = {offers}
                 cities = {cities}
                 city = {activeCity}
-                onMenuClick = {() => {}}
+                onMenuClick = {mockFunction}
                 isFetching = {false}
               />
             </BrowserRouter>

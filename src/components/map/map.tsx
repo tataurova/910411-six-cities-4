@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as leaflet from "leaflet";
-import {placeCardType} from "../../types";
+import {Offer} from "../../types";
 import {MapSettings} from "../../const";
 import {addMarkersToMap} from "../../utils/map";
 
 interface Props {
-  offers: placeCardType[];
+  offers: Offer[];
   activeCity: string;
   hoveredCardId: number;
 }

@@ -1,28 +1,33 @@
-import {mount} from "enzyme";
+import * as React from "react";
+import * as Adapter from "enzyme-adapter-react-16";
+import {mount, configure} from "enzyme";
 import {BrowserRouter} from "react-router-dom";
 import PlaceFullCard from "./place-full-card";
 import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const";
-import React from "react";
 import offers from "../../mocks/offers";
+
+configure({adapter: new Adapter()});
 
 describe(`<PlaceFullCard />`, () => {
   const id = `1`;
   const onBookmarkButtonCLick = jest.fn();
+  const loadReviews = jest.fn();
+  const loadNearbyOffers = jest.fn();
+  const onSubmitForm = jest.fn();
   const main = mount(
       <BrowserRouter>
         <PlaceFullCard
           offer={offers[0]}
           id={id}
-          onPlaceCardHover={() => {}}
           authorizationStatus={AuthorizationStatus.NO_AUTH}
           user={``}
           isFetching={false}
           error={DEFAULT_ERROR_STATUS}
-          onSubmitForm={() => {}}
+          onSubmitForm={onSubmitForm}
           reviews={[]}
           onBookmarkButtonCLick={onBookmarkButtonCLick}
-          loadReviews={jest.fn()}
-          loadNearbyOffers={jest.fn()}
+          loadReviews={loadReviews}
+          loadNearbyOffers={loadNearbyOffers}
           nearbyOffers={[]}
         />
       </BrowserRouter>

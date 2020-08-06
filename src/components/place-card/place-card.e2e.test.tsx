@@ -1,5 +1,7 @@
-import React from "react";
-import {mount} from "enzyme";
+import * as React from "react";
+import {mount, configure} from "enzyme";
+import * as Adapter from "enzyme-adapter-react-16";
+import {Provider} from "react-redux";
 import PlaceCard from "./place-card";
 import {CardType} from "../../const";
 import configureStore from "redux-mock-store";
@@ -8,6 +10,9 @@ import {mapDispatchToProps} from "./place-card";
 import PlaceList from "../place-list/place-list";
 import offers from "../../mocks/offers";
 import {SortType} from "../../const";
+import {mockFunction} from "../../utils/common";
+
+configure({adapter: new Adapter()});
 
 const offer = {
   id: 1,
@@ -41,14 +46,15 @@ describe(`<PlaceCard />`, () => {
     return id;
   });
   const main = mount(
-      <BrowserRouter>
-        <PlaceCard
-          store={store}
-          offer={offer}
-          cardType={CardType.CITY}
-          onPlaceCardHover={onPlaceCardHover}
-        />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <PlaceCard
+            offer={offer}
+            cardType={CardType.CITY}
+            onPlaceCardHover={onPlaceCardHover}
+          />
+        </BrowserRouter>
+      </Provider>
   );
 
   it(`When you hover the cursor over the card the handler is called with id of realty object`, () => {
@@ -88,12 +94,14 @@ describe(`<PlaceCard />`, () => {
 
     main.setProps({
       children: (
-        <PlaceCard
-          store={store}
-          offer={newOffer}
-          cardType={CardType.CITY}
-          onPlaceCardHover={onPlaceCardHover}
-        />
+        <BrowserRouter>
+          <PlaceCard
+            store={store}
+            offer={newOffer}
+            cardType={CardType.CITY}
+            onPlaceCardHover={onPlaceCardHover}
+          />
+        </BrowserRouter>
       ),
     });
     main.update();
@@ -106,15 +114,16 @@ describe(`<PlaceCard />`, () => {
 
   it(`When doesnt change prop offer, the method shouldComponentUpdate is called with false`, () => {
     const tree = mount(
-        <BrowserRouter>
-          <PlaceList
-            store = {store}
-            offers={offers}
-            activeSortType={SortType.DEFAULT}
-            cardType={CardType.NEAR_PLACE}
-            onPlaceCardHover={() => {}}
-          />
-        </BrowserRouter>
+        <Provider store = {store}>
+          <BrowserRouter>
+            <PlaceList
+              offers={offers}
+              activeSortType={SortType.DEFAULT}
+              cardType={CardType.NEAR_PLACE}
+              onPlaceCardHover={mockFunction}
+            />
+          </BrowserRouter>
+        </Provider>
     );
 
     const component = tree.find(`PlaceCard`).at(1);
@@ -123,13 +132,14 @@ describe(`<PlaceCard />`, () => {
 
     tree.setProps({
       children: (
-        <PlaceList
-          store = {store}
-          offers={offers.slice(1)}
-          activeSortType={SortType.DEFAULT}
-          cardType={CardType.NEAR_PLACE}
-          onPlaceCardHover={() => {}}
-        />
+        <BrowserRouter>
+          <PlaceList
+            offers={offers.slice(1)}
+            activeSortType={SortType.DEFAULT}
+            cardType={CardType.NEAR_PLACE}
+            onPlaceCardHover={mockFunction}
+          />
+        </BrowserRouter>
       ),
     });
     tree.update();

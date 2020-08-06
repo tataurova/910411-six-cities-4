@@ -1,11 +1,11 @@
 import * as React from 'react';
 import PlaceCard from "../place-card/place-card";
-import {placeCardType} from "../../types";
+import {Offer} from "../../types";
 import {sortOffers} from "../../utils/sort";
 import {SortType} from "../../const";
 
 interface Props {
-  offers: placeCardType[];
+  offers: Offer[];
   activeSortType: string;
   cardType: string;
   onPlaceCardHover?: () => void;

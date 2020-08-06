@@ -1,9 +1,10 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import PlaceCard from "./place-card";
 import {BrowserRouter} from "react-router-dom";
 import {CardType} from "../../const";
 import configureStore from "redux-mock-store";
+import {mockFunction} from "../../utils/common";
 
 const offerWithPremium = {
   id: 1,
@@ -18,8 +19,8 @@ const offerWithPremium = {
 const offerWithoutPremium = Object.assign(offerWithPremium, {premium: false});
 const mockStore = configureStore([]);
 const initialState = {
-  onBookmarkButtonCLick: () => {},
-  loadFavoriteOffers: () => {},
+  onBookmarkButtonCLick: mockFunction,
+  loadFavoriteOffers: mockFunction,
 };
 const store = mockStore(initialState);
 
@@ -37,9 +38,9 @@ describe(`<PlaceCard />`, () => {
     const tree = createComponent({
       offer: offerWithPremium,
       cardType: CardType.CITY,
-      onPlaceCardHover: () => {},
-      onBookmarkButtonCLick: () => {},
-      loadFavoriteOffers: () => {},
+      onPlaceCardHover: mockFunction,
+      onBookmarkButtonCLick: mockFunction,
+      loadFavoriteOffers: mockFunction,
     }).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -49,9 +50,9 @@ describe(`<PlaceCard />`, () => {
     const tree = createComponent({
       offer: offerWithoutPremium,
       cardType: CardType.CITY,
-      onPlaceCardHover: () => {},
-      onBookmarkButtonCLick: () => {},
-      loadFavoriteOffers: () => {},
+      onPlaceCardHover: mockFunction,
+      onBookmarkButtonCLick: mockFunction,
+      loadFavoriteOffers: mockFunction,
     }).toJSON();
 
     expect(tree).toMatchSnapshot();

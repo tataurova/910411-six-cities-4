@@ -1,10 +1,19 @@
-import {mount} from "enzyme";
-import React from "react";
-import withAuthentication from "./with-authentication.tsx";
-import PropTypes from "prop-types";
+import * as React from "react";
+import * as Adapter from "enzyme-adapter-react-16";
+import {mount, configure} from "enzyme";
+import withAuthentication from "./with-authentication";
+import {AuthorizationStatus} from "../../const";
 
-const MockComponent = (props) => {
-  const {loginRef, passwordRef, onChange, onSubmit} = props;
+configure({adapter: new Adapter()});
+
+interface Props {
+  loginRef: React.RefObject<HTMLInputElement>;
+  passwordRef: React.RefObject<HTMLInputElement>;
+  onChange: () => void;
+  onSubmit: () => void;
+}
+
+const MockComponent: React.FunctionComponent<Props> = ({loginRef, passwordRef, onChange, onSubmit}: Props) => {
 
   return (
     <div>
@@ -17,17 +26,6 @@ const MockComponent = (props) => {
   );
 };
 
-MockComponent.propTypes = {
-  state: PropTypes.shape({
-    loginValid: PropTypes.bool,
-    passwordValid: PropTypes.bool,
-  }),
-  loginRef: PropTypes.shape({current: PropTypes.instanceOf(HTMLInputElement)}).isRequired,
-  passwordRef: PropTypes.shape({current: PropTypes.instanceOf(HTMLInputElement)}).isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
 const MockComponentWrapped = withAuthentication(MockComponent);
 
 describe(`withAuthentication`, () => {
@@ -35,6 +33,9 @@ describe(`withAuthentication`, () => {
   const main = mount(
       <MockComponentWrapped
         onSubmitForm = {mockLogin}
+        authorizationStatus = {AuthorizationStatus.NO_AUTH}
+        user = {``}
+        error = {false}
       />
   );
   const instance = main.instance();

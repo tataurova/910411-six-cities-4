@@ -1,26 +1,27 @@
-import React, {createRef} from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import Login from "./login";
 import {BrowserRouter} from "react-router-dom";
 import {AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const";
+import {mockFunction} from "../../utils/common";
 
 describe(`<Login />`, () => {
   const testUser = `test@test.ru`;
+  const loginRef = React.createRef<HTMLInputElement>();
+  const passwordRef = React.createRef<HTMLInputElement>();
 
   it(`Should Login render correctly`, () => {
     const state = {
       loginValid: null,
       passwordValid: null,
     };
-    const loginRef = createRef();
-    const passwordRef = createRef();
     const tree = renderer
       .create(
           <BrowserRouter>
             <Login
               state = {state}
-              onSubmit = {() => {}}
-              onChange = {() => {}}
+              onSubmit = {mockFunction}
+              onChange = {mockFunction}
               loginRef = {loginRef}
               passwordRef = {passwordRef}
               authorizationStatus = {AuthorizationStatus.AUTH}
@@ -38,15 +39,13 @@ describe(`<Login />`, () => {
       loginValid: true,
       passwordValid: true,
     };
-    const loginRef = createRef();
-    const passwordRef = createRef();
     const tree = renderer
       .create(
           <BrowserRouter>
             <Login
               state = {state}
-              onSubmit = {() => {}}
-              onChange = {() => {}}
+              onSubmit = {mockFunction}
+              onChange = {mockFunction}
               loginRef = {loginRef}
               passwordRef = {passwordRef}
               authorizationStatus = {AuthorizationStatus.AUTH}

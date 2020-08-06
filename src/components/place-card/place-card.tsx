@@ -3,10 +3,10 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {INITIAL_STATE_HOVERED_CARD, AppRoute, CardType} from "../../const";
 import {Operation as DataOperation} from "../../reducer/data/data";
-import {placeCardType} from "../../types";
+import {Offer} from "../../types";
 
 interface Props {
-  offer: placeCardType;
+  offer: Offer;
   cardType: string;
   onPlaceCardHover?: (id: number) => void;
   onBookmarkButtonCLick: (id: number, status: boolean) => void;

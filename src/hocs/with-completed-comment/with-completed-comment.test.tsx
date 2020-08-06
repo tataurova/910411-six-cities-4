@@ -1,7 +1,8 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import withCompletedComment from "./with-completed-comment.tsx";
-import {DEFAULT_ERROR_STATUS} from "../../const.js";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import withCompletedComment from "./with-completed-comment";
+import {mockFunction} from "../../utils/common";
+import {reviews} from "../../mocks/reviews";
 
 const MockComponent = () => {
   return (
@@ -15,10 +16,10 @@ it(`withCompletedComment is rendered correctly`, () => {
   const id = `1`;
   const tree = renderer.create((
     <MockComponentWrapped
-      onSubmitForm = {() => {}}
+      onSubmitForm = {mockFunction}
       isFetching = {false}
-      error = {DEFAULT_ERROR_STATUS}
       id = {id}
+      reviews = {reviews}
     />
   )).toJSON();
 

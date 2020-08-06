@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Header from "../header/header";
 import Main from "../main/main";
-import {placeCardType} from "../../types";
+import {Offer} from "../../types";
 
 interface Props {
-  cityOffers: placeCardType[];
+  cityOffers: Offer[];
   cities: string[];
   city: string;
   onMenuClick: () => void;

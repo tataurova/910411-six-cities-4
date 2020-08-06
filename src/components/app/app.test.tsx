@@ -1,11 +1,12 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import App from "./app";
 import offers from "../../mocks/offers";
 import {cities} from "../../mocks/cities";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {DEFAULT_ERROR_STATUS, AuthorizationStatus} from "../../const";
+import {mockFunction} from "../../utils/common";
 
 describe(`<App />`, () => {
   const activeCity = `Cologne`;
@@ -30,7 +31,7 @@ describe(`<App />`, () => {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         user: ``,
       },
-      onMenuClick: () => {},
+      onMenuClick: mockFunction,
     });
     const tree = renderer
       .create(
@@ -62,7 +63,7 @@ describe(`<App />`, () => {
         authorizationStatus: AuthorizationStatus.AUTH,
         user: testUser,
       },
-      onMenuClick: () => {},
+      onMenuClick: mockFunction,
     });
     const tree = renderer
       .create(

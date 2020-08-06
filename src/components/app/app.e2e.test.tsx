@@ -1,12 +1,15 @@
+import * as React from "react";
 import {mapStateToProps, mapDispatchToProps} from "./app";
 import offers from "../../mocks/offers";
-import React from "react";
 import App from "./app";
 import configureStore from "redux-mock-store";
+import * as Adapter from "enzyme-adapter-react-16";
 import {Provider} from "react-redux";
-import {mount} from "enzyme";
+import {mount, configure} from "enzyme";
 import {cities} from "../../mocks/cities";
 import {DEFAULT_ERROR_STATUS, AuthorizationStatus} from "../../const";
+
+configure({adapter: new Adapter()});
 
 describe(`Tests for redux functions in App component`, () => {
   it(`MapStateToProps returns props from initial state`, () => {
@@ -57,7 +60,8 @@ describe(`Tests for redux functions in App component`, () => {
     const dispatch = jest.fn(() => {
       return Promise.resolve();
     });
-    mapDispatchToProps(dispatch).sendComment({comment: `test`, rating: 1});
+    const id = 1;
+    mapDispatchToProps(dispatch).sendComment({comment: `test`, rating: 1}, id);
     expect(dispatch).toHaveBeenCalledTimes(1);
   });
 
@@ -73,6 +77,7 @@ describe(`Tests for App component`, () => {
   const mockStore = configureStore([]);
   const activeCity = `Cologne`;
   const testUser = `test@test.ru`;
+  const onMenuClick = jest.fn();
 
   const initialState = {
     DATA: {
@@ -91,7 +96,7 @@ describe(`Tests for App component`, () => {
       authorizationStatus: AuthorizationStatus.AUTH,
       user: testUser,
     },
-    onMenuClick: () => {},
+    onMenuClick,
   };
 
   const store = mockStore(initialState);

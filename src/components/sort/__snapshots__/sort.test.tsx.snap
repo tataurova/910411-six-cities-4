@@ -14,7 +14,7 @@ exports[`<Sort /> Should Sort render correctly 1`] = `
   <span
     className="places__sorting-type"
     onClick={[Function]}
-    tabIndex="0"
+    tabIndex={0}
   >
     Popular
     <svg
@@ -34,7 +34,7 @@ exports[`<Sort /> Should Sort render correctly 1`] = `
       className="places__option "
       data-sort="default"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Popular
     </li>
@@ -42,7 +42,7 @@ exports[`<Sort /> Should Sort render correctly 1`] = `
       className="places__option "
       data-sort="price-up"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: low to high
     </li>
@@ -50,7 +50,7 @@ exports[`<Sort /> Should Sort render correctly 1`] = `
       className="places__option "
       data-sort="price-down"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: high to low
     </li>
@@ -58,7 +58,7 @@ exports[`<Sort /> Should Sort render correctly 1`] = `
       className="places__option "
       data-sort="rating-down"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Top rated first
     </li>
@@ -80,7 +80,7 @@ exports[`<Sort /> Should Sort render correctly 2`] = `
   <span
     className="places__sorting-type"
     onClick={[Function]}
-    tabIndex="0"
+    tabIndex={0}
   >
     Popular
     <svg
@@ -100,7 +100,7 @@ exports[`<Sort /> Should Sort render correctly 2`] = `
       className="places__option "
       data-sort="default"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Popular
     </li>
@@ -108,7 +108,7 @@ exports[`<Sort /> Should Sort render correctly 2`] = `
       className="places__option "
       data-sort="price-up"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: low to high
     </li>
@@ -116,7 +116,7 @@ exports[`<Sort /> Should Sort render correctly 2`] = `
       className="places__option "
       data-sort="price-down"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: high to low
     </li>
@@ -124,7 +124,7 @@ exports[`<Sort /> Should Sort render correctly 2`] = `
       className="places__option "
       data-sort="rating-down"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Top rated first
     </li>
@@ -146,7 +146,7 @@ exports[`<Sort /> Should Sort render correctly 3`] = `
   <span
     className="places__sorting-type"
     onClick={[Function]}
-    tabIndex="0"
+    tabIndex={0}
   >
     Price: low to high
     <svg
@@ -166,7 +166,7 @@ exports[`<Sort /> Should Sort render correctly 3`] = `
       className="places__option "
       data-sort="default"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Popular
     </li>
@@ -174,7 +174,7 @@ exports[`<Sort /> Should Sort render correctly 3`] = `
       className="places__option "
       data-sort="price-up"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: low to high
     </li>
@@ -182,7 +182,7 @@ exports[`<Sort /> Should Sort render correctly 3`] = `
       className="places__option "
       data-sort="price-down"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Price: high to low
     </li>
@@ -190,7 +190,7 @@ exports[`<Sort /> Should Sort render correctly 3`] = `
       className="places__option "
       data-sort="rating-down"
       onClick={[Function]}
-      tabIndex="0"
+      tabIndex={0}
     >
       Top rated first
     </li>

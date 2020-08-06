@@ -1,6 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import CommentForm from "./comment-form";
+import {mockFunction} from "../../utils/common";
 
 describe(`<CommentForm />`, () => {
   it(`Render CommentForm`, () => {
@@ -12,8 +13,8 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        onChange = {() => {}}
-        onSubmit = {() => {}}
+        onChange = {mockFunction}
+        onSubmit = {mockFunction}
       />)
       .toJSON();
 
@@ -29,8 +30,8 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        onChange = {() => {}}
-        onSubmit = {() => {}}
+        onChange = {mockFunction}
+        onSubmit = {mockFunction}
       />)
       .toJSON();
 
@@ -48,8 +49,8 @@ describe(`<CommentForm />`, () => {
       .create(<CommentForm
         state = {state}
         isFetching = {false}
-        onChange = {() => {}}
-        onSubmit = {() => {}}
+        onChange = {mockFunction}
+        onSubmit = {mockFunction}
       />)
       .toJSON();
 

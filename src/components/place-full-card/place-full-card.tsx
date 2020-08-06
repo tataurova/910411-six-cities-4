@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReviewsList from "../reviews-list/reviews-list";
 import Map from "../map/map";
 import CommentForm from "../comment-form/comment-form";
-import {placeCardType, Review} from "../../types";
+import {Offer, Review} from "../../types";
 import PlaceList from "../place-list/place-list";
 import Header from "../header/header";
 import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT, SortType, AuthorizationStatus} from "../../const";
@@ -11,8 +11,8 @@ import {withCompletedComment} from "../../hocs/with-completed-comment/with-compl
 const CommentFormWithCompletedComment = withCompletedComment(CommentForm);
 
 interface Props {
-  offer: placeCardType;
-  nearbyOffers: placeCardType[];
+  offer: Offer;
+  nearbyOffers: Offer[];
   id: string;
   authorizationStatus: string;
   user: string;

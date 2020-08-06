@@ -1,20 +1,22 @@
-import {mount} from "enzyme";
-import React from "react";
-import withSelectedItem from "./with-selected-item.tsx";
-import PropTypes from "prop-types";
+import * as React from "react";
+import * as Adapter from "enzyme-adapter-react-16";
+import {mount, configure} from "enzyme";
+import withSelectedItem from "./with-selected-item";
 
-const MockComponent = ({onChangeItem}) => {
+configure({adapter: new Adapter()});
+
+interface Props {
+  onChangeItem: (item: string) => void;
+}
+
+const MockComponent: React.FunctionComponent<Props> = ({onChangeItem}: Props) => {
   return (
     <div>
       <button onClick = {() => {
-        onChangeItem(1);
+        onChangeItem(`1`);
       }}>Button</button>
     </div>
   );
-};
-
-MockComponent.propTypes = {
-  onChangeItem: PropTypes.func.isRequired,
 };
 
 const MockComponentWrapped = withSelectedItem(MockComponent, 0);
@@ -28,6 +30,6 @@ describe(`withSelectedItem`, () => {
     );
     const button = main.find(`button`);
     button.simulate(`click`);
-    expect(main.state().item).toEqual(1);
+    expect(main.state().item).toEqual(`1`);
   });
 });

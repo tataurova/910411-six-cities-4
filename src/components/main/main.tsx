@@ -4,12 +4,12 @@ import NoPlaces from "../no-places/no-places";
 import PlaceListContainer from "../place-list-container/place-list-container";
 import withSelectedItem from "../../hocs/with-selected-item/with-selected-item";
 import {DEFAULT_HOVERED_CARD} from "../../const";
-import {placeCardType} from "../../types";
+import {Offer} from "../../types";
 
 const PlaceListContainerWithSelectedItem = withSelectedItem(PlaceListContainer, DEFAULT_HOVERED_CARD);
 
 interface Props {
-  offers: placeCardType[];
+  offers: Offer[];
   cities: string[];
   city: string;
   onMenuClick: () => void;
