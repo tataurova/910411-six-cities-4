@@ -5,8 +5,9 @@ import CommentForm from "../comment-form/comment-form";
 import {Offer, Review} from "../../types";
 import PlaceList from "../place-list/place-list";
 import Header from "../header/header";
-import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT, SortType, AuthorizationStatus} from "../../const";
+import {CardType, NEAR_PLACES_MAX_COUNT, MAP_NEAR_PLACES_MAX_COUNT, SortType, AuthorizationStatus, AppRoute} from "../../const";
 import {withCompletedComment} from "../../hocs/with-completed-comment/with-completed-comment";
+import history from "../../history";
 
 const CommentFormWithCompletedComment = withCompletedComment(CommentForm);
 
@@ -18,14 +19,14 @@ interface Props {
   user: string;
   isFetching: boolean;
   error: boolean;
-  onSubmitForm: () => void;
+  onSubmitForm: () => Promise<string>;
   reviews: Review[];
   onBookmarkButtonCLick: (id: string, status: boolean) => void;
   loadReviews: (id: string) => void;
   loadNearbyOffers: (id: string) => void;
 }
 
-class PlaceFullCard extends React.Component<Props> {
+class PlaceFullCard extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
   }
@@ -72,7 +73,13 @@ class PlaceFullCard extends React.Component<Props> {
                   <button
                     className={`property__bookmark-button button ${favorite ? `property__bookmark-button--active` : ``}`}
                     type="button"
-                    onClick = {() => onBookmarkButtonCLick(id, !favorite)}>
+                    onClick = {() => {
+                      if (authorizationStatus === AuthorizationStatus.AUTH) {
+                        onBookmarkButtonCLick(id, !favorite);
+                      } else {
+                        history.push(AppRoute.LOGIN);
+                      }
+                    }}>
                     <svg className="property__bookmark-icon place-card__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>

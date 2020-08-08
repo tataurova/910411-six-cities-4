@@ -5,15 +5,16 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import offers from "../../mocks/offers";
 import configureStore from "redux-mock-store";
-import {CardType} from "../../const";
-import {AuthorizationStatus} from "../../const";
-import {DEFAULT_ERROR_STATUS} from "../../const";
+import {CardType, AuthorizationStatus, DEFAULT_ERROR_STATUS} from "../../const";
 import {mockFunction} from "../../utils/common";
 
 const onBookmarkButtonCLick = jest.fn();
 const mockStore = configureStore([]);
 const initialState = {
   onBookmarkButtonCLick,
+  AUTH: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+  },
 };
 const store = mockStore(initialState);
 

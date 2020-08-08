@@ -10,7 +10,7 @@ interface Props {
   hoveredCardId: number;
 }
 
-class Map extends React.Component<Props> {
+class Map extends React.PureComponent<Props> {
   private map: leaflet.map;
   private leafletIcon: leaflet.icon;
   private leafletActiveIcon: leaflet.icon;

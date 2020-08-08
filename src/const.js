@@ -63,6 +63,7 @@ export const RatingValue = {
 export const CommentLength = {
   START_TYPING: 1,
   MIN: 50,
+  MAX: 300,
 };
 
 export const SORT_TYPES = [

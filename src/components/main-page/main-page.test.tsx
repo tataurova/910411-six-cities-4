@@ -13,6 +13,9 @@ const onBookmarkButtonCLick = jest.fn();
 const mockStore = configureStore([]);
 const initialState = {
   onBookmarkButtonCLick,
+  AUTH: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+  },
 };
 const store = mockStore(initialState);
 

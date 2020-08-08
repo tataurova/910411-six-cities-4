@@ -1,16 +1,19 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {INITIAL_STATE_HOVERED_CARD, AppRoute, CardType} from "../../const";
+import {INITIAL_STATE_HOVERED_CARD, AppRoute, CardType, AuthorizationStatus} from "../../const";
 import {Operation as DataOperation} from "../../reducer/data/data";
 import {Offer} from "../../types";
+import NameSpace from "../../reducer/name-space";
+import history from "../../history";
 
 interface Props {
   offer: Offer;
   cardType: string;
   onPlaceCardHover?: (id: number) => void;
-  onBookmarkButtonCLick: (id: number, status: boolean) => void;
+  onBookmarkButtonCLick: (id: number, status: boolean) => Promise<string>;
   loadFavoriteOffers: () => void;
+  authorizationStatus: string;
 }
 
 class PlaceCard extends React.Component<Props> {
@@ -18,6 +21,10 @@ class PlaceCard extends React.Component<Props> {
     super(props);
     this.handlePlaceCardHover = this.handlePlaceCardHover.bind(this);
     this.handlePlaceCardOut = this.handlePlaceCardOut.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.offer !== nextProps.offer;
   }
 
   handlePlaceCardHover() {
@@ -28,12 +35,8 @@ class PlaceCard extends React.Component<Props> {
     this.props.onPlaceCardHover(INITIAL_STATE_HOVERED_CARD);
   }
 
-  shouldComponentUpdate(nextProps) {
-    return this.props.offer !== nextProps.offer;
-  }
-
   render() {
-    const {offer, cardType, onBookmarkButtonCLick, loadFavoriteOffers} = this.props;
+    const {offer, cardType, onBookmarkButtonCLick, loadFavoriteOffers, authorizationStatus} = this.props;
     const {id, title, type, price, rating, premium, photo, favorite} = offer;
     const isCardTypeCity = cardType === CardType.CITY;
     return (
@@ -56,9 +59,15 @@ class PlaceCard extends React.Component<Props> {
                 <span className="place-card__price-text">&#47;&nbsp;night</span>
               </div>
               <button className={`place-card__bookmark-button button ${favorite ? `place-card__bookmark-button--active` : ``}`} type="button" onClick={() => {
-                onBookmarkButtonCLick(id, !favorite);
-                if (cardType === CardType.FAVORITE) {
-                  loadFavoriteOffers();
+                if (authorizationStatus === AuthorizationStatus.AUTH) {
+                  onBookmarkButtonCLick(id, !favorite)
+                    .then(() => {
+                      if (cardType === CardType.FAVORITE) {
+                        loadFavoriteOffers();
+                      }
+                    });
+                } else {
+                  history.push(AppRoute.LOGIN);
                 }
               }}>
                 <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -84,9 +93,13 @@ class PlaceCard extends React.Component<Props> {
   }
 }
 
+export const mapStateToProps = (state) => ({
+  authorizationStatus: state[NameSpace.AUTH].authorizationStatus,
+});
+
 export const mapDispatchToProps = (dispatch) => ({
   onBookmarkButtonCLick(id, status) {
-    dispatch(DataOperation.setToFavorite(id, status));
+    return dispatch(DataOperation.setToFavorite(id, status));
   },
   loadFavoriteOffers() {
     dispatch(DataOperation.loadFavoriteOffers());
@@ -94,4 +107,4 @@ export const mapDispatchToProps = (dispatch) => ({
 });
 
 export {PlaceCard};
-export default connect(null, mapDispatchToProps)(PlaceCard);
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceCard);

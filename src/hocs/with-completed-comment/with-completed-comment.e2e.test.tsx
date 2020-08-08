@@ -3,6 +3,7 @@ import * as Adapter from "enzyme-adapter-react-16";
 import {mount, configure} from "enzyme";
 import withCompletedComment from "./with-completed-comment";
 import {reviews} from "../../mocks/reviews";
+import {CommentLength} from "../../const";
 
 configure({adapter: new Adapter()});
 
@@ -19,7 +20,7 @@ interface Props {
 const MockComponent: React.FunctionComponent<Props> = ({state, isFetching, onChange, onSubmit}: Props) => {
   return (
     <div>
-      <form action="#" method="post" onSubmit={state.rating > 0 && state.comment.length > 49 ? onSubmit : null}>
+      <form action="#" method="post" onSubmit={state.rating > 0 && state.comment.length >= CommentLength.MIN && state.comment.length <= CommentLength.MAX ? onSubmit : null}>
         <input type="text" name="rating" onChange={onChange}></input>
         <textarea name="review" value={state.comment} onChange={onChange} disabled={isFetching}></textarea>
         <button type="submit">Submit</button>
@@ -31,7 +32,9 @@ const MockComponent: React.FunctionComponent<Props> = ({state, isFetching, onCha
 const MockComponentWrapped = withCompletedComment(MockComponent);
 
 describe(`withCompletedComment`, () => {
-  const onSubmitForm = jest.fn();
+  const onSubmitForm = jest.fn(() => {
+    return Promise.resolve(`test`);
+  });
   const id = `1`;
   const main = mount(
       <MockComponentWrapped
@@ -57,7 +60,7 @@ describe(`withCompletedComment`, () => {
       comment: ``,
     });
 
-    ratingInput.simulate(`change`, {target: {name: `rating`, value: `1`}});
+    ratingInput.simulate(`change`, {target: {name: `rating`, value: 1}});
     commentInput.simulate(`change`, {target: {name: `review`, value: `test comment`}});
 
     expect(main.state()).toEqual({
@@ -73,23 +76,19 @@ describe(`withCompletedComment`, () => {
     const testComment = `A quiet cozy and picturesque that hides behind a a river by the unique
     lightness of Amsterdam. The building is green and from 18th century.`;
 
-    ratingInput.simulate(`change`, {target: {name: `rating`, value: `1`}});
+    ratingInput.simulate(`change`, {target: {name: `rating`, value: 1}});
     commentInput.simulate(`change`, {target: {name: `review`, value: testComment}});
 
     submitButton.simulate(`submit`);
     expect(instance.handleChange).toHaveBeenCalledTimes(2);
     expect(instance.handleSubmit).toHaveBeenCalledTimes(1);
-
-    jest.clearAllMocks();
-
   });
 
   it(`After the submit not valid form, the function passed to props is not called`, () => {
-
-    ratingInput.simulate(`change`, {target: {name: `rating`, value: ``}});
+    jest.clearAllMocks();
+    ratingInput.simulate(`change`, {target: {name: `rating`, value: 0}});
     commentInput.simulate(`change`, {target: {name: `review`, value: `test comment`}});
     submitButton.simulate(`submit`);
     expect(onSubmitForm).toHaveBeenCalledTimes(0);
-
   });
 });

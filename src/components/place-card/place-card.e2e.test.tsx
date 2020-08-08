@@ -9,7 +9,7 @@ import {BrowserRouter} from "react-router-dom";
 import {mapDispatchToProps} from "./place-card";
 import PlaceList from "../place-list/place-list";
 import offers from "../../mocks/offers";
-import {SortType} from "../../const";
+import {SortType, AuthorizationStatus} from "../../const";
 import {mockFunction} from "../../utils/common";
 
 configure({adapter: new Adapter()});
@@ -38,6 +38,9 @@ const mockStore = configureStore([]);
 const initialState = {
   onBookmarkButtonCLick: jest.fn(),
   loadFavoriteOffers: jest.fn(),
+  AUTH: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+  },
 };
 const store = mockStore(initialState);
 

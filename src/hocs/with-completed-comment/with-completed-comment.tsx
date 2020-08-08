@@ -3,7 +3,7 @@ import {extend} from "../../utils/common.js";
 import {Review} from "../../types";
 
 interface Props {
-  onSubmitForm: ({rating, comment}: {rating: number; comment: string}, id: string) => void;
+  onSubmitForm: ({rating, comment}: {rating: number; comment: string}, id: string) => Promise<string>;
   id: string;
   isFetching: boolean;
   reviews: Review[];
@@ -41,11 +41,14 @@ export const withCompletedComment = (Component) => {
     handleSubmit(evt) {
       evt.preventDefault();
       const {onSubmitForm, id} = this.props;
+
       onSubmitForm({
         rating: this.state.rating,
         comment: this.state.comment,
-      }, id);
-      this.setState({rating: 0, comment: ``});
+      }, id)
+        .then(() => {
+          this.setState({rating: 0, comment: ``});
+        });
     }
 
     render() {

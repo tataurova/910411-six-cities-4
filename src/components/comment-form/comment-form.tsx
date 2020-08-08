@@ -12,8 +12,8 @@ interface Props {
 }
 
 const CommentForm: React.FunctionComponent<Props> = ({state, isFetching, onChange, onSubmit}: Props) => {
-  const isValidForm = state.rating > DEFAULT_RATING && state.comment.length >= CommentLength.MIN;
-  const isAnyValueNotValid = state.rating === DEFAULT_RATING || state.comment.length < CommentLength.MIN;
+  const isValidForm = state.rating > DEFAULT_RATING && state.comment.length >= CommentLength.MIN && state.comment.length <= CommentLength.MAX;
+  const isAnyValueNotValid = state.rating === DEFAULT_RATING || state.comment.length < CommentLength.MIN || state.comment.length > CommentLength.MAX;
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={isValidForm ? onSubmit : null}>

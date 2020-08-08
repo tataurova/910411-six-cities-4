@@ -13,11 +13,10 @@ import Login from "../login/login";
 import withAuthentication from "../../hocs/with-authentication/with-authentication";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as DataOperation} from "../../reducer/data/data";
-import {AppRoute, AuthorizationStatus} from "../../const";
+import {AppRoute, AuthorizationStatus, CardType} from "../../const";
 import history from "../../history";
 import Favorites from "../favorites/favorites";
 import PrivateRoute from "../private-route/private-route";
-import {CardType} from "../../const";
 import NotFound from "../not-found/not-found";
 
 const LoginWithAuthentication = withAuthentication(Login);
@@ -43,121 +42,115 @@ interface Props {
   onBookmarkButtonCLick: () => void;
 }
 
-class App extends React.PureComponent<Props> {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const {
-      offers,
-      cities,
-      city,
-      cityOffers,
-      login,
-      authorizationStatus,
-      user,
-      sendComment,
-      isFetching,
-      error,
-      favoriteOffers,
-      loadFavoriteOffers,
-      loadReviews,
-      reviews,
-      loadNearbyOffers,
-      nearbyOffers,
-      onBookmarkButtonCLick,
-      onMenuClick,
-    } = this.props;
-    return (
-      <Router history = {history}>
-        <Switch>
-          <Route exact path={AppRoute.MAIN} render={() => {
-            return <MainPage
-              cityOffers = {cityOffers}
-              cities = {cities}
-              city = {city}
-              onMenuClick = {onMenuClick}
-              isFetching = {isFetching}
-              error = {error}
+const App: React.FunctionComponent<Props> = (props: Props) => {
+  const {
+    offers,
+    cities,
+    city,
+    cityOffers,
+    login,
+    authorizationStatus,
+    user,
+    sendComment,
+    isFetching,
+    error,
+    favoriteOffers,
+    loadFavoriteOffers,
+    loadReviews,
+    reviews,
+    loadNearbyOffers,
+    nearbyOffers,
+    onBookmarkButtonCLick,
+    onMenuClick,
+  } = props;
+  return (
+    <Router history = {history}>
+      <Switch>
+        <Route exact path={AppRoute.MAIN} render={() => {
+          return <MainPage
+            cityOffers = {cityOffers}
+            cities = {cities}
+            city = {city}
+            onMenuClick = {onMenuClick}
+            isFetching = {isFetching}
+            error = {error}
+            authorizationStatus = {authorizationStatus}
+            user = {user}
+          />;
+        }}>
+        </Route>
+        <Route exact path={`${AppRoute.PLACE_FULL_CARD}/:id`} render={(properties) => {
+          const offer = findOffer(offers, properties.match.params.id);
+          if (offer) {
+            return <PlaceFullCard
+              offer = {findOffer(offers, properties.match.params.id)}
+              {...properties.match.params}
               authorizationStatus = {authorizationStatus}
               user = {user}
+              onSubmitForm = {sendComment}
+              isFetching = {isFetching}
+              error = {error}
+              loadReviews = {loadReviews}
+              reviews = {reviews}
+              loadNearbyOffers = {loadNearbyOffers}
+              nearbyOffers = {nearbyOffers}
+              onBookmarkButtonCLick = {onBookmarkButtonCLick}
             />;
-          }}>
-          </Route>
-          <Route exact path={`${AppRoute.PLACE_FULL_CARD}/:id`} render={(props) => {
-            const offer = findOffer(offers, props.match.params.id);
-            if (offer) {
-              return <PlaceFullCard
-                offer = {findOffer(offers, props.match.params.id)}
-                {...props.match.params}
-                authorizationStatus = {authorizationStatus}
-                user = {user}
-                onSubmitForm = {sendComment}
-                isFetching = {isFetching}
-                error = {error}
-                loadReviews = {loadReviews}
-                reviews = {reviews}
-                loadNearbyOffers = {loadNearbyOffers}
-                nearbyOffers = {nearbyOffers}
-                onBookmarkButtonCLick = {onBookmarkButtonCLick}
-              />;
-            } else {
-              return <NotFound
+          } else {
+            return <NotFound
+              authorizationStatus = {authorizationStatus}
+              user = {user}
+              error = {error}
+            />;
+          }
+        }
+        }
+        />
+        <Route exact path={AppRoute.LOGIN} render={() => {
+          switch (authorizationStatus) {
+            case AuthorizationStatus.AUTH:
+              return <Redirect to={AppRoute.MAIN} />;
+            case AuthorizationStatus.NO_AUTH:
+              return <LoginWithAuthentication
+                onSubmitForm = {login}
                 authorizationStatus = {authorizationStatus}
                 user = {user}
                 error = {error}
               />;
-            }
+            default:
+              throw new Error(`Unknown AuthorizationStatus ${authorizationStatus}`);
           }
-          }
-          />
-          <Route exact path={AppRoute.LOGIN} render={() => {
-            switch (authorizationStatus) {
-              case AuthorizationStatus.AUTH:
-                return <Redirect to={AppRoute.MAIN} />;
-              case AuthorizationStatus.NO_AUTH:
-                return <LoginWithAuthentication
-                  onSubmitForm = {login}
-                  authorizationStatus = {authorizationStatus}
-                  user = {user}
-                  error = {error}
-                />;
-              default:
-                throw new Error(`Unknown AuthorizationStatus ${authorizationStatus}`);
-            }
-          }
-          }
-          />
-          <PrivateRoute
-            exact
-            path={AppRoute.FAVORITES}
-            render={() => {
-              return (
-                <Favorites
-                  cardType = {CardType.FAVORITE}
-                  favoriteOffers = {favoriteOffers}
-                  loadFavoriteOffers = {loadFavoriteOffers}
-                  authorizationStatus = {authorizationStatus}
-                  user = {user}
-                  error = {error}
-                />
-              );
-            }}
-          />
-          <Route
-            render={() => {
-              return <NotFound
+        }
+        }
+        />
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => {
+            return (
+              <Favorites
+                cardType = {CardType.FAVORITE}
+                favoriteOffers = {favoriteOffers}
+                loadFavoriteOffers = {loadFavoriteOffers}
                 authorizationStatus = {authorizationStatus}
                 user = {user}
                 error = {error}
-              />;
-            }} />
-        </Switch>
-      </Router>
-    );
-  }
-}
+              />
+            );
+          }}
+        />
+        <Route
+          render={() => {
+            return <NotFound
+              authorizationStatus = {authorizationStatus}
+              user = {user}
+              error = {error}
+            />;
+          }} />
+      </Switch>
+    </Router>
+  );
+};
 
 export const mapStateToProps = (state) => ({
   isFetching: state[NameSpace.DATA].isFetching,
@@ -181,7 +174,7 @@ export const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(city));
   },
   sendComment(comment, id) {
-    dispatch(DataOperation.sendComment(comment, id))
+    return dispatch(DataOperation.sendComment(comment, id))
       .then(() => dispatch(DataOperation.loadReviews(id)));
   },
   loadFavoriteOffers() {

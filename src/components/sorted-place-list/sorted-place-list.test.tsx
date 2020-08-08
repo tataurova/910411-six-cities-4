@@ -3,7 +3,7 @@ import * as renderer from "react-test-renderer";
 import SortedPlaceList from "./sorted-place-list";
 import offers from "../../mocks/offers";
 import {BrowserRouter} from "react-router-dom";
-import {SortType} from "../../const";
+import {SortType, AuthorizationStatus} from "../../const";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 import {mockFunction} from "../../utils/common";
@@ -12,6 +12,9 @@ const onBookmarkButtonCLick = jest.fn();
 const mockStore = configureStore([]);
 const initialState = {
   onBookmarkButtonCLick,
+  AUTH: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+  },
 };
 const store = mockStore(initialState);
 

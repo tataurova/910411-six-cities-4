@@ -2,7 +2,7 @@ import * as React from "react";
 import * as renderer from "react-test-renderer";
 import PlaceCard from "./place-card";
 import {BrowserRouter} from "react-router-dom";
-import {CardType} from "../../const";
+import {CardType, AuthorizationStatus} from "../../const";
 import configureStore from "redux-mock-store";
 import {mockFunction} from "../../utils/common";
 
@@ -21,6 +21,9 @@ const mockStore = configureStore([]);
 const initialState = {
   onBookmarkButtonCLick: mockFunction,
   loadFavoriteOffers: mockFunction,
+  AUTH: {
+    authorizationStatus: AuthorizationStatus.AUTH,
+  },
 };
 const store = mockStore(initialState);
 
@@ -41,6 +44,9 @@ describe(`<PlaceCard />`, () => {
       onPlaceCardHover: mockFunction,
       onBookmarkButtonCLick: mockFunction,
       loadFavoriteOffers: mockFunction,
+      AUTH: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      },
     }).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -53,6 +59,9 @@ describe(`<PlaceCard />`, () => {
       onPlaceCardHover: mockFunction,
       onBookmarkButtonCLick: mockFunction,
       loadFavoriteOffers: mockFunction,
+      AUTH: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      },
     }).toJSON();
 
     expect(tree).toMatchSnapshot();
